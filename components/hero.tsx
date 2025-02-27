@@ -1,80 +1,100 @@
 "use client";
-import React from "react";
-import { SparklesCore } from "@/components/ui/sparkles"
+
+import { useEffect } from "react";
+import Link from "next/link";
+import { renderCanvas } from "@/components/ui/canvas";
+import { ArrowRight, Plus, Shapes } from "lucide-react";
+import { FlipWords } from "@/components/ui/flip-words";
+import { Button } from "@/components/ui/button";
+import { Cover } from "./ui/cover";
+import { FollowerPointerCard } from "./ui/following-pointer";
 
 export default function Hero() {
+  useEffect(() => {
+    renderCanvas();
+  }, []);
+
   return (
-    <div className="h-screen w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
-        Speech
-      </h1>
-      <div className="w-[40rem] h-40 relative">
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+    <section className="relative ">
+      <div className="animation-delay-8 animate-fadeIn flex flex-col items-center justify-center px-4 text-center md:mt-20">
+        <div className="z-10 mb-6 mt-10 justify-center">
+          <div className="relative flex items-center whitespace-nowrap rounded-full border bg-popover px-3 py-1 text-xs leading-6  text-primary/60 ">
+            <Shapes className="h-5 p-1" />
+            Introducing Speech.
+            <a
+              href="/products/dicons"
+              rel="noreferrer"
+              className="hover:text-ali ml-1 flex items-center font-semibold"
+            >
+              <div className="absolute inset-0 flex" aria-hidden="true" />
+              Explore{" "}
+              <span aria-hidden="true">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
+          </div>
+        </div>
 
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1}
-          particleDensity={1200}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
+        <div className="mb-10 mt-4  md:mt-6">
+          <div className="px-2">
+            <div className="border-ali relative mx-auto h-full max-w-7xl border p-6 [mask-image:radial-gradient(800rem_96rem_at_center,white,transparent)] md:px-12 md:py-20">
+              <h1 className="flex select-none flex-col px-3 py-2 text-center text-4xl font-semibold leading-none tracking-tight md:flex-col lg:flex-row lg:text-8xl">
+                <Plus
+                  strokeWidth={4}
+                  className="text-ali absolute -left-5 -top-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-ali absolute -bottom-5 -left-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-ali absolute -right-5 -top-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-ali absolute -bottom-5 -right-5 h-10 w-10"
+                />
+                <span className="flex flex-col gap-4">
+                  Everything pass through{" "}
+                  <div className="flex items-center justify-center gap-4">
+                    <span className="text-ali">your</span>{" "}
+                    <Cover className="space-x-2 group overflow-hidden">
+                      <FlipWords
+                        className="group-hover:text-ali group-hover:text-white"
+                        words={["solutions", "approach", "tools", "clients"]}
+                      />
+                    </Cover>
+                  </div>
+                </span>
+              </h1>
+            </div>
+          </div>
 
-        <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+          <h1 className="mt-8 text-2xl md:text-2xl">
+            Welcome to my creative playground! I&#39;m{" "}
+            <span className="text-ali font-bold">Ali </span>
+          </h1>
+
+          <p className="md:text-md mx-auto mb-16 mt-2 max-w-2xl px-6 text-sm text-primary/60 sm:px-6 md:max-w-4xl md:px-20 lg:text-lg">
+            I craft enchanting visuals for brands, and conjure design resources
+            to empower others.
+          </p>
+          <div className="flex justify-center gap-2">
+            <Link href={"/dashboard"}>
+              <Button variant="default" size="lg">
+                <Plus className="h-4 w-4" />
+                Waitlist
+              </Button>
+            </Link>
+            <Link href={"https://cal.com/aliimam/designali"} target="_blank">
+              <Button variant="outline" size="lg">
+                Book a call
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-export function SparklesPreviewDark() {
-  return (
-    <div className="h-[40rem] relative w-full bg-slate-950 flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <div className="w-full absolute inset-0 h-screen">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-          speed={1}
-        />
-      </div>
-      <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
-        Build faster
-      </h1>
-    </div>
-  );
-}
-
-export function SparklesPreviewColorful() {
-  return (
-    <div className="h-[40rem] relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <div className="w-full absolute inset-0 h-screen">
-        <SparklesCore
-          id="tsparticlescolorful"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#00ff00"
-          speed={0.5}
-        />
-      </div>
-      <div className="flex flex-col items-center justify-center gap-4 relative z-20">
-        <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-          The Future
-        </h1>
-        <p className="text-neutral-300 cursor-default text-center">
-          is brighter than you think
-        </p>
-      </div>
-    </div>
-  );
-}
-
