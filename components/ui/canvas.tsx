@@ -40,7 +40,7 @@ interface CanvasContext extends CanvasRenderingContext2D {
 let ctx: CanvasContext;
 let f: nType;
 let e = 0;
-let pos: Position = { x: 0, y: 0 };
+const pos: Position = { x: 0, y: 0 };
 let lines: LineType[] = [];
 const E: CanvasSettings = {
   debug: true,
