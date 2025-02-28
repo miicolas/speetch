@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
-
 import { Heart, Plus, Terminal, Cloud, HelpCircle, Settings, ArrowLeftRight } from "lucide-react";
- 
+import { FeaturesCard } from "@/lib/types/features-type";
+
 export default function FeaturesSection() {
   const features = [
     {
@@ -65,12 +65,7 @@ const FeatureCard = ({
   description,
   icon,
   index,
-}: {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  index: number;
-}) => {
+}: FeaturesCard) => {
   return (
     <div
       className={cn(

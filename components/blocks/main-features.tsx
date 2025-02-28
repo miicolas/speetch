@@ -5,17 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface Feature {
-  step: string;
-  title: string;
-  content: string;
-  image: string;
-}
+import { Feature } from "@/lib/types/features-type";
 
 export default function MainFeatures() {
   return (
-    <section className="py-10 flex flex-col gap-12">
+    <section className="py-10 flex flex-col gap-12 px-8 md:px-0">
       <HeaderMainFeatures />
       <FeaturesMainFeatures />
     </section>
@@ -88,6 +82,7 @@ const FeatureSteps: React.FC<{ features: Feature[] }> = ({ features }) => {
               initial={{ opacity: 0.3 }}
               animate={{ opacity: index === currentFeature ? 1 : 0.3 }}
               transition={{ duration: 0.5 }}
+              onClick={() => setCurrentFeature(index)}
             >
               <motion.div
                 className={cn(
@@ -135,19 +130,19 @@ const FeatureSteps: React.FC<{ features: Feature[] }> = ({ features }) => {
                   >
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-neutral-400 animate-pulse"
+                      className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-neutral-400 animate-pulse"
+                      className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-neutral-400 animate-pulse"
+                      className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-neutral-400 animate-pulse"
+                      className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
                     />
                     <Image
                       src={feature.image}
