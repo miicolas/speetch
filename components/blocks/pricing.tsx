@@ -15,7 +15,7 @@ export default function Pricing() {
       features: ["1000 credits", "1000 words", "1000 characters"],
       typePricing: "month",
     },
-    {
+    /* {
       title: "Pro",
       price: "10",
       description: "For professional use",
@@ -33,7 +33,7 @@ export default function Pricing() {
         "1000 images",
       ],
       typePricing: "month",
-    },
+    }, */
   ];
 
   const [selectedPricing, setSelectedPricing] = useState("monthly");
@@ -114,7 +114,7 @@ const PricingCard = ({
                 )}
               </span>
               <span className="text-sm text-neutral-500">
-                /{selectedPricing === "yearly" ? "an" : "mois"}
+                /{selectedPricing === "yearly" ? "year" : "month"}
               </span>
             </motion.p>
           </AnimatePresence>
