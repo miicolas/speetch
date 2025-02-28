@@ -26,7 +26,7 @@ export default function CallToAction() {
       </p>
       <div className="flex flex-row gap-4 justify-center items-center">
         <Button>Get Started</Button>
-        <Button variant="outline">Learn More</Button>
+        <Button variant="outline">Not Convinced?</Button>
       </div>
     </div>
   );
