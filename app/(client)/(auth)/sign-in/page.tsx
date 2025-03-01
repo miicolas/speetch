@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-
+import Image from "next/image";
 export default function SignIn() {
     const router = useRouter();
 
@@ -110,10 +110,12 @@ export default function SignIn() {
                 </div>
             </div>
             <div className="relative hidden bg-muted lg:block">
-                <img
+                <Image
                     src="https://midday.ai/cdn-cgi/image/width=3840,quality=80//_next/static/media/product-inbox-light.52a6655f.jpg"
                     alt="Image"
                     className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                    width={3840}
+                    height={2160}
                 />
             </div>
         </div>
