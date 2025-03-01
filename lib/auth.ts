@@ -25,7 +25,9 @@ export const auth = betterAuth({
         updateAge: 60 * 60 * 24,
     },
     trustedOrigins: [
-        process.env.BETTER_AUTH_URL!,
-        process.env.BETTER_AUTH_URL! + "/api/auth",
+        "dev-speetly.nicolas-becharat.com",
+        "dev-speetly.nicolas-becharat.com/api/auth",
+        "speetly.nicolas-becharat.com",
+        "speetly.nicolas-becharat.com/api/auth",
     ],
 });

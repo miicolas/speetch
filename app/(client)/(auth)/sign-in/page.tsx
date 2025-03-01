@@ -11,14 +11,14 @@ export default function SignIn() {
 
     const handleSocialSignIn = async () => {
         try {
-            const { error } = await authClient.signIn.social({
+            const result = await authClient.signIn.social({
                 provider: "github",
                 callbackURL: "/dashboard",
                 errorCallbackURL: "/error",
                 newUserCallbackURL: "/welcome",
             });
-            if (error) {
-                throw new Error(error.message);
+            if (result.error) {
+                throw new Error(result.error.message);
             }
 
             router.push("/dashboard");
