@@ -1,6 +1,6 @@
 import db from "@/db";
-import { newsletterTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { newsletterTable } from "@/db/newsletter-schema";
+
 
 export class Newsletter {
   constructor(

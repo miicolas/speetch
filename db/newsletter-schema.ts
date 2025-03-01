@@ -5,3 +5,5 @@ export const newsletterTable = mysqlTable('newsletter_table', {
   email: varchar({ length: 255 }).notNull().unique(),
   createdAt: timestamp('created_at').defaultNow(),
 });
+
+
