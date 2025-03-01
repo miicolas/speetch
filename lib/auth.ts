@@ -20,4 +20,12 @@ export const auth = betterAuth({
             clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         },
     },
+    session: {
+        expiresIn: 60 * 60 * 24 * 7,
+        updateAge: 60 * 60 * 24,
+    },
+    trustedOrigins: [
+        process.env.BETTER_AUTH_URL!,
+        process.env.BETTER_AUTH_URL! + "/api/auth",
+    ],
 });

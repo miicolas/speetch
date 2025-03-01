@@ -12,10 +12,6 @@ export default function Changelog() {
             undertook to build the application from scratch, laying the
             groundwork for what would become a cutting-edge platform.
           </p>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            I started working on Speetly in 2025. I was a solo developer and I
-            built the entire app from scratch.
-          </p>
           <p>The main features I built were:</p>
           <ul className="list-disc mt-1">
             <li>
