@@ -11,7 +11,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ScrollSmooth duration={2}>
       <Header />
-      {children}
+      <main className="p-4"> 
+        {children}
+      </main>
       <Footer />
     </ScrollSmooth>
   );

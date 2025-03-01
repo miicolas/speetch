@@ -28,7 +28,6 @@ export default function NewsletterForm() {
       if (res.status === "success") {
         form.reset();
       }
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
