@@ -91,7 +91,7 @@ const PricingCard = ({
   selectedPricing: string;
 }) => {
   return (
-    <div className="flex flex-1 flex-col p-4 border border-neutral-200 min-h-[400px] w-full md:w-[300px] gap-4 bg-neutral-50 justify-between">
+    <div className="flex flex-1 flex-col p-4 border border-neutral-200 min-h-[400px] w-full md:w-[300px] gap-4 bg-neutral-50 justify-between max-w-md">
       <div className="space-y-4">
         <h3 className="text-lg font-bold">{title}</h3>
         <div className="h-16 relative">
