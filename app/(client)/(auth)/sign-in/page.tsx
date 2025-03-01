@@ -18,7 +18,7 @@ export default function SignIn() {
                 newUserCallbackURL: "/welcome",
             });
             if (result.error) {
-                throw new Error(result.error.message);
+                console.error(result.error);
             }
 
             router.push("/dashboard");
