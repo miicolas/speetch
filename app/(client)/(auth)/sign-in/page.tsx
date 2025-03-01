@@ -11,7 +11,7 @@ export default function SignIn() {
 
     const handleSocialSignIn = async () => {
         try {
-            const { data, error } = await authClient.signIn.social({
+            const { error } = await authClient.signIn.social({
                 provider: "github",
                 callbackURL: "/dashboard",
                 errorCallbackURL: "/error",
@@ -20,6 +20,7 @@ export default function SignIn() {
             if (error) {
                 throw new Error(error.message);
             }
+
             router.push("/dashboard");
         } catch (error) {
             console.error("Erreur d'inscription:", error);
