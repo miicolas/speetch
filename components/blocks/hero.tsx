@@ -8,20 +8,11 @@ import { FlipWords } from "@/components/ui/flip-words";
 import { Button } from "@/components/ui/button";
 import { Cover } from "../ui/cover";
 import HoverBorderGradient from "../ui/hover-border-gradient";
-import posthog from "posthog-js";
+
 export default function Hero() {
   useEffect(() => {
     renderCanvas();
   }, []);
-
-
-  const handleClick = () => {
-    
-    if (posthog) {
-      posthog.capture('my event', { property: 'value' })
-      console.log("posthog", posthog);
-    }
-  }
 
   return (
     <section className="relative ">
@@ -34,9 +25,7 @@ export default function Hero() {
               href="/products/dicons"
               rel="noreferrer"
               className="hover:text-ali ml-1 flex items-center font-semibold"
-             
             >
-
               <div className="absolute inset-0 flex" aria-hidden="true" />
               Explore{" "}
               <span aria-hidden="true">
@@ -46,7 +35,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="px-2" onClick={handleClick}>
+        <div className="px-2">
           <div className="border-ali relative mx-auto h-full max-w-7xl border p-6 [mask-image:radial-gradient(800rem_96rem_at_center,white,transparent)] md:px-12 md:py-20 bg-white">
             <h1 className="flex select-none flex-col px-3 py-2 text-center text-4xl font-semibold leading-none tracking-tight md:flex-col lg:flex-row lg:text-8xl">
               <Plus
