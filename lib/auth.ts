@@ -3,8 +3,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import db from "@/db";
 import { user, session, account, verification } from "@/db/auth-schema";
 
-// Récupérer l'URL de base depuis les variables d'environnement ou utiliser une valeur par défaut
-const BASE_URL = process.env.NEXT_PUBLIC_URL || 'https://votre-domaine-production.com';
+// Récupérer l'URL de base depuis les variables d'environnement
+const BASE_URL = process.env.NEXT_PUBLIC_URL || 'https://speetly.nicolas-becharat.com';
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -33,8 +33,6 @@ export const auth = betterAuth({
     },
     trustedOrigins: [
         "dev-speetly.nicolas-becharat.com",
-        "dev-speetly.nicolas-becharat.com/api/auth",
         "speetly.nicolas-becharat.com",
-        "speetly.nicolas-becharat.com/api/auth",
     ],
 });

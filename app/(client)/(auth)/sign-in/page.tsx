@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
+// Récupérer l'URL de base depuis les variables d'environnement
+const BASE_URL = typeof window !== 'undefined' 
+    ? window.location.origin 
+    : process.env.NEXT_PUBLIC_URL || 'https://speetly.nicolas-becharat.com';
+
 export default function SignIn() {
     const router = useRouter();
 
@@ -14,11 +19,12 @@ export default function SignIn() {
         try {
             await authClient.signIn.social({
                 provider: "github",
-                callbackURL: `/dashboard`,
-                errorCallbackURL: `/sign-in`,
+                // Utiliser des chemins absolus pour les redirections
+                callbackURL: "/dashboard",
+                errorCallbackURL: "/sign-in",
             });
         } catch (error) {
-            console.error("Erreur d'inscription:", error);
+            console.error("Erreur d'authentification:", error);
         }
     };
 
