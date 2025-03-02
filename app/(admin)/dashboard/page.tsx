@@ -1,7 +1,9 @@
 import { getSession } from "@/lib/session";
 import { unauthorized } from "next/navigation";
 import SignOut from "@/components/ui/sign-out";
+
 export default async function Dashboard() {
+    
     const session = await getSession();
 
     if (!session) {

@@ -6,22 +6,17 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Image from "next/image";
+
 export default function SignIn() {
     const router = useRouter();
 
     const handleSocialSignIn = async () => {
         try {
-            const result = await authClient.signIn.social({
+            await authClient.signIn.social({
                 provider: "github",
-                callbackURL: "/dashboard",
-                errorCallbackURL: "/error",
-                newUserCallbackURL: "/welcome",
+                callbackURL: `/dashboard`,
+                errorCallbackURL: `/sign-in`,
             });
-            if (result.error) {
-                console.error(result.error);
-            }
-
-            router.push("/dashboard");
         } catch (error) {
             console.error("Erreur d'inscription:", error);
         }
