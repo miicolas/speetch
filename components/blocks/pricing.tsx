@@ -130,7 +130,7 @@ const PricingCard = ({
           ))}
         </ul>
       </div>
-      <Button className="mt-auto">Get Started</Button>
+      <Button className="mt-auto bg-indigo-500 hover:bg-indigo-600 transition-all duration-400">Get Started</Button>
     </div>
   );
 };

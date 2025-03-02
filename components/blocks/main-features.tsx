@@ -88,8 +88,8 @@ const FeatureSteps: React.FC<{ features: Feature[] }> = ({ features }) => {
                 className={cn(
                   "w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2",
                   index === currentFeature
-                    ? "bg-blue-500 border-blue-600 text-white scale-110"
-                    : "bg-blue-100 border-blue-200 text-white"
+                    ? "bg-indigo-500 border-indigo-600 text-white scale-110"
+                    : "bg-indigo-100 border-indigo-200 text-white"
                 )}
               >
                 {index <= currentFeature ? (
@@ -130,19 +130,19 @@ const FeatureSteps: React.FC<{ features: Feature[] }> = ({ features }) => {
                   >
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
+                      className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
+                      className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
+                      className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                     />
                     <Plus
                       strokeWidth={1}
-                      className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-neutral-900 animate-pulse"
+                      className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                     />
                     <Image
                       src={feature.image}

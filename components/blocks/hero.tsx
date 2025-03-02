@@ -40,19 +40,19 @@ export default function Hero() {
             <h1 className="flex select-none flex-col px-3 py-2 text-center text-4xl font-semibold leading-none tracking-tight md:flex-col lg:flex-row lg:text-8xl">
               <Plus
                 strokeWidth={4}
-                className="text-ali absolute -left-5 -top-5 h-10 w-10"
+                className="text-ali absolute -left-5 -top-5 h-10 w-10 text-indigo-500"
               />
               <Plus
                 strokeWidth={4}
-                className="text-ali absolute -bottom-5 -left-5 h-10 w-10"
+                className="text-ali absolute -bottom-5 -left-5 h-10 w-10 text-indigo-500"
               />
               <Plus
                 strokeWidth={4}
-                className="text-ali absolute -right-5 -top-5 h-10 w-10"
+                className="text-ali absolute -right-5 -top-5 h-10 w-10 text-indigo-500"
               />
               <Plus
                 strokeWidth={4}
-                className="text-ali absolute -bottom-5 -right-5 h-10 w-10"
+                className="text-ali absolute -bottom-5 -right-5 h-10 w-10 text-indigo-500"
               />
               <span className="flex flex-col gap-4">
                 Everything pass through{" "}
@@ -60,9 +60,9 @@ export default function Hero() {
                   {" "}
                   <span className="text-ali">your</span>{" "}
                   <Cover className="space-x-2 group overflow-hidden">
-                    {" "}
+                    
                     <FlipWords
-                      className="group-hover:text-ali group-hover:text-white"
+                      className="group-hover:text-ali group-hover:text-white px-4"
                       words={["business", "projects", "clients", "growth"]}
                     />{" "}
                   </Cover>{" "}
@@ -85,7 +85,7 @@ export default function Hero() {
             <HoverBorderGradient
               containerClassName="rounded-full"
               as="button"
-              className="bg-neutral-950 text-white flex items-center space-x-2"
+              className="bg-indigo-500 text-white flex items-center space-x-2"
             >
               <Plus />
               <span>Waitlist</span>

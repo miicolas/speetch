@@ -59,7 +59,7 @@ export default function Footer() {
                   className="rounded-full"
                 />
               </div>
-              <Button type="submit" className="rounded-full">
+              <Button type="submit" className="rounded-full bg-indigo-500 hover:bg-indigo-600 transition-all duration-400">
                 Subscribe
               </Button>
             </form>
