@@ -38,7 +38,7 @@ export const Cover = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       ref={ref}
-      className="relative hover:bg-neutral-900  group/cover inline-block dark:bg-neutral-900 bg-neutral-100 px-2 py-2  transition duration-200 rounded-sm"
+      className="relative hover:bg-indigo-500 group/cover inline-block dark:bg-indigo-900 bg-indigo-100 px-2 py-2  transition duration-200 rounded-sm"
     >
       <AnimatePresence>
         {hovered && (
@@ -201,9 +201,9 @@ export const Beam = ({
             repeatDelay: hovered ? Math.random() * (2 - 1) + 1 : delay ?? 1,
           }}
         >
-          <stop stopColor="#2EB9DF" stopOpacity="0" />
-          <stop stopColor="#3b82f6" />
-          <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
+          <stop stopColor="#e0e7ff" stopOpacity="0" />
+          <stop stopColor="#e0e7ff" />
+          <stop offset="1" stopColor="#e0e7ff" stopOpacity="0" />
         </motion.linearGradient>
       </defs>
     </motion.svg>

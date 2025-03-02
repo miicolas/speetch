@@ -3,7 +3,7 @@
 import { Button } from "./button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-
+import { LogOut } from "lucide-react";
 export default function SignOut() {
     const router = useRouter();
     const handleSignOut = async () => {
@@ -16,8 +16,9 @@ export default function SignOut() {
         });
     };
     return (
-        <Button onClick={handleSignOut}>
-            Sign Out
-        </Button>
+        <div onClick={handleSignOut} className="flex items-center cursor-pointer w-full">
+            <LogOut className="h-4 w-4 mr-4" />
+            <span>Sign Out</span>
+        </div>
     );
 }
