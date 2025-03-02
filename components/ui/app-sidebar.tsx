@@ -28,10 +28,8 @@ import {
   BarChart3, 
   FileText, 
   HelpCircle, 
-  LogOut, 
   CreditCard,
   Bell,
-  Projector,
   File,
   Banknote
 } from "lucide-react"
