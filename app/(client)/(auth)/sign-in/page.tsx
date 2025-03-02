@@ -27,19 +27,19 @@ export default function SignIn() {
                     <div className="w-full max-w-xs space-y-4 bg-white p-6 relative">
                         <Plus
                             strokeWidth={1}
-                            className="text-ali absolute -left-5 -top-5 h-10 w-10 animate-pulse"
+                            className="text-ali absolute -left-5 -top-5 h-10 w-10 animate-pulse text-indigo-500"
                         />
                         <Plus
                             strokeWidth={1}
-                            className="text-ali absolute -bottom-5 -left-5 h-10 w-10 animate-pulse"
+                            className="text-ali absolute -bottom-5 -left-5 h-10 w-10 animate-pulse text-indigo-500"
                         />
                         <Plus
                             strokeWidth={1}
-                            className="text-ali absolute -right-5 -top-5 h-10 w-10 animate-pulse"
+                            className="text-ali absolute -right-5 -top-5 h-10 w-10 animate-pulse text-indigo-500"
                         />
                         <Plus
                             strokeWidth={1}
-                            className="text-ali absolute -bottom-5 -right-5 h-10 w-10 animate-pulse"
+                            className="text-ali absolute -bottom-5 -right-5 h-10 w-10 animate-pulse text-indigo-500"
                         />
                         <div className="flex flex-col items-center gap-2 text-center">
                             <h1 className="text-2xl font-bold">

@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import db from "@/db";
 import { user, session, account, verification } from "@/db/auth-schema";
+import { admin } from "better-auth/plugins"
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -13,6 +14,7 @@ export const auth = betterAuth({
             verification,
         },
     }),
+    plugins: [admin()],
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID! as string,

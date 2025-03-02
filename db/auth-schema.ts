@@ -2,6 +2,7 @@ import {
     mysqlTable,
     varchar,
     text,
+    int,
     timestamp,
     boolean,
 } from "drizzle-orm/mysql-core";
@@ -14,6 +15,10 @@ export const user = mysqlTable("user", {
     image: text("image"),
     createdAt: timestamp("created_at").notNull(),
     updatedAt: timestamp("updated_at").notNull(),
+    role: text("role"),
+    banned: boolean("banned"),
+    banReason: text("ban_reason"),
+    banExpires: timestamp("ban_expires"),
 });
 
 export const session = mysqlTable("session", {
@@ -27,6 +32,7 @@ export const session = mysqlTable("session", {
     userId: varchar("user_id", { length: 36 })
         .notNull()
         .references(() => user.id, { onDelete: "cascade" }),
+    impersonatedBy: text("impersonated_by"),
 });
 
 export const account = mysqlTable("account", {
