@@ -7,7 +7,6 @@ import { ArrowRight, Plus, Shapes } from "lucide-react";
 import { FlipWords } from "@/components/ui/flip-words";
 import { Button } from "@/components/ui/button";
 import { Cover } from "../ui/cover";
-import HoverBorderGradient from "../ui/hover-border-gradient";
 
 export default function Hero() {
   useEffect(() => {
@@ -82,14 +81,10 @@ export default function Hero() {
         </p>
         <div className="flex justify-center gap-2">
           <Link href={"/dashboard"}>
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              as="button"
-              className="bg-indigo-500 text-white flex items-center space-x-2"
-            >
+            <Button variant="outline" size="lg" className="bg-indigo-500 text-white flex items-center space-x-2">
               <Plus />
               <span>Waitlist</span>
-            </HoverBorderGradient>
+            </Button>
           </Link>
           <Link href={"https://cal.com/aliimam/designali"} target="_blank">
             <Button variant="outline" size="lg">
