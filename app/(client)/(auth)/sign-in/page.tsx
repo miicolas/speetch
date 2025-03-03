@@ -14,6 +14,7 @@ export default function SignIn() {
                 provider: "github",
                 callbackURL: `/dashboard`,
                 errorCallbackURL: `/sign-in`,
+                newUserCallbackURL: `/api/auth/set-member-role`,
             });
         } catch (error) {
             console.error("Erreur d'authentification:", error);

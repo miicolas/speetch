@@ -1,4 +1,3 @@
-import ScrollSmooth from "@/components/ui/scroll-smooth";
 import type { Metadata } from "next";
 import Footer from "@/components/blocks/footer";
 import Header from "@/components/blocks/header";
@@ -9,12 +8,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ScrollSmooth duration={2}>
+    <>
       <Header />
-      <main className="p-4"> 
+      <main className="p-4">
         {children}
       </main>
       <Footer />
-    </ScrollSmooth>
+    </>
   );
 }
