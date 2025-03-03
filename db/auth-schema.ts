@@ -19,6 +19,7 @@ export const user = mysqlTable("user", {
     banned: boolean("banned"),
     banReason: text("ban_reason"),
     banExpires: timestamp("ban_expires"),
+    stripeAccountId: text("stripe_account_id"),
 });
 
 export const session = mysqlTable("session", {
