@@ -1,1 +1,0 @@
-ALTER TABLE `user` ADD `stripe_account_id` text;
