@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import db from "@/db";
 import { user, session } from "@/db/auth-schema";
+import { getServerSession } from "@/lib/server-session";
 
 export async function GET(req: NextRequest) {
     try {
-        const cookie = req.cookies.get("better-auth.session_token");
-        const session_token = cookie?.value;
+        const sessionUser = await getServerSession()
+
+        const session_token = sessionUser?.session?.token;
 
         if (!session_token) {
             console.error(
