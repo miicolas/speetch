@@ -16,7 +16,6 @@ export default function CreateStripeAccountButton({ userEmail, userName }: Creat
         body: JSON.stringify({ email: userEmail, name: userName }), 
       });
       
-      console.log("Réponse de l'API Stripe:", res);
       const data = await res.json();
       
       if (data.url) {

@@ -41,11 +41,7 @@ export default function UnauthorizedPage() {
                     <Button asChild className="w-full">
                         <Link href="/sign-in">Login</Link>
                     </Button>
-
-                    <Button asChild variant="outline" className="w-full">
-                        <Link href="/sign-up">Sign Up</Link>
-                    </Button>
-
+                    
                     <Button asChild variant="ghost" className="w-full">
                         <Link href="/">Home</Link>
                     </Button>

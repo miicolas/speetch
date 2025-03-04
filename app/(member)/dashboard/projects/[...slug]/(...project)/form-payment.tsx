@@ -1,114 +1,94 @@
 "use client";
 
-import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
 
 const formSchema = z.object({
-    price: z.string()
-        .min(1, { message: "Le prix est requis" })
-        .transform((val) => {
-            const parsed = parseFloat(val);
-            return isNaN(parsed) ? 0 : parsed;
-        })
-        .refine((val) => val > 0, { message: "Le prix doit être supérieur à 0" }),
-    description: z.string().min(1, {
-        message: "La description doit contenir au moins 1 caractère",
-    }),
+  price: z.coerce.number().min(1, "Le prix doit être supérieur à 0"),
+  description: z.string().min(3, "La description doit contenir au moins 3 caractères")
 });
 
-type FormValues = z.infer<typeof formSchema>;
+export default function FormPayment({ stripeAccountId, userId }: { stripeAccountId: string, userId: string }) {
 
-interface FormPaymentProps {
-    handleFormPayment: (price: number, description: string) => Promise<void>;
-}
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      price: 0,
+      description: ""
+    }
+  });
+ 
+  async function onSubmit(values: z.infer<typeof formSchema>) {
 
-export default function FormPayment({ handleFormPayment }: FormPaymentProps) {
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    console.log(values, stripeAccountId, userId);  
+    
+    try {
+      const response = await fetch("/api/stripe/create-payment", {
 
-    const form = useForm<FormValues>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            price: 0,
-            description: "",
-        },
-    });
+        
+        method: "POST",
+        body: JSON.stringify({
+          amount: values.price,
+          description: values.description,
+          stripeAccountId: stripeAccountId,
+          userId: userId
+        })
+      });
 
-    async function onSubmit(values: FormValues) {
-        try {
-            setIsSubmitting(true);
-            const { price, description } = values;
-            await handleFormPayment(price, description);
-            form.reset();
-        } catch (error) {
-            console.error("Erreur lors de la soumission:", error);
-        } finally {
-            setIsSubmitting(false);
-        }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
 
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-md">
-                <FormField
-                    control={form.control}
-                    name="price"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Prix (€)</FormLabel>
-                            <FormControl>
-                                <Input 
-                                    placeholder="100" 
-                                    {...field} 
-                                    type="number"
-                                    min="0"
-                                    step="0.01"
-                                />
-                            </FormControl>
-                            <FormDescription>
-                                Montant en euros
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Montant (€)</FormLabel>
+              <FormControl>
+                <Input 
+                  type="number" 
+                  {...field} 
+                  placeholder="99.99" 
                 />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    placeholder="Description du projet"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormDescription>
-                                Description du projet ou du service
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Input 
+                  {...field} 
+                  placeholder="Description du paiement" 
                 />
-                <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Traitement en cours..." : "Soumettre le paiement"}
-                </Button>
-            </form>
-        </Form>
-    );
-}
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" >
+          Créer le paiement
+        </Button>
+      </form>
+    </Form>
+  );
+} 

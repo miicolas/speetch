@@ -75,17 +75,17 @@ export function AppSidebar({ session }: { session: Session }) {
                                     <SidebarMenuSub>
                                         <SidebarMenuSubItem> 
                                             <Link href="/profile/info" className="w-full flex items-center">
-                                                Informations
+                                                Information
                                             </Link>
                                         </SidebarMenuSubItem>
                                         <SidebarMenuSubItem>
                                             <Link href="/profile/security" className="w-full flex items-center">
-                                                Sécurité
+                                                Security
                                             </Link>
                                         </SidebarMenuSubItem>
                                         <SidebarMenuSubItem>
                                             <Link href="/profile/preferences" className="w-full flex items-center">
-                                                Préférences
+                                                Preferences
                                             </Link>
                                         </SidebarMenuSubItem>
                                     </SidebarMenuSub>
@@ -94,10 +94,10 @@ export function AppSidebar({ session }: { session: Session }) {
                         </Collapsible>
                        
                         <SidebarMenuItem>
-                            <Link href="/dashboard" className="w-full">
+                            <Link href="/dashboard/projects" className="w-full">
                                 <SidebarMenuButton>
                                     <File className="h-4 w-4 mr-2" />
-                                    Projets
+                                    Projects
                                 </SidebarMenuButton>
                             </Link>
                         </SidebarMenuItem>
@@ -106,6 +106,14 @@ export function AppSidebar({ session }: { session: Session }) {
                                 <SidebarMenuButton>
                                     <Banknote className="h-4 w-4 mr-2" />
                                     Invoices
+                                </SidebarMenuButton>
+                            </Link>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <Link href="/dashboard/account-stripe" className="w-full">
+                                <SidebarMenuButton>
+                                    <Banknote className="h-4 w-4 mr-2" />
+                                    Stripe
                                 </SidebarMenuButton>
                             </Link>
                         </SidebarMenuItem>

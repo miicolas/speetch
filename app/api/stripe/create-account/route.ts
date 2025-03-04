@@ -13,23 +13,16 @@ interface StripeErrorLike {
 
 export async function POST(req: NextRequest) {
     try {
-        console.log(
-            "Traitement de la requête de création de compte Stripe Connect"
-        );
 
         const body = await req.json();
-        const { email, name } = body;
-
-        console.log("Données reçues:", { email, name });
+        const { email } = body;
 
         if (!email) {
-            console.log("Erreur: Email requis");
             return NextResponse.json(
                 { error: "Email requis" },
                 { status: 400 }
             );
         }
-        console.log("Création du compte Stripe Connect pour:", email);
 
         try {
             const account = await stripe.accounts.create({
@@ -42,16 +35,12 @@ export async function POST(req: NextRequest) {
                 },
             });
 
-            console.log("Compte Stripe créé avec succès:", account.id);
             const updatedUser = await db
                 .update(user)
                 .set({ stripeAccountId: account.id })
                 .where(eq(user.email, email));
 
             if (!updatedUser) {
-                console.log(
-                    "Erreur lors de la mise à jour de la base de données"
-                );
                 return NextResponse.json(
                     {
                         error: "Erreur lors de la mise à jour de la base de données",
@@ -62,12 +51,10 @@ export async function POST(req: NextRequest) {
 
             const accountLink = await stripe.accountLinks.create({
                 account: account.id,
-                refresh_url: `${process.env.BETTER_AUTH_URL}/onboarding`,
+                refresh_url: `${process.env.BETTER_AUTH_URL}/dashboard`,
                 return_url: `${process.env.BETTER_AUTH_URL}/dashboard`,
                 type: "account_onboarding",
             });
-
-            console.log("Lien d'onboarding généré:", accountLink.url);
 
             return NextResponse.json({
                 url: accountLink.url,

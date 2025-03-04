@@ -9,7 +9,7 @@ export default function AlertStripeAccount() {
             <AlertTitle>Vous n'avez pas de compte Stripe</AlertTitle>
             <AlertDescription> 
                 <Button variant="outline" asChild className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
-                    <Link href="/dashboard/create-account-stripe" className="flex items-center">
+                    <Link href="/dashboard/account-stripe" className="flex items-center">
                         <AlertCircle className="w-4 h-4 mr-2" />
                         Créer un compte Stripe
                     </Link>

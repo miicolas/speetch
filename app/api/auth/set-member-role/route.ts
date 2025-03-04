@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
             console.error(
                 "Aucune session token fournie pour définir le rôle member"
             );
-            return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+            return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
         }
 
         const sliceSessionToken = session_token.slice(0, 32);
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 
         if (!sessionResult) {
             console.error("Aucune session trouvée pour définir le rôle member");
-            return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+            return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
         }
 
         const sessionUserId = sessionResult[0];
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
         if (!sessionUserId) {
             console.error("Aucune session trouvée pour définir le rôle member");
-            return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+            return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
         }
 
         const userResult = await db
@@ -42,14 +42,14 @@ export async function GET(req: NextRequest) {
 
         if (!userResult) {
             console.error("Aucun userId fourni pour définir le rôle member");
-            return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+            return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
         }
 
         const userId = userResult[0].id;
 
         if (!userId) {
             console.error("Aucun userId fourni pour définir le rôle member");
-            return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+            return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
         }
 
         await db
@@ -58,9 +58,9 @@ export async function GET(req: NextRequest) {
             .where(eq(user.id, userId));
 
 
-        return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+        return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
     } catch (error) {
         console.error("Erreur lors de l'attribution du rôle:", error);
-        return NextResponse.redirect(new URL("/dashboard/create-account-stripe", req.url));
+        return NextResponse.redirect(new URL("/dashboard/account-stripe", req.url));
     }
 }

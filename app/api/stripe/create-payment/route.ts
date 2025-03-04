@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import db from "@/db";
+import { stripeSessionPayment } from "@/db/stripe-schema";
+import { v4 as uuidv4 } from 'uuid';
 
 interface StripeErrorLike {
     type?: string;
@@ -10,33 +13,21 @@ interface StripeErrorLike {
 
 export async function POST(req: NextRequest) {
     try {
-        console.log("Traitement de la requête de création du Paiement");
-
         const body = await req.json();
-        const { amount, stripeAccountId, description } = body;
+        const { amount, stripeAccountId, description, userId } = body;
 
-        console.log("Données reçues:", {
-            amount,
-            stripeAccountId,
-            description,
-        });
-
-        if (!amount || !stripeAccountId || !description) {
-            console.log(
-                "Erreur: amount, stripeAccountId ou description requis"
-            );
+        if (!amount || !stripeAccountId || !description || !userId) {
             return NextResponse.json(
                 {
-                    error: "amount, stripeAccountId ou description requis",
+                    status: "error",
+                    error: "amount, stripeAccountId, description et userId sont requis"
                 },
                 { status: 400 }
             );
         }
-        console.log("Création du Paiement pour:", amount);
 
         try {
             const session = await stripe.checkout.sessions.create({
-                payment_method_types: ["card"],
                 line_items: [
                     {
                         price_data: {
@@ -53,30 +44,59 @@ export async function POST(req: NextRequest) {
                 success_url: `${process.env.BETTER_AUTH_URL}/dashboard`,
                 cancel_url: `${process.env.BETTER_AUTH_URL}/dashboard`,
                 payment_intent_data: {
-                    application_fee_amount: Math.round(amount * 0.1 * 100), // 10% de commission pour la plateforme
                     transfer_data: {
                         destination: stripeAccountId, 
                     },
                 },
             });
-            if (!session) {
-                console.log(
-                    "Erreur lors de la mise à jour de la base de données"
-                );
+            
+            if (!session || !session.url) {
                 return NextResponse.json(
                     {
-                        error: "Erreur lors de la mise à jour de la base de données",
+                        status: "error",
+                        error: "Erreur lors de la création de la session de paiement"
                     },
                     { status: 500 }
                 );
             }
 
-            console.log("Session créée avec succès:", session);
+            // Génération d'ID unique pour la session
+            const sessionId = uuidv4();
+            
+            try {
+                // Insertion dans la base de données
+                await db.insert(stripeSessionPayment).values([{
+                    id: sessionId,
+                    userId: userId,
+                    url: session.url,
+                    status: "pending"
+                    // Les timestamps seront gérés par les valeurs par défaut
+                }]);
 
-            return NextResponse.json({ paymentLink: session.url });
+                // Réponse succès
+                return NextResponse.json({ 
+                    status: "success",
+                    content: {
+                        paymentLink: session.url,
+                        sessionId: sessionId 
+                    }
+                });
+            } catch (dbError) {
+                console.error("Erreur base de données:", dbError);
+                
+                // On renvoie quand même le lien si la BD échoue
+                return NextResponse.json({ 
+                    status: "warning",
+                    content: {
+                        paymentLink: session.url
+                    },
+                    message: "Lien créé mais non enregistré en base"
+                });
+            }
+            
         } catch (stripeError: unknown) {
             const err = stripeError as StripeErrorLike;
-            console.error("Erreur Stripe spécifique:", {
+            console.error("Erreur Stripe:", {
                 type: err.type,
                 code: err.code,
                 message: err.message,
@@ -86,44 +106,43 @@ export async function POST(req: NextRequest) {
             if (err.code === "secret_key_required") {
                 return NextResponse.json(
                     {
-                        error: "Configuration Stripe incorrecte. Utilisez une clé secrète valide.",
-                        detail: err.message,
+                        status: "error",
+                        error: "Configuration Stripe incorrecte",
+                        detail: err.message
                     },
                     { status: 500 }
                 );
             }
 
-            if (
-                err.message &&
-                err.message.includes("Connect")
-            ) {
+            if (err.message?.includes("Connect")) {
                 return NextResponse.json(
                     {
-                        error: "Stripe Connect n'est pas activé sur ce compte",
-                        detail: "Activez Stripe Connect dans votre tableau de bord Stripe",
-                        docUrl: "https://stripe.com/docs/connect",
+                        status: "error",
+                        error: "Stripe Connect non activé",
+                        detail: "Activez Stripe Connect dans votre tableau de bord"
                     },
                     { status: 400 }
                 );
             }
+            
             return NextResponse.json(
                 {
-                    error: "Erreur lors de la communication avec Stripe",
-                    detail: err.message || "Détails non disponibles",
+                    status: "error",
+                    error: "Erreur Stripe",
+                    detail: err.message || "Détails non disponibles"
                 },
                 { status: 500 }
             );
         }
     } catch (error: unknown) {
-        console.error(
-            "Erreur générale lors de la création du compte Stripe:",
-            error
-        );
+        console.error("Erreur générale:", error);
         const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
+        
         return NextResponse.json(
             {
-                error: "Une erreur est survenue lors de la création du paiement",
-                detail: errorMessage,
+                status: "error",
+                error: "Erreur lors de la création du paiement",
+                detail: errorMessage
             },
             { status: 500 }
         );
