@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import db from "@/db";
 import { stripeSessionPayment } from "@/db/stripe-schema";
 import { v4 as uuidv4 } from 'uuid';
+import { revalidatePath } from "next/cache";
 
 interface StripeErrorLike {
     type?: string;
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
 
         try {
             const session = await stripe.checkout.sessions.create({
+                payment_method_types: ["card"],
                 line_items: [
                     {
                         price_data: {
@@ -65,14 +67,17 @@ export async function POST(req: NextRequest) {
             
             try {
                 // Insertion dans la base de données
-                await db.insert(stripeSessionPayment).values([{
+                const dbResult = await db.insert(stripeSessionPayment).values([{
                     id: sessionId,
                     userId: userId,
                     url: session.url,
                     status: "pending"
-                    // Les timestamps seront gérés par les valeurs par défaut
                 }]);
 
+                console.log('dbResult', dbResult);
+
+                revalidatePath(`/dashboard/projects/${userId}`);
+                
                 // Réponse succès
                 return NextResponse.json({ 
                     status: "success",
@@ -84,7 +89,6 @@ export async function POST(req: NextRequest) {
             } catch (dbError) {
                 console.error("Erreur base de données:", dbError);
                 
-                // On renvoie quand même le lien si la BD échoue
                 return NextResponse.json({ 
                     status: "warning",
                     content: {

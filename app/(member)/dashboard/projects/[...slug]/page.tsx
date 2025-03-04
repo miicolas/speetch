@@ -1,9 +1,9 @@
-
 import FormPayment from "./(...project)/form-payment"
 import { getServerSession } from "@/lib/server-session";
-import { getStripeAccount } from "@/actions/(stripe)/get-stripe/action"
-import { getProjectPayment } from "@/actions/(stripe)/get-project-payment/action"
+import { getStripeAccount } from "@/actions/(stripe)/get-stripe/action";
+import { getProjectPayment } from "@/actions/(stripe)/get-project-payment/action";
 import LinksPayment from "./(...project)/links-payment";
+
 export default async function ProjectPage({
     params,
 }: {

@@ -3,7 +3,7 @@ import { user } from './auth-schema';
 
 export const stripeSessionPayment = pgTable('stripe_session_payment', {
     id: varchar("id", { length: 36 }).primaryKey(),
-    userId: varchar("user_id", { length: 36 }).notNull().unique().references(() => user.id),
+    userId: varchar("user_id", { length: 36 }).notNull().references(() => user.id),
     url: text('url').notNull(),
     status: varchar("status", { length: 20 }).default("pending").notNull(),
     createdAt: timestamp('created_at').defaultNow(),

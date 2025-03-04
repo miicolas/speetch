@@ -5,7 +5,7 @@ import db from "@/db";
 import { eq } from "drizzle-orm";
 import { FormResponse } from "@/lib/types/form-type";
 import { stripeSessionPayment } from "@/db/stripe-schema";
-
+import { revalidatePath } from "next/cache";
 const bodySchema = z.object({
     userId: z.string(),
 });
@@ -24,6 +24,13 @@ export async function getProjectPayment(body: z.infer<typeof bodySchema>): Promi
 
         const projectPayment = await db.select().from(stripeSessionPayment).where(eq(stripeSessionPayment.userId, validatedBody.data.userId));
 
+        if (!projectPayment) {
+            return {
+                status: "error",
+                message: "No project payment found",
+            };
+        }
+        
         return {
             status: "success",
             content: projectPayment,

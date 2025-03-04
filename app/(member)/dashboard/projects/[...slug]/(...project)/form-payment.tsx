@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   price: z.coerce.number().min(1, "Le prix doit être supérieur à 0"),
@@ -14,6 +14,8 @@ const formSchema = z.object({
 });
 
 export default function FormPayment({ stripeAccountId, userId }: { stripeAccountId: string, userId: string }) {
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -23,10 +25,7 @@ export default function FormPayment({ stripeAccountId, userId }: { stripeAccount
     }
   });
  
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-
-    console.log(values, stripeAccountId, userId);  
-    
+  async function onSubmit(values: z.infer<typeof formSchema>) {    
     try {
       const response = await fetch("/api/stripe/create-payment", {
 
@@ -42,6 +41,10 @@ export default function FormPayment({ stripeAccountId, userId }: { stripeAccount
 
       const data = await response.json();
       console.log(data);
+      if (data.status === "success") {
+        form.reset();
+        router.refresh();
+      }
     } catch (error) {
       console.error(error);
     }
