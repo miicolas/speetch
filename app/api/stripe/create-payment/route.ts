@@ -2,15 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import db from "@/db";
 import { stripeSessionPayment } from "@/db/stripe-schema";
-import { v4 as uuidv4 } from 'uuid';
-import { revalidatePath } from "next/cache";
-
-interface StripeErrorLike {
-    type?: string;
-    code?: string;
-    message?: string;
-    doc_url?: string;
-}
+import { v4 as uuidv4 } from "uuid";
+import { StripeErrorLike } from "@/lib/types/stripe-type";
 
 export async function POST(req: NextRequest) {
     try {
@@ -21,7 +14,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json(
                 {
                     status: "error",
-                    error: "amount, stripeAccountId, description et userId sont requis"
+                    error: "amount, stripeAccountId, description et userId sont requis",
                 },
                 { status: 400 }
             );
@@ -47,57 +40,61 @@ export async function POST(req: NextRequest) {
                 cancel_url: `${process.env.BETTER_AUTH_URL}/dashboard`,
                 payment_intent_data: {
                     transfer_data: {
-                        destination: stripeAccountId, 
+                        destination: stripeAccountId,
                     },
                 },
             });
-            
+
             if (!session || !session.url) {
                 return NextResponse.json(
                     {
                         status: "error",
-                        error: "Erreur lors de la création de la session de paiement"
+                        error: "Erreur lors de la création de la session de paiement",
                     },
                     { status: 500 }
                 );
             }
 
-            // Génération d'ID unique pour la session
             const sessionId = uuidv4();
-            
+
             try {
-                // Insertion dans la base de données
-                const dbResult = await db.insert(stripeSessionPayment).values([{
-                    id: sessionId,
-                    userId: userId,
-                    url: session.url,
-                    status: "pending"
-                }]);
+                const dbResult = await db.insert(stripeSessionPayment).values([
+                    {
+                        id: sessionId,
+                        userId: userId,
+                        url: session.url,
+                        status: "pending",
+                    },
+                ]);
 
-                console.log('dbResult', dbResult);
+                if (!dbResult) {
+                    return NextResponse.json(
+                        {
+                            status: "error",
+                            error: "Erreur lors de la mise à jour de la session de paiement",
+                        },
+                        { status: 400 }
+                    );
+                }
 
-                revalidatePath(`/dashboard/projects/${userId}`);
-                
-                // Réponse succès
-                return NextResponse.json({ 
+                return NextResponse.json({
                     status: "success",
                     content: {
                         paymentLink: session.url,
-                        sessionId: sessionId 
-                    }
+                        sessionId: sessionId,
+                    },
                 });
             } catch (dbError) {
                 console.error("Erreur base de données:", dbError);
-                
-                return NextResponse.json({ 
+
+                return NextResponse.json({
                     status: "warning",
                     content: {
-                        paymentLink: session.url
+                        paymentLink: session.url,
                     },
-                    message: "Lien créé mais non enregistré en base"
+                    message: "Lien créé mais non enregistré en base",
                 });
             }
-            
         } catch (stripeError: unknown) {
             const err = stripeError as StripeErrorLike;
             console.error("Erreur Stripe:", {
@@ -112,7 +109,7 @@ export async function POST(req: NextRequest) {
                     {
                         status: "error",
                         error: "Configuration Stripe incorrecte",
-                        detail: err.message
+                        detail: err.message,
                     },
                     { status: 500 }
                 );
@@ -123,30 +120,31 @@ export async function POST(req: NextRequest) {
                     {
                         status: "error",
                         error: "Stripe Connect non activé",
-                        detail: "Activez Stripe Connect dans votre tableau de bord"
+                        detail: "Activez Stripe Connect dans votre tableau de bord",
                     },
                     { status: 400 }
                 );
             }
-            
+
             return NextResponse.json(
                 {
                     status: "error",
                     error: "Erreur Stripe",
-                    detail: err.message || "Détails non disponibles"
+                    detail: err.message || "Détails non disponibles",
                 },
                 { status: 500 }
             );
         }
     } catch (error: unknown) {
         console.error("Erreur générale:", error);
-        const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
-        
+        const errorMessage =
+            error instanceof Error ? error.message : "Erreur inconnue";
+
         return NextResponse.json(
             {
                 status: "error",
                 error: "Erreur lors de la création du paiement",
-                detail: errorMessage
+                detail: errorMessage,
             },
             { status: 500 }
         );
