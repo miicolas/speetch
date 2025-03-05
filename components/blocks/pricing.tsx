@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { NumberTicker } from "../ui/number-ticker";
 import { CheckIcon } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 
