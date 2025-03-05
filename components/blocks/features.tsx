@@ -11,6 +11,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 
+
 interface FeaturesCard {
     title: string;
     description: string;
@@ -71,35 +72,30 @@ export default function FeaturesSection() {
         },
     ];
     return (
-        <section className="py-20  dark:bg-neutral-900">
-            <div className="container mx-auto px-4">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-4xl font-bold mb-6 text-neutral-800 dark:text-white">
+        <section className="py-20">
+            <div className="mx-auto px-4 flex flex-col gap-8">
+                <div className="px-8 ">
+                    <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-black dark:text-white">
                         The Problem: Freelancers Juggle Multiple Tools
-                    </h2>
-                    <p className="text-xl text-neutral-600 dark:text-neutral-300">
+                    </h4>
+
+                    <p className="text-sm lg:text-base  max-w-2xl  my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300">
                         Managing clients, finances, projects, and administrative
                         tasks through different platforms leads to wasted time,
                         missed opportunities, stress, and unpaid invoices.
                     </p>
-                    <div className="mt-8">
-                        <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                            We are the all-in-one tool designed to simplify
-                            everything and make freelancers' lives easier.
-                        </p>
-                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature) => (
-                        <FeatureCard
-                            key={feature.title}
-                            title={feature.title}
-                            description={feature.description}
-                            icon={feature.icon}
-                            index={feature.index}
-                            isNew={feature.isNew}
-                        />
+                            <FeatureCard
+                                key={feature.title}
+                                title={feature.title}
+                                description={feature.description}
+                                icon={feature.icon}
+                                index={feature.index}
+                                isNew={feature.isNew}
+                            />
                     ))}
                 </div>
             </div>
