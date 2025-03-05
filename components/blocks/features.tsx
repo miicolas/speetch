@@ -55,9 +55,9 @@ export default function FeaturesSection() {
             index: 4,
         },
         {
-            title: "User-friendly & Minimalist Interface",
+            title: "Client Follow-up",
             description:
-                "Clean design accessible in 1-2 clicks. Customizable dashboards based on freelancer priorities and preferences.",
+                "Client follow-up with a simple and intuitive interface to keep track of projects and payments.",
             icon: <Layout size={48} className="text-indigo-500" />,
             isNew: true,
             index: 5,
