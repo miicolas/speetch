@@ -8,7 +8,7 @@ import { NumberTicker } from "../ui/number-ticker";
 import { CheckIcon } from "lucide-react";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-
+import { Session } from "@/lib/types/auth-type";
 
 const pricingCards = [
     {
@@ -59,13 +59,12 @@ const pricingCards = [
 
 export default function Pricing() {
     const [selectedPricing, setSelectedPricing] = useState("monthly");
-    const [session, setSession] = useState<any>(null);
+    const [session, setSession] = useState<Session | null>(null);
 
     useEffect(() => {
         const fetchSession = async () => {
-            const { data, error } = await authClient.getSession();
-            console.log("data", data);
-            if (data) setSession(data);
+            const { data } = await authClient.getSession();
+            if (data) setSession(data as Session);
         };
         fetchSession();
     }, []);
@@ -127,10 +126,9 @@ const PricingCard = ({
     description: string;
     features: string[];
     selectedPricing: string;
-    session: any | null;
+    session: Session | null;
 }) => {
-   
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const titlePlan = title.toLowerCase();
 
     const handleSubscription = async () => {
@@ -138,15 +136,18 @@ const PricingCard = ({
         try {
             if (!session) {
                 toast.info("Connexion requise", {
-                    description: "Vous devez être connecté pour vous abonner"
+                    description: "Vous devez être connecté pour vous abonner",
                 });
                 window.location.href = "/sign-in";
                 setIsLoading(false);
                 return;
             }
-            
-            console.log("Envoi de la demande d'abonnement:", { titlePlan, selectedPricing });
-            
+
+            console.log("Envoi de la demande d'abonnement:", {
+                titlePlan,
+                selectedPricing,
+            });
+
             const response = await fetch("/api/stripe/create-subscription", {
                 method: "POST",
                 headers: {
@@ -173,9 +174,9 @@ const PricingCard = ({
                 });
             }
         } catch (error) {
+            console.log(error);
             toast.error("Erreur de connexion", {
-                description:
-                    "Impossible de contacter le serveur. Veuillez réessayer plus tard.",
+                description: "Veuillez réessayer plus tard.",
             });
         } finally {
             setIsLoading(false);
