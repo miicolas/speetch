@@ -58,13 +58,14 @@ export default function Hero() {
                 <div className="flex items-center justify-center gap-4">
                   {" "}
                   <span className="text-ali">your</span>{" "}
-                  <Cover className="space-x-2 group overflow-hidden">
-                    
-                    <FlipWords
-                      className="group-hover:text-ali group-hover:text-white px-4"
+                  <div className="group overflow-hidden">
+                    <Cover className="space-x-2 overflow-hidden">
+                      <FlipWords
+                        className="px-4 py-2 group-hover:text-white"
                       words={["business", "projects", "clients", "growth"]}
                     />{" "}
                   </Cover>{" "}
+                  </div>
                 </div>
               </span>
             </h1>
@@ -86,7 +87,7 @@ export default function Hero() {
               <span>Waitlist</span>
             </Button>
           </Link>
-          <Link href={"https://cal.com/aliimam/designali"} target="_blank">
+          <Link href={"https://cal.com/"} target="_blank">
             <Button variant="outline" size="lg">
               Book a call
             </Button>
