@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import db from "@/db";
 import { user, session, account, verification } from "@/db/auth-schema";
-import { admin } from "better-auth/plugins"
+import { admin } from "better-auth/plugins";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -12,7 +12,6 @@ export const auth = betterAuth({
             session,
             account,
             verification,
-
         },
     }),
     plugins: [admin()],
@@ -21,6 +20,10 @@ export const auth = betterAuth({
             clientId: process.env.GITHUB_CLIENT_ID! as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
         },
+        google: { 
+            clientId: process.env.GOOGLE_CLIENT_ID as string, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+        }, 
     },
     session: {
         expiresIn: 60 * 60 * 24 * 7,

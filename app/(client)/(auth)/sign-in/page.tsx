@@ -8,10 +8,10 @@ import Image from "next/image";
 
 export default function SignIn() {
 
-    const handleSocialSignIn = async () => {
+    const handleSocialSignIn = async (provider: "github" | "google" | "apple") => {
         try {
             await authClient.signIn.social({
-                provider: "github",
+                provider: provider,
                 callbackURL: `/dashboard`,
                 errorCallbackURL: `/sign-in`,
                 newUserCallbackURL: `/api/auth/set-member-role`,
@@ -54,7 +54,7 @@ export default function SignIn() {
                         <Button
                             variant="outline"
                             className="w-full"
-                            onClick={handleSocialSignIn}
+                            onClick={() => handleSocialSignIn("github")}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +70,7 @@ export default function SignIn() {
                         <Button
                             variant="outline"
                             className="w-full"
-                            onClick={handleSocialSignIn}
-                            disabled={true}
+                            onClick={() => handleSocialSignIn("google")}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +86,7 @@ export default function SignIn() {
                         <Button
                             variant="outline"
                             className="w-full"
-                            onClick={handleSocialSignIn}
+                            onClick={() => handleSocialSignIn("apple")}
                             disabled={true}
                         >
                             <svg

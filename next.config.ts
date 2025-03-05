@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "avatars.githubusercontent.com",
       "midday.ai",
       "github.githubassets.com",
+      "lh3.googleusercontent.com",
     ],
   },
   experimental: {
