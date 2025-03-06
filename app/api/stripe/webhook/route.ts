@@ -40,9 +40,13 @@ export async function POST(req: NextRequest) {
             "customer.subscription.updated", 
             "customer.subscription.deleted",
             "invoice.payment_succeeded",
-            "invoice.payment_failed"
+            "invoice.payment_failed",
+            "payout.paid",
+            "payout.failed",
+            "payout.created",
+            "payout.updated",
         ];
-        
+
         if (supportedEvents.includes(event.type)) {
             console.log("✅ Événement supporté reçu:", event.type);
         } else {
