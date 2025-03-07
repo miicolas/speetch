@@ -25,11 +25,11 @@ export default async function OnboardingStripe() {
                 <div className="flex items-center gap-2">
                     <Input
                         type="text"
-                        defaultValue={`https://connect.stripe.com/app/express#${accountContent[0].stripeAccountId}`}
+                        defaultValue={`https://connect.stripe.com/app/express/${accountContent[0].stripeAccountId}`}
                         readOnly
                     />
                     <Button asChild>
-                        <Link href={`https://connect.stripe.com/app/express#${accountContent[0].stripeAccountId}`}>
+                        <Link href={`https://connect.stripe.com/app/express/${accountContent[0].stripeAccountId}`}>
                             Open
                         </Link>
                     </Button>

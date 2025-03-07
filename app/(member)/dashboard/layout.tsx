@@ -24,7 +24,7 @@ export default async function MemberDashboardLayout({
         <NuqsAdapter>
             <SidebarProvider>
                 <AppSidebar session={session as Session} />
-                <main className="w-full">
+                <main className="w-full px-4">
                 <div className="flex gap-0.5">
                     <SidebarTrigger />
                     {stripeAccount[0].stripeAccountId ? (
@@ -33,6 +33,7 @@ export default async function MemberDashboardLayout({
                         <AlertStripeAccount />
                     )}
                 </div>
+                
                 {children}
             </main>
         </SidebarProvider>
