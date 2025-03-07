@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
     console.log("🔔 Webhook Stripe appelé!");
@@ -16,7 +17,7 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    let event;
+    let event: Stripe.Event;
     try {
         event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
         console.log(`✅ Événement Stripe validé: ${event.type}`);
@@ -34,24 +35,27 @@ export async function POST(req: NextRequest) {
 
         switch (eventType) {
             case "checkout.session.completed":
-                await handleCheckoutSessionCompleted(session);
+                await handleCheckoutSessionCompleted(session as Stripe.Checkout.Session);
                 break;
 
             case "payment_intent.succeeded":
-                await handlePaymentIntentSucceeded(session);
+                await handlePaymentIntentSucceeded(session as Stripe.PaymentIntent);
                 break;
 
             case "payment_intent.created":
-                await handlePaymentIntentCreated(session);
+                await handlePaymentIntentCreated(session as Stripe.PaymentIntent);
                 break;
             case "product.created":
             case "price.created":
-                await handleProductOrPriceUpdate(session, eventType);
+                await handleProductOrPriceUpdate(
+                    session as Stripe.Product | Stripe.Price, 
+                    eventType
+                );
                 break;
 
             case "charge.succeeded":
             case "charge.updated":
-                await handleChargeUpdate(session, eventType);
+                await handleChargeUpdate(session as Stripe.Charge, eventType);
                 break;
 
             default:
@@ -75,7 +79,7 @@ export async function POST(req: NextRequest) {
 /**
  * Gère l'événement checkout.session.completed
  */
-async function handleCheckoutSessionCompleted(session: any) {
+async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
     console.log(
         `✅ Paiement confirmé pour ${session.id} - Status: ${session.payment_status}`
     );
@@ -87,7 +91,7 @@ async function handleCheckoutSessionCompleted(session: any) {
 /**
  * Gère un paiement réussi via PaymentIntent
  */
-async function handlePaymentIntentSucceeded(session: any) {
+async function handlePaymentIntentSucceeded(session: Stripe.PaymentIntent) {
     console.log(
         `💳 Paiement réussi pour l'intention ${session.id} - Montant: ${session.amount_received}`
     );
@@ -98,7 +102,10 @@ async function handlePaymentIntentSucceeded(session: any) {
 /**
  * Gère la création d'un produit ou d'un prix
  */
-async function handleProductOrPriceUpdate(session: any, eventType: string) {
+async function handleProductOrPriceUpdate(
+    session: Stripe.Product | Stripe.Price, 
+    eventType: string
+) {
     console.log(
         `🛍️ ${eventType === "product.created" ? "Produit" : "Prix"} ajouté: ${session.id}`
     );
@@ -109,7 +116,7 @@ async function handleProductOrPriceUpdate(session: any, eventType: string) {
 /**
  * Gère une mise à jour de charge (paiement réussi ou mis à jour)
  */
-async function handleChargeUpdate(session: any, eventType: string) {
+async function handleChargeUpdate(session: Stripe.Charge, eventType: string) {
     console.log(
         `💰 Charge ${eventType === "charge.succeeded" ? "réussie" : "mise à jour"}: ${session.id}`
     );
@@ -119,7 +126,7 @@ async function handleChargeUpdate(session: any, eventType: string) {
 /**
  * Gère la création d'une intention de paiement (payment_intent.created)
  */
-async function handlePaymentIntentCreated(session: any) {
+async function handlePaymentIntentCreated(session: Stripe.PaymentIntent) {
     console.log(
         `🔄 Intention de paiement créée: ${session.id} - Montant: ${session.amount}`
     );
