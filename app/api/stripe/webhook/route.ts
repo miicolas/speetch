@@ -1,28 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
     console.log("🔔 Webhook Stripe appelé!");
 
     const body = await req.text();
+    console.log("📦 Taille du corps:", body.length, "bytes");
+
     const signature = req.headers.get("stripe-signature") || "";
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    console.log("🔑 Signature présente:", !!signature);
+
+    const webhookSecret =
+        process.env.NODE_ENV === "development"
+            ? process.env.STRIPE_WEBHOOK_SECRET_LOCAL
+            : process.env.STRIPE_WEBHOOK_SECRET;
+
+    console.log("Environnement:", process.env.NODE_ENV);
+    console.log("Secret webhook utilisé:", webhookSecret ? "Défini" : "Non défini");
 
     if (!webhookSecret) {
-        console.error("⛔ STRIPE_WEBHOOK_SECRET non configuré!");
+        console.error("⛔ Stripe webhook secret not configured!");
         return NextResponse.json(
             { status: "error", error: "Missing configuration" },
             { status: 500 }
         );
     }
 
-    let event: Stripe.Event;
+    let event;
+
     try {
         event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-        console.log(`✅ Événement Stripe validé: ${event.type}`);
+        console.log("✅ Événement Stripe validé:", event.type);
+        console.log("📋 Données d'événement:", JSON.stringify(event.data.object).substring(0, 200) + "...");
+
+        const supportedEvents = [
+            "checkout.session.completed",
+            "checkout.session.async_payment_succeeded",
+            "customer.subscription.created",
+            "customer.subscription.updated", 
+            "customer.subscription.deleted",
+            "invoice.payment_succeeded",
+            "invoice.payment_failed",
+            "payout.paid",
+            "payout.failed",
+            "payout.created",
+            "payout.updated",
+            "charge.updated",
+            "payment_intent.created",
+            "payment_intent.succeeded",
+            "payment_intent.payment_failed",
+            "payment_intent.payment_succeeded",
+            "payment_intent.payment_method_changed",
+            "payment_intent.payment_method_changed",
+        ];
+
+        if (supportedEvents.includes(event.type)) {
+            console.log("✅ Événement supporté reçu:", event.type);
+        } else {
+            console.log("⚠️ Événement non géré:", event.type);
+        }
     } catch (error) {
-        console.error("❌ Erreur de validation du webhook:", error);
+        console.error("Error verifying webhook:", error);
         return NextResponse.json(
             { status: "error", error: "Webhook verification failed" },
             { status: 400 }
@@ -30,107 +68,42 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const eventType = event.type;
-        const session = event.data.object;
+        if (event.type === "checkout.session.completed") {
+            const session = event.data.object;
+            const stripeSessionId = session.id;
+            const userId = session.metadata?.userId;
 
-        switch (eventType) {
-            case "checkout.session.completed":
-                await handleCheckoutSessionCompleted(session as Stripe.Checkout.Session);
-                break;
+            const paymentStatus = session.payment_status;
 
-            case "payment_intent.succeeded":
-                await handlePaymentIntentSucceeded(session as Stripe.PaymentIntent);
-                break;
+            console.log(stripeSessionId, paymentStatus, userId, "update status");
 
-            case "payment_intent.created":
-                await handlePaymentIntentCreated(session as Stripe.PaymentIntent);
-                break;
-            case "product.created":
-            case "price.created":
-                await handleProductOrPriceUpdate(
-                    session as Stripe.Product | Stripe.Price, 
-                    eventType
-                );
-                break;
+        } else if (event.type === "customer.subscription.updated") {
+            const session = event.data.object;
+            const stripeSessionId = session.id;
+            const paymentStatus = session.status;
 
-            case "charge.succeeded":
-            case "charge.updated":
-                await handleChargeUpdate(session as Stripe.Charge, eventType);
-                break;
+            console.log(stripeSessionId, paymentStatus, "update status");
+        } else if (event.type === "customer.subscription.deleted") {
+            const session = event.data.object;
+            const stripeSessionId = session.id;
+            const paymentStatus = session.status;
 
-            default:
-                console.warn(`⚠️ Événement non géré: ${eventType}`);
+            console.log(stripeSessionId, paymentStatus, "update status");
+        } else {
+            console.log("🔍 Unhandled Stripe event:", event.type);
         }
 
+        console.log("🔍 Unhandled Stripe event:", event.type);
         return NextResponse.json({
             status: "success",
             received: true,
-            type: eventType,
+            type: event.type,
         });
     } catch (error) {
-        console.error("❌ Erreur de traitement du webhook:", error);
+        console.error("❌ Error processing webhook:", error);
         return NextResponse.json(
             { status: "error", error: "Error processing webhook" },
             { status: 500 }
         );
     }
-}
-
-/**
- * Gère l'événement checkout.session.completed
- */
-async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-    console.log(
-        `✅ Paiement confirmé pour ${session.id} - Status: ${session.payment_status}`
-    );
-
-    // 🔥 Mettez à jour la base de données ici
-    // Exemple : await updateUserPaymentStatus(session.metadata?.userId, session.payment_status);
-}
-
-/**
- * Gère un paiement réussi via PaymentIntent
- */
-async function handlePaymentIntentSucceeded(session: Stripe.PaymentIntent) {
-    console.log(
-        `💳 Paiement réussi pour l'intention ${session.id} - Montant: ${session.amount_received}`
-    );
-
-    // 🔥 Vous pouvez ici mettre à jour votre base de données pour confirmer le paiement
-}
-
-/**
- * Gère la création d'un produit ou d'un prix
- */
-async function handleProductOrPriceUpdate(
-    session: Stripe.Product | Stripe.Price, 
-    eventType: string
-) {
-    console.log(
-        `🛍️ ${eventType === "product.created" ? "Produit" : "Prix"} ajouté: ${session.id}`
-    );
-
-    // 🔥 Ajoutez ou mettez à jour votre base de données des produits/prix
-}
-
-/**
- * Gère une mise à jour de charge (paiement réussi ou mis à jour)
- */
-async function handleChargeUpdate(session: Stripe.Charge, eventType: string) {
-    console.log(
-        `💰 Charge ${eventType === "charge.succeeded" ? "réussie" : "mise à jour"}: ${session.id}`
-    );
-
-    // 🔥 Ajoutez votre logique de gestion des paiements
-}
-/**
- * Gère la création d'une intention de paiement (payment_intent.created)
- */
-async function handlePaymentIntentCreated(session: Stripe.PaymentIntent) {
-    console.log(
-        `🔄 Intention de paiement créée: ${session.id} - Montant: ${session.amount}`
-    );
-
-    // 🔥 Exemple: Stocker cette intention dans la base de données
-    // await savePaymentIntentToDB(session.id, session.amount, session.currency, "pending");
 }
