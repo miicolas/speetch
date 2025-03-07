@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import db from "@/db";
-import { arrayContains, eq, ilike } from "drizzle-orm";
+import { ilike } from "drizzle-orm";
 import { stripeSessionPayment } from "@/db/stripe-schema";
 
 export async function GET(req: NextRequest) {
@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ status: "pending" });
         }
     } catch (error) {
+        console.error("Erreur lors de la vérification du paiement:", error);
         return NextResponse.json(
             { status: "error", message: "Erreur de vérification" },
             { status: 500 }

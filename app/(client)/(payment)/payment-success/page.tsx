@@ -26,10 +26,6 @@ export default function PaymentSuccess() {
     const [status, setStatus] = useState<"loading" | "success" | "error">(
         "loading"
     );
-    const [message, setMessage] = useState<string>(
-        "Vérification du paiement en cours..."
-    );
-    const [transactionDetails, setTransactionDetails] = useState<any>(null);
 
     useEffect(() => {
         const checkPayment = async () => {
@@ -38,9 +34,7 @@ export default function PaymentSuccess() {
 
             if (!sessionId) {
                 setStatus("error");
-                setMessage(
-                    "Session invalide. Impossible de vérifier votre paiement."
-                );
+
                 return;
             }
 
@@ -54,13 +48,8 @@ export default function PaymentSuccess() {
 
                 if (data.status === "paid") {
                     setStatus("success");
-                    setMessage("Votre paiement a été confirmé avec succès !");
-                    setTransactionDetails(data);
                 } else {
                     setStatus("error");
-                    setMessage(
-                        "Le paiement n'a pas pu être confirmé. Veuillez réessayer."
-                    );
                 }
             } catch (error) {
                 console.error(
@@ -68,18 +57,13 @@ export default function PaymentSuccess() {
                     error
                 );
                 setStatus("error");
-                setMessage(
-                    "Une erreur est survenue lors de la vérification du paiement."
-                );
             }
         };
-
         checkPayment();
     }, []);
 
     const handleRetry = () => {
         setStatus("loading");
-        setMessage("Nouvelle vérification en cours...");
         window.location.reload();
     };
 
@@ -142,7 +126,6 @@ export default function PaymentSuccess() {
                                   : "Paiement échoué"}
                         </CardTitle>
                         <CardDescription className="pb-4">
-                        
                             {status === "loading"
                                 ? "Merci de patienter quelques instants"
                                 : status === "success"
