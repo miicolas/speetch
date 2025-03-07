@@ -9,10 +9,6 @@ export default function LinksPayment({
 }: {
     linksPayment: { url: string, status: string }[];
 }) {
-
-    console.log(linksPayment);
-
-
     return (
         <div>
             <h1>Links Payment</h1>
