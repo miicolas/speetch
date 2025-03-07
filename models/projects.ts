@@ -49,7 +49,7 @@ export class Projects {
                 paymentStatus: payment_status,
                 paymentMethod: payment_method,
                 clientId: client_id,
-                endDate: end_date,
+                endDate: end_date.toISOString(),
                 userId: userId,
             })
             .execute();
