@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@better-auth/stripe':
+        specifier: ^1.2.3
+        version: 1.2.3(typescript@5.7.2)
       '@hookform/resolvers':
         specifier: ^4.1.2
         version: 4.1.2(react-hook-form@7.54.2(react@19.0.0))
@@ -183,6 +186,9 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@better-auth/stripe@1.2.3':
+    resolution: {integrity: sha512-bXXH9rsPKPEJ6sNanqPuH1pqHgXwQsfW5Sy6/heaQoPpI9p2Ah3/5AocTdN3zgdduDMzNRdTR1mshcsLjN2e7w==}
 
   '@better-auth/utils@0.2.3':
     resolution: {integrity: sha512-Ap1GaSmo6JYhJhxJOpUB0HobkKPTNzfta+bLV89HfpyCAHN7p8ntCrmNFHNAVD0F6v0mywFVEUg1FUhNCc81Rw==}
@@ -3496,6 +3502,13 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
+
+  '@better-auth/stripe@1.2.3(typescript@5.7.2)':
+    dependencies:
+      better-auth: 1.2.3(typescript@5.7.2)
+      zod: 3.24.2
+    transitivePeerDependencies:
+      - typescript
 
   '@better-auth/utils@0.2.3':
     dependencies:

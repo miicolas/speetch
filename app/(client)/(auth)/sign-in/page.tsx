@@ -14,7 +14,7 @@ export default function SignIn() {
                 provider: provider,
                 callbackURL: `/dashboard`,
                 errorCallbackURL: `/sign-in`,
-                newUserCallbackURL: `/api/auth/set-member-role`,
+                newUserCallbackURL: `/pricing`,
             });
         } catch (error) {
             console.error("Erreur d'authentification:", error);

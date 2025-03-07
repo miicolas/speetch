@@ -13,7 +13,7 @@ export default async function MemberDashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getProtectedServerSession(["member", "admin"]);
+    const session = await getProtectedServerSession(["basic", "pro", "enterprise", "admin"]);
 
     const stripeAccount = await db
         .select({ stripeAccountId: user.stripeAccountId })

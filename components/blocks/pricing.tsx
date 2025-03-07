@@ -148,31 +148,18 @@ const PricingCard = ({
                 selectedPricing,
             });
 
-            const response = await fetch("/api/stripe/create-subscription", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    titlePlan,
-                    billingCycle: selectedPricing,
-                }),
+            const { error } = await authClient.subscription.upgrade({
+                plan: titlePlan,
+                annual: selectedPricing === "yearly",
+                successUrl: "/api/auth/set-member-role?plan=" + titlePlan,
+                cancelUrl: "/pricing",
             });
-
-            const data = await response.json();
-            console.log("Réponse de l'API:", data);
-
-            if (data.status === "success" && data.url) {
-                console.log("Redirection vers:", data.url);
-                window.location.href = data.url;
-            } else if (data.redirectTo) {
-                console.log("Redirection vers:", data.redirectTo);
-                window.location.href = data.redirectTo;
-            } else {
-                toast.error("Erreur lors de la création de l'abonnement", {
-                    description: data.error || "Veuillez réessayer plus tard.",
-                });
+            if(error) {
+                alert(error.message);
             }
+            
+            
+            
         } catch (error) {
             console.log(error);
             toast.error("Erreur de connexion", {

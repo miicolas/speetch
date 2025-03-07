@@ -9,6 +9,7 @@ export interface Session {
         userAgent: string;
         userId: string;
         impersonatedBy: string | null;
+        stripeCustomerId: string | null;
     };
     user: {
         id: string;

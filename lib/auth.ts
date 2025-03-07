@@ -1,8 +1,12 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import db from "@/db";
-import { user, session, account, verification } from "@/db/auth-schema";
+import { user, session, account, verification, subscription } from "@/db/auth-schema";
 import { admin } from "better-auth/plugins";
+import { stripe } from "@better-auth/stripe"
+import Stripe from "stripe";
+
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -12,18 +16,37 @@ export const auth = betterAuth({
             session,
             account,
             verification,
+            subscription,
         },
     }),
-    plugins: [admin()],
+    plugins: [
+        admin(),
+        stripe({
+            stripeClient,
+            stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+            createCustomerOnSignUp: true,
+            subscription: {
+                enabled: true,
+                plans: [
+                    {
+                        name: "basic", 
+                        priceId: "price_1QzDtuE8GWE0lB6bnk1I9SX3", 
+                        annualDiscountPriceId: "price_1R01XkE8GWE0lB6bOnqblZMR",
+                    },
+                ]
+            }
+             
+        }),
+    ],
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID! as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
         },
-        google: { 
-            clientId: process.env.GOOGLE_CLIENT_ID as string, 
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
-        }, 
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+        },
     },
     session: {
         expiresIn: 60 * 60 * 24 * 7,

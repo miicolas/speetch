@@ -8,6 +8,13 @@
       "when": 1741083167860,
       "tag": "0000_left_monster_badoon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1741356923047,
+      "tag": "0001_grey_sentinels",
+      "breakpoints": true
     }
   ]
 }

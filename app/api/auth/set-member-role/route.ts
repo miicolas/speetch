@@ -6,6 +6,8 @@ import { getServerSession } from "@/lib/server-session";
 
 export async function GET(req: NextRequest) {
     try {
+
+        const plan = req.nextUrl.searchParams.get("plan");
         const sessionUser = await getServerSession()
 
         const session_token = sessionUser?.session?.token;
@@ -58,13 +60,13 @@ export async function GET(req: NextRequest) {
         
         await db
             .update(user)
-            .set({ role: "member" })
+            .set({ role: plan })
             .where(eq(user.id, userId));
 
 
-        return NextResponse.redirect(new URL(`${process.env.BETTER_AUTH_URL}/dashboard/account-stripe`, req.url));
+        return NextResponse.redirect(new URL(`${process.env.BETTER_AUTH_URL}`, req.url));
     } catch (error) {
         console.error("Erreur lors de l'attribution du rôle:", error);
-        return NextResponse.redirect(new URL(`${process.env.BETTER_AUTH_URL}/dashboard/account-stripe`, req.url));
+        return NextResponse.redirect(new URL(`${process.env.BETTER_AUTH_URL}`, req.url));
     }
 }

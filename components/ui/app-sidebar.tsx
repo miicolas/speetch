@@ -6,8 +6,6 @@ import {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
-    SidebarMenuSubItem,
-    SidebarMenuSub,
 } from "@/components/ui/sidebar";
 import {
     DropdownMenu,
@@ -17,11 +15,6 @@ import {
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import {
-    Collapsible,
-    CollapsibleTrigger,
-    CollapsibleContent,
-} from "@/components/ui/collapsible";
 
 import {
     User2,
