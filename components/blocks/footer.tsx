@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="bg-background py-12">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex flex-col items-center">
-                    <TextHoverEffect text="Speetch" />
+                    <TextHoverEffect text="Speetly" />
                     <nav className="mb-8 flex flex-wrap justify-center gap-6">
                         <Link href="#" className="hover:text-primary">
                             Home
