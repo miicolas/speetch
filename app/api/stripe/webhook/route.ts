@@ -64,9 +64,11 @@ export async function POST(req: NextRequest) {
         if (event.type === "checkout.session.completed") {
             const session = event.data.object;
             const stripeSessionId = session.id;
+            const userId = session.metadata?.userId;
+
             const paymentStatus = session.payment_status;
 
-            console.log(stripeSessionId, paymentStatus, "update status");
+            console.log(stripeSessionId, paymentStatus, userId, "update status");
 
         } else if (event.type === "customer.subscription.updated") {
             const session = event.data.object;

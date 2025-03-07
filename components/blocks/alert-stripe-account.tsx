@@ -5,7 +5,7 @@ import { AlertCircle } from "lucide-react";
 
 export default function AlertStripeAccount() {
     return (
-        <Alert className="w-full flex items-center justify-between m-2">
+        <Alert className="w-full flex items-center justify-between my-2">
             <AlertTitle>Vous n'avez pas de compte Stripe</AlertTitle>
             <AlertDescription> 
                 <Button variant="outline" asChild className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
