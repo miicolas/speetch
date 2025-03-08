@@ -13,10 +13,10 @@ export default async function ClientsProject() {
     return (
         <div className="flex flex-col py-12 gap-4">
             <div className="flex justify-between items-center">
-                <h1>Projects</h1>
+                <h1>Clients</h1>
                 <Button asChild>
                     <Link href="/dashboard/client/create">
-                        Create Project
+                        Create Client
                     </Link>
                 </Button>
             </div>
