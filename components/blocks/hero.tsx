@@ -21,7 +21,7 @@ export default function Hero() {
             <Shapes className="h-5 p-1" />
             Introducing Speech.
             <Link
-              href="/products/dicons"
+              href="#features"
               rel="noreferrer"
               className="hover:text-ali ml-1 flex items-center font-semibold"
             >

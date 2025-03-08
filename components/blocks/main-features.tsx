@@ -9,7 +9,7 @@ import { Feature } from "@/lib/types/features-type";
 
 export default function MainFeatures() {
   return (
-    <section className="py-10 flex flex-col gap-12 px-8 md:px-0">
+    <section className="py-10 flex flex-col gap-4 px-8 md:px-0 mt-16" id="features">
       <HeaderMainFeatures />
       <FeaturesMainFeatures />
     </section>
@@ -20,7 +20,6 @@ const HeaderMainFeatures = () => {
   return (
     <div className="text-left flex flex-col gap-2">
       <h2 className="text-4xl font-bold">What is Speetch?</h2>
-      
     </div>
   );
 };
@@ -72,7 +71,7 @@ const FeatureSteps: React.FC<{ features: Feature[] }> = ({ features }) => {
   }, [progress, features.length]);
 
   return (
-    <div className="mx-auto w-full my-12">
+    <div className="mx-auto w-full my-12 mt-20">
       <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-10">
         <div className="order-2 md:order-1 space-y-8">
           {features.map((feature, index) => (
