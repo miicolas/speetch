@@ -40,7 +40,7 @@ export const FeatureCard = ({
     return (
         <div
             className={cn(
-                "row-span-1 group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4 relative",
+                "row-span-2 group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4 relative",
                 className,
                 disabled && "opacity-50 cursor-not-allowed"
             )}
