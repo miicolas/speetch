@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
         const session = await stripe.checkout.sessions.retrieve(sessionId);
 
         if (session.payment_status === "unpaid") {
-            console.log("Paiement non confirmé");
+            
             return NextResponse.json({ status: "pending" });
         }
 
@@ -30,15 +30,12 @@ export async function GET(req: NextRequest) {
             .where(ilike(stripeSessionPayment.url, `%${sessionId}%`))
             .returning();
         if (paymentPaid.length > 0) {
-            console.log("Paiement déjà confirmé");
             return NextResponse.json({ status: "paid" });
         }
 
         if (session.payment_status === "paid") {
-            console.log("Paiement confirmé");
             return NextResponse.json({ status: "paid" });
         } else {
-            console.log("Paiement non confirmé");
             return NextResponse.json({ status: "pending" });
         }
     } catch (error) {

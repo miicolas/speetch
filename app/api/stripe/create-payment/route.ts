@@ -36,9 +36,12 @@ export async function POST(req: NextRequest) {
                     },
                 ],
                 mode: "payment",
-                metadata: { userId: userId, freelancerStripeId: stripeAccountId },
+                metadata: {
+                    userId: userId,
+                    freelancerStripeId: stripeAccountId,
+                },
                 success_url: `${process.env.BETTER_AUTH_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-                cancel_url: `${process.env.BETTER_AUTH_URL}/payment-cancel?session_id={CHECKOUT_SESSION_ID}`, 
+                cancel_url: `${process.env.BETTER_AUTH_URL}/payment-cancel?session_id={CHECKOUT_SESSION_ID}`,
                 payment_intent_data: {
                     transfer_data: {
                         destination: stripeAccountId,
