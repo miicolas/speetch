@@ -18,7 +18,7 @@ export default function ContactPage() {
                     <div className="grid md:grid-cols-2 gap-6 mt-6">
                         <div className="space-y-3">
                             <h3 className="text-lg font-medium">By Email</h3>
-                            <p>support@speetly.com</p>
+                            <p>nicolas@speetly.com</p>
                             <p className="text-sm text-gray-500">
                                 Response within 24-48 business hours
                             </p>

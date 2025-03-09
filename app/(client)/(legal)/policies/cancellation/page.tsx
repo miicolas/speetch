@@ -29,14 +29,7 @@ export default function CancellationPage() {
           <div>
             <h3 className="text-lg font-medium">Annual Subscriptions</h3>
             <p>
-              Annual subscriptions can be canceled with a partial refund calculated on a prorated basis, minus a 20% administrative fee. Please refer to our <a href="/policies/refunds" className="text-indigo-600 hover:underline">Refund Policy</a> for more details.
-            </p>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium">Trial Period</h3>
-            <p>
-              If you cancel during the free trial period, no charges will be made to your account.
+              Annual subscriptions can't be canceled. You will continue to have access to our services until the end of the current billing period.
             </p>
           </div>
         </div>
@@ -70,7 +63,7 @@ export default function CancellationPage() {
         <ol className="list-decimal pl-6 space-y-3">
           <li>Log in to your account and navigate to "Subscription Settings" in your account dashboard.</li>
           <li>Click on the "Cancel Subscription" button and follow the prompts to confirm your cancellation.</li>
-          <li>Alternatively, contact our support team at support@speetly.com with your account details.</li>
+          <li>Alternatively, contact our support team at nicolas@speetly.com with your account details.</li>
           <li>Enterprise customers should contact their account manager directly.</li>
         </ol>
         <p className="mt-4">
