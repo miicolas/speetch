@@ -40,7 +40,7 @@ export default function FormPayment({ stripeAccountId, userId }: { stripeAccount
       });
 
       const data = await response.json();
-      console.log(data);
+    
       if (data.status === "success") {
         form.reset();
         router.refresh();

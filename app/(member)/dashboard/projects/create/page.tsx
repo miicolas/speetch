@@ -6,7 +6,7 @@ import { Client } from "@/lib/types/client-type";
 export default async function CreateProjectPage() {
     const session = await getServerSession();
 
-    const getClient = await getClients({ userId: session?.user.id });    
+    const getClient = await getClients({ userId: session?.user.id });
 
     return (
         <div className="flex flex-col py-12 gap-4">
