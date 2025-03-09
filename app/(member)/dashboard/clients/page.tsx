@@ -15,7 +15,7 @@ export default async function ClientsProject() {
             <div className="flex justify-between items-center">
                 <h1>Clients</h1>
                 <Button asChild>
-                    <Link href="/dashboard/client/create">
+                    <Link href="/dashboard/clients/create">
                         Create Client
                     </Link>
                 </Button>
