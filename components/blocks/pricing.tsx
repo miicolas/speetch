@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-import { motion, AnimatePresence } from "framer-motion";
-import { NumberTicker } from "../ui/number-ticker";
-import { CheckIcon } from "lucide-react";
-import { toast } from "sonner";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Shield, Zap, Star, Users } from "lucide-react";
+import PricingCard from "@/components/pricing-card";
 import { authClient } from "@/lib/auth-client";
 import { Session } from "@/lib/types/auth-type";
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 
 const pricingCards = [
     {
         title: "Basic",
         price: "5.99",
-        description: "For personal use",
+        priceYearly: "49.99",
+        description: "Perfect for freelancers just starting out",
         features: [
             "Smart Automation & AI",
             "Ultra-flexible Payment Solution",
@@ -23,11 +22,15 @@ const pricingCards = [
             "Client Follow-up",
         ],
         typePricing: "month",
+        icon: <Zap className="h-5 w-5" />,
+        color: "from-blue-500 to-indigo-600",
+        popular: false,
     },
     {
         title: "Pro",
         price: "9.99",
-        description: "For professional use",
+        priceYearly: "79.99",
+        description: "For established freelancers with growing business",
         features: [
             "Smart Automation & AI",
             "Ultra-flexible Payment Solution",
@@ -38,11 +41,15 @@ const pricingCards = [
             "Client Follow-up",
         ],
         typePricing: "month",
+        icon: <Star className="h-5 w-5" />,
+        color: "from-purple-500 to-pink-600",
+        popular: true,
     },
     {
         title: "Enterprise",
         price: "19.99",
-        description: "For enterprise use",
+        priceYearly: "149.99",
+        description: "For agencies and multi-freelancer teams",
         features: [
             "Smart Automation & AI",
             "Ultra-flexible Payment Solution",
@@ -54,12 +61,17 @@ const pricingCards = [
             "Multiple Users",
         ],
         typePricing: "month",
+        icon: <Users className="h-5 w-5" />,
+        color: "from-amber-500 to-orange-600",
+        popular: false,
     },
 ];
 
 export default function Pricing() {
     const [selectedPricing, setSelectedPricing] = useState("monthly");
     const [session, setSession] = useState<Session | null>(null);
+    const containerRef = useRef(null);
+    const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
     useEffect(() => {
         const fetchSession = async () => {
@@ -70,160 +82,137 @@ export default function Pricing() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-8 py-12">
-            <h2 className="text-4xl font-bold text-center mt-10">
-                Simple Pricing for Simple Solutions
-            </h2>
-            <p className="text-center text-neutral-500">
-                Choose the plan that&apos;s right for you. No hidden fees, no
-                surprises.
-            </p>
-            <div className="flex flex-row gap-4 justify-center items-center border border-neutral-200 w-fit mx-auto rounded-lg p-2">
-                <Button
-                    variant="outline"
-                    onClick={() => setSelectedPricing("yearly")}
-                    className={
-                        selectedPricing === "yearly" ? "bg-neutral-200" : ""
+        <section
+            className="flex flex-col gap-8 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-24"
+            ref={containerRef}
+        >
+            <motion.div
+                className="text-center space-y-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                }
+                transition={{ duration: 0.5 }}
+            >
+                <motion.span
+                    className="inline-block text-sm font-medium text-indigo-600 dark:text-indigo-400 px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 rounded-full"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={
+                        isInView
+                            ? { opacity: 1, scale: 1 }
+                            : { opacity: 0, scale: 0.8 }
                     }
+                    transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                    Yearly
-                </Button>
-                <Button
-                    variant="outline"
-                    onClick={() => setSelectedPricing("monthly")}
-                    className={
-                        selectedPricing === "monthly" ? "bg-neutral-200" : ""
+                    Pricing Plans
+                </motion.span>
+                <motion.h2
+                    className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={
+                        isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                     }
+                    transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    Monthly
-                </Button>
-            </div>
+                    Simple Pricing for{" "}
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+                        Powerful Tools
+                    </span>
+                </motion.h2>
+                <motion.p
+                    className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-base sm:text-lg"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={
+                        isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                    }
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                    Choose the plan that's right for you.
+                </motion.p>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
-                {pricingCards.map((card) => (
-                    <PricingCard
+            <motion.div
+                className="flex flex-row gap-2 justify-center items-center border border-neutral-200 dark:border-neutral-800 w-fit mx-auto rounded-full p-1.5 bg-white dark:bg-neutral-900 shadow-sm"
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                }
+                transition={{ duration: 0.5, delay: 0.4 }}
+            >
+                <PricingToggle
+                    selectedPricing={selectedPricing}
+                    setSelectedPricing={setSelectedPricing}
+                />
+
+                
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mx-auto w-full mt-8">
+                {pricingCards.map((card, index) => (
+                    <motion.div
                         key={card.title}
-                        {...card}
-                        selectedPricing={selectedPricing}
-                        session={session}
-                    />
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={
+                            isInView
+                                ? { opacity: 1, y: 0 }
+                                : { opacity: 0, y: 30 }
+                        }
+                        transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                    >
+                        <PricingCard
+                            {...card}
+                            selectedPricing={selectedPricing}
+                            session={session}
+                        />
+                    </motion.div>
                 ))}
             </div>
-        </div>
+
+            <motion.div
+                className="mt-12 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                }
+                transition={{ duration: 0.5, delay: 0.7 }}
+            >
+                <p className="text-sm text-neutral-500 flex items-center justify-center gap-2">
+                    <Shield className="h-4 w-4 text-green-500" />
+                    All plans include secure payment processing and 24/7 support
+                </p>
+            </motion.div>
+        </section>
     );
 }
 
-const PricingCard = ({
-    title,
-    price,
-    description,
-    features,
+const PricingToggle = ({
     selectedPricing,
-    session,
+    setSelectedPricing,
 }: {
-    title: string;
-    price: string;
-    description: string;
-    features: string[];
     selectedPricing: string;
-    session: Session | null;
+    setSelectedPricing: (pricing: string) => void;
 }) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const titlePlan = title.toLowerCase();
-
-    const handleSubscription = async () => {
-        setIsLoading(true);
-        try {
-            if (!session) {
-                toast.info("Connexion requise", {
-                    description: "Vous devez être connecté pour vous abonner",
-                });
-                window.location.href = "/sign-in";
-                setIsLoading(false);
-                return;
-            }
-
-            console.log("Envoi de la demande d'abonnement:", {
-                titlePlan,
-                selectedPricing,
-            });
-
-            const { error } = await authClient.subscription.upgrade({
-                plan: titlePlan,
-                annual: selectedPricing === "yearly",
-                successUrl: "/api/auth/set-member-role?plan=" + titlePlan,
-                cancelUrl: "/pricing",
-            });
-            if(error) {
-                alert(error.message);
-            }
-            
-            
-            
-        } catch (error) {
-            console.log(error);
-            toast.error("Erreur de connexion", {
-                description: "Veuillez réessayer plus tard.",
-            });
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
     return (
-        <div
-            className={`flex flex-col p-4 border border-neutral-200 min-h-[500px] w-full md:w-[300px] gap-4 bg-neutral-50 justify-between max-w-md ${
-                title === "Basic" ? "min-h-[700px]" : ""
-            }`}
-        >
-            <div className="space-y-4">
-                <h3 className="text-lg font-bold">{title}</h3>
-                <div className="h-16 relative">
-                    <AnimatePresence mode="wait">
-                        <motion.p
-                            key={selectedPricing}
-                            className="text-2xl font-bold absolute"
-                            transition={{ duration: 0.3 }}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        >
-                            <span className="text-4xl">
-                                {price === "0" ? (
-                                    "0"
-                                ) : selectedPricing === "yearly" ? (
-                                    <NumberTicker value={Number(price) * 10} />
-                                ) : (
-                                    <NumberTicker value={Number(price)} />
-                                )}
-                            </span>
-                            <span className="text-sm text-neutral-500">
-                                /
-                                {selectedPricing === "yearly"
-                                    ? "year"
-                                    : "month"}
-                            </span>
-                        </motion.p>
-                    </AnimatePresence>
-                </div>
-                <p className="text-sm text-neutral-500">{description}</p>
-                <Separator />
-                <ul className="list-none space-y-2">
-                    {features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                            <CheckIcon className="w-4 h-4 text-green-500" />
-                            {feature}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <Button
-                className={`mt-auto bg-indigo-500 hover:bg-indigo-600 transition-all duration-400`}
-                onClick={handleSubscription}
-                disabled={isLoading}
+        <div className="relative flex items-center">
+            <Tabs
+                defaultValue={selectedPricing}
+                onValueChange={setSelectedPricing}
             >
-                {isLoading ? "Chargement..." : "S'abonner"}
-            </Button>
+                <TabsList className="rounded-full" aria-label="Pricing Plans">
+                    <TabsTrigger
+                        value="monthly"
+                        className="rounded-full data-[state=active]:text-white "
+                    >
+                        Monthly
+                    </TabsTrigger>
+                    <TabsTrigger
+                        value="yearly"
+                        className="rounded-full data-[state=active]:text-white "
+                    >
+                        Yearly
+                    </TabsTrigger>
+                </TabsList>
+            </Tabs>
         </div>
     );
 };

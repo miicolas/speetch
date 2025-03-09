@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   value: number;
   direction?: "up" | "down";
-  delay?: number; // delay in s
+  delay?: number; 
   decimalPlaces?: number;
 }
 
@@ -17,7 +17,7 @@ export function NumberTicker({
   direction = "up",
   delay = 0,
   className,
-  decimalPlaces = 0,
+  decimalPlaces = 2,
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null);

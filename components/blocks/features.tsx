@@ -835,26 +835,6 @@ const SkeletonThree = () => {
                 </div>
             </motion.div>
 
-            <motion.div
-                className="absolute right-4 bottom-4 h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center cursor-pointer shadow-md"
-                whileHover={{ scale: 1.1, backgroundColor: "#4338ca" }}
-                whileTap={{ scale: 0.95 }}
-            >
-                <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75 7H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H8Z"
-                        fill="white"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                    ></path>
-                </svg>
-            </motion.div>
         </motion.div>
     );
 };
