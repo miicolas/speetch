@@ -269,7 +269,7 @@ const EnhancedFeatureSteps: React.FC<{ features: Feature[] }> = ({
                 </div>
 
                 <div className="order-1 lg:order-2 relative">
-                    <div className="aspect-video h-[250px] sm:h-[300px] lg:h-[350px] relative overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                    <div className="aspect-video w-full h-full relative overflow-hidden border border-neutral-200 dark:border-neutral-800 shadow-lg">
                         <AnimatePresence mode="wait">
                             {features.map(
                                 (feature, index) =>
@@ -325,8 +325,9 @@ const EnhancedFeatureSteps: React.FC<{ features: Feature[] }> = ({
                                                 src={feature.image}
                                                 alt={feature.title}
                                                 className="w-full h-full object-cover"
+                                                sizes="100vw"
                                                 fill
-                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                                    
                                             />
 
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-24 z-20 flex items-end p-4">

@@ -10,7 +10,7 @@ export const DashboardCard = ({ itemVariants }: DashboardCardProps) => {
     return (
         <motion.div
             variants={itemVariants}
-            className="lg:col-span-5 flex items-center justify-center"
+            className="lg:col-span-5 items-center justify-center hidden lg:flex"
         >
             <motion.div
                 className="relative w-full max-w-md p-1 border border-indigo-200 dark:border-indigo-800/60 bg-white dark:bg-neutral-900 rounded-2xl"

@@ -37,29 +37,29 @@ export default function CallToAction() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={containerVariants}
-            className="relative mx-auto max-w-5xl px-4 py-16 sm:py-24 lg:py-28 overflow-hidden"
+            className="relative mx-auto max-w-5xl px-4 py-16 sm:py-6 lg:py-28 overflow-hidden"
         >
-            <div className="relative bg-white dark:bg-neutral-900p-8 sm:p-10 lg:p-16 border border-neutral-200 dark:border-neutral-800 shadow-xl z-10 ">
-              <Plus 
-                strokeWidth={1}
-                className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
-              />
-              <Plus
-                strokeWidth={1}
-                className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
+            <div className="relative bg-white dark:bg-neutral-900 p-8 sm:p-10 lg:p-16 border border-neutral-200 dark:border-neutral-800 shadow-xl z-10 ">
+                <Plus
+                    strokeWidth={1}
+                    className="text-ali absolute -left-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                 />
                 <Plus
-                strokeWidth={1}
-                className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
+                    strokeWidth={1}
+                    className="text-ali absolute -bottom-5 -left-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                 />
                 <Plus
-                strokeWidth={1}
-                className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
+                    strokeWidth={1}
+                    className="text-ali absolute -right-5 -top-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
+                />
+                <Plus
+                    strokeWidth={1}
+                    className="text-ali absolute -bottom-5 -right-5 h-10 w-10 z-10 text-indigo-500 animate-pulse"
                 />
                 <div className="max-w-2xl mx-auto text-center">
                     <motion.div
                         variants={itemVariants}
-                        className="inline-block bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-full px-4 py-1 mb-4"
+                        className="inline-block bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-full px-4 py-1 mb-4 p-4"
                     >
                         <span className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
                             Simplify your administrative tasks

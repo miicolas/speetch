@@ -16,7 +16,6 @@ export default function Hero() {
         renderCanvas();
     }, []);
 
-    // Animation variants
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -51,6 +50,7 @@ export default function Hero() {
 
                 <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
                     <HeroContent itemVariants={itemVariants} />
+                    
                     <DashboardCard itemVariants={itemVariants} />
                 </div>
 

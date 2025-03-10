@@ -83,7 +83,7 @@ export default function Pricing() {
 
     return (
         <section
-            className="flex flex-col gap-8 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-24"
+            className="flex flex-col gap-8 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-12 lg:my-24"
             ref={containerRef}
         >
             <motion.div
