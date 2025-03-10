@@ -1,11 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import db from '@/db';
-import { projects } from '@/db/project-schema';
-import { eq } from 'drizzle-orm';
 import { FormResponse } from '@/lib/types/form-type';
-import { Projects } from '@/models/projects';
 import { Clients } from '@/models/clients';
 
 
@@ -24,6 +20,8 @@ export async function getClients(body: z.infer<typeof bodySchema>): Promise<Form
                 errors: validatedBody.error.issues,
             };
         }
+
+       
 
         const { userId } = validatedBody.data;
 

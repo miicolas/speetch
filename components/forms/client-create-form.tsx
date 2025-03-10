@@ -46,7 +46,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-
+import { addClient } from "@/actions/(member)/add-client/action";
 const countries = [
     { value: "fr", label: "France" },
     { value: "us", label: "United States" },
@@ -190,11 +190,32 @@ export function CreateClientForm() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsSubmitting(true);
         try {
-            console.log(values);
 
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            const addClientAction = await addClient({
+                name: values.name,
+                type: values.type,
+                email: values.email,
+                phone: values.phone,
+                address: values.address,
+                state: values.state,
+                city: values.city,
+                zip: values.zip,
+                country: values.country,
+                website: values.website || "",
+                notes: values.notes || "",
+                vatNumber: values.vatNumber || "",
+                contactName: values.contactName || "",
+                contactEmail: values.contactEmail || "",
+                contactPhone: values.contactPhone || "",
+                contactPosition: values.contactPosition || "",
+            });
 
-            toast.success("Client créé avec succès.");
+            if (addClientAction.status === "success") {
+                toast.success("Client créé avec succès.");
+                form.reset();
+            } else {
+                toast.error("Une erreur est survenue lors de la création du client.");
+            }
 
             form.reset();
         } catch (error) {
@@ -770,10 +791,10 @@ export function CreateClientForm() {
                                 ) : (
                                     <Button
                                         type="submit"
-                                        disabled={
+                                        /* disabled={
                                             isSubmitting ||
                                             !form.formState.isValid
-                                        }
+                                        } */
                                         className="min-w-32"
                                     >
                                         {isSubmitting ? (

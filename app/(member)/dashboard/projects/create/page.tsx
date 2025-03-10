@@ -8,6 +8,8 @@ export default async function CreateProjectPage() {
 
     const getClient = await getClients({ userId: session?.user.id });
 
+    console.log(getClient);
+
     return (
         <div className="flex flex-col py-12 gap-4">
             <CreateProjectForm clients={getClient.content as Client[]} />

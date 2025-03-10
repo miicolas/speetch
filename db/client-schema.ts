@@ -1,7 +1,9 @@
 import { pgTable, varchar, timestamp, text } from "drizzle-orm/pg-core";
+import { user } from "./auth-schema";
 
 export const client = pgTable("client", {
     id: varchar("id", { length: 36 }).primaryKey(),
+    userId: varchar("user_id", { length: 36 }).references(() => user.id),
     name: varchar("name", { length: 255 }).notNull(),
     type: varchar("type", { length: 255 }).notNull(),
     email: varchar("email", { length: 255 }).notNull(),

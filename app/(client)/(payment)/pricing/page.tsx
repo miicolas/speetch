@@ -9,8 +9,6 @@ export default async function PricingPage() {
         headers: await headers(),
     });
 
-    console.log(session?.user.role); // entreprise
-
     if (
         session?.user?.role == "basic" ||
         session?.user?.role == "pro" ||
