@@ -10,4 +10,9 @@ export interface Project {
     clientId: string;
     endDate: Date;
     userId: string;
+    client?: {
+        name: string;
+    } | null;
+    createdAt: Date;
+    updatedAt: Date;
 }

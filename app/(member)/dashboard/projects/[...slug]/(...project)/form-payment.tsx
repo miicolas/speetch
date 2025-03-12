@@ -13,7 +13,7 @@ const formSchema = z.object({
   description: z.string().min(3, "La description doit contenir au moins 3 caractères")
 });
 
-export default function FormPayment({ stripeAccountId, userId }: { stripeAccountId: string, userId: string }) {
+export default function FormPayment({ stripeAccountId, userId, projectId }: { stripeAccountId: string, userId: string, projectId: string }) {
 
   const router = useRouter();
 
@@ -35,7 +35,8 @@ export default function FormPayment({ stripeAccountId, userId }: { stripeAccount
           amount: values.price,
           description: values.description,
           stripeAccountId: stripeAccountId,
-          userId: userId
+          userId: userId,
+          projectId: projectId
         })
       });
 

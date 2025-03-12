@@ -25,6 +25,15 @@ export class Projects {
             .execute();
     }
 
+    static async getProject(projectId: string) {
+        console.log(projectId, 'projectId');
+        return await db
+            .select()
+            .from(projects)
+            .where(eq(projects.id, projectId))
+            .execute();
+    }
+
     static async addProject(
         name: string,
         description: string,
@@ -52,6 +61,14 @@ export class Projects {
                 endDate: end_date.toISOString(),
                 userId: userId,
             })
+            .execute();
+    }
+
+    static async updateProject(projectId: string, updateData: any) {
+        return await db
+            .update(projects)
+            .set(updateData)
+            .where(eq(projects.id, projectId))
             .execute();
     }
 }

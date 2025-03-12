@@ -40,6 +40,8 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Client } from "@/lib/types/client-type";
+import { toast } from "sonner";
+import { addProject } from "@/actions/(member)/add-project/action";
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -58,11 +60,12 @@ const formSchema = z.object({
         }),
     status: z.enum(["not_started", "pending", "done", "failed"]),
     end_date: z.date(),
-    client_id: z
-        .string()
-        .includes("No clients found. Please add a client first."),
+    client_id: z.string().min(1, {
+        message: "Client is required.",
+    }),
     payment_date: z.date(),
     payment_method: z.string(),
+    payment_status: z.string().default("pending"),
 });
 
 export function CreateProjectForm({ clients }: { clients: Client[] }) {
@@ -77,11 +80,36 @@ export function CreateProjectForm({ clients }: { clients: Client[] }) {
             client_id: "",
             payment_date: new Date(),
             payment_method: "",
+            payment_status: "pending",
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            const addProjectAction = await addProject({
+                name: values.name,
+                description: values.description,
+                amount: values.amount,
+                status: values.status,
+                end_date: values.end_date,
+                client_id: values.client_id,
+                payment_date: values.payment_date,
+                payment_method: values.payment_method,
+                payment_status: values.payment_status,
+            });
+
+            if (addProjectAction.status === "success") {
+                toast.success("Project created successfully.");
+                form.reset();
+            } else {
+                toast.error("An error occurred while creating the project.");
+            }
+
+            form.reset();
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred while creating the project.");
+        }
     }
 
     return (
@@ -426,10 +454,10 @@ export function CreateProjectForm({ clients }: { clients: Client[] }) {
                             </Button>
                             <Button
                                 type="submit"
-                                disabled={
+                                /* disabled={
                                     form.formState.isSubmitting ||
                                     !form.formState.isValid
-                                }
+                                } */
                                 className={`cursor-pointer ${
                                     form.formState.isSubmitting ||
                                     !form.formState.isValid
