@@ -8,9 +8,11 @@ import { StripeErrorLike } from "@/lib/types/stripe-type";
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { amount, stripeAccountId, description, userId } = body;
+        const { amount, stripeAccountId, description, userId, projectId } = body;
 
-        if (!amount || !stripeAccountId || !description || !userId) {
+        
+
+        if (!amount || !stripeAccountId || !description || !userId || !projectId) {
             return NextResponse.json(
                 {
                     status: "error",
@@ -39,6 +41,7 @@ export async function POST(req: NextRequest) {
                 metadata: {
                     userId: userId,
                     freelancerStripeId: stripeAccountId,
+                    projectId: projectId,
                 },
                 success_url: `${process.env.BETTER_AUTH_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${process.env.BETTER_AUTH_URL}/payment-cancel?session_id={CHECKOUT_SESSION_ID}`,
@@ -68,6 +71,7 @@ export async function POST(req: NextRequest) {
                         userId: userId,
                         url: session.url,
                         status: "pending",
+                        projectId: projectId,
                     },
                 ]);
 
