@@ -32,8 +32,6 @@ export function ProjectAmountUpdate({
         setTempAmount(amount);
     }, [amount]);
 
-    const formattedAmount = amount !== undefined ? `${amount} €` : "Non défini";
-
     const handleAmountChange = async () => {
         if (tempAmount === undefined || tempAmount === null) return;
 

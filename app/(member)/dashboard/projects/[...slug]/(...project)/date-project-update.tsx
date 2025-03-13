@@ -12,7 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { fr } from "date-fns/locale";
-import { format } from "date-fns";
 
 interface ProjectDateUpdateProps {
     currentProjectDate: Date | null;
@@ -28,10 +27,6 @@ export function ProjectDateUpdate({
     );
     const [isUpdating, setIsUpdating] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
-    const formattedDate = date
-        ? format(date, "dd MMMM yyyy", { locale: fr })
-        : "Non définie";
 
     const handleDateChange = async (selectedDate: Date | undefined) => {
         if (!selectedDate) return;

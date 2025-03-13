@@ -69,4 +69,12 @@ export class Clients {
             })
             .execute();
     }
+
+    static async getClient(clientId: string) {
+        return await db
+            .select()
+            .from(client)
+            .where(eq(client.id, clientId))
+            .execute();
+    }
 }

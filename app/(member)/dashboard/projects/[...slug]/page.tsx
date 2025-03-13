@@ -49,6 +49,7 @@ import {
 } from "./(...project)/client-wrappers";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { getClient } from "@/actions/(member)/get-client/action";
 
 export default async function ProjectPage({
     params,
@@ -87,8 +88,14 @@ export default async function ProjectPage({
     }
 
     const p = projectData.content as Project;
+    const clientData = await getClient({ clientId: p.clientId });
 
-    // Fonction pour obtenir les détails du statut
+    const client = clientData?.content
+        ? {
+              ...(clientData.content as { name: string; id: string }),
+          }
+        : null;
+
     const getStatusDetails = (status: string) => {
         switch (status) {
             case "not_started":
@@ -175,7 +182,6 @@ export default async function ProjectPage({
                 </div>
             </div>
 
-            {/* En-tête du projet */}
             <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
                 <div>
                     <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -269,7 +275,6 @@ export default async function ProjectPage({
                                     />
                                 </div>
 
-                                {/* Montant */}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-medium text-muted-foreground">
                                         Project amount
@@ -282,7 +287,6 @@ export default async function ProjectPage({
                                     </div>
                                 </div>
 
-                                {/* Échéance */}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-medium text-muted-foreground">
                                         Project due date
@@ -300,7 +304,6 @@ export default async function ProjectPage({
                                     </div>
                                 </div>
 
-                                {/* Paiement */}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-medium text-muted-foreground">
                                         Payment status
@@ -347,7 +350,6 @@ export default async function ProjectPage({
                         </CardContent>
                     </Card>
 
-                    {/* Historique des activités */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -440,7 +442,7 @@ export default async function ProjectPage({
                             </Card>
                         )}
 
-                    {p.client && (
+                    {client && (
                         <Card>
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
@@ -452,7 +454,7 @@ export default async function ProjectPage({
                                 <div className="space-y-4">
                                     <div>
                                         <h3 className="text-lg font-medium">
-                                            {p.client.name}
+                                            {client.name || "Client inconnu"}
                                         </h3>
                                     </div>
 
@@ -462,7 +464,7 @@ export default async function ProjectPage({
                                         asChild
                                     >
                                         <Link
-                                            href={`/dashboard/clients/${p.clientId}`}
+                                            href={`/dashboard/clients/${client.name}`}
                                         >
                                             <User className="h-4 w-4 mr-2" />
                                             View client file
