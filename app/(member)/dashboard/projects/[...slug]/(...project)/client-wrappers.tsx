@@ -4,6 +4,7 @@ import React from "react";
 import { StatusUpdate } from "./status-update";
 import { PaymentDateUpdate } from "./payment-date-update";
 import { ProjectDateUpdate } from "./date-project-update";
+import { ProjectAmountUpdate } from "./project-amount-update";
 import { useProjectService } from "./project-service";
 
 export function StatusUpdateWrapper({
@@ -64,6 +65,27 @@ export function ProjectDateUpdateWrapper({
     return (
         <ProjectDateUpdate
             currentProjectDate={currentProjectDate}
+            onUpdate={handleUpdate}
+        />
+    );
+}
+
+export function ProjectAmountUpdateWrapper({
+    projectId,
+    currentProjectAmount,
+}: {
+    projectId: string;
+    currentProjectAmount: number | null;
+}) {
+    const { updateProject } = useProjectService();
+
+    const handleUpdate = async (amount: number) => {
+        return await updateProject(projectId, { amount });
+    };
+
+    return (
+        <ProjectAmountUpdate
+            currentProjectAmount={currentProjectAmount}
             onUpdate={handleUpdate}
         />
     );
