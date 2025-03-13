@@ -24,8 +24,7 @@ export function useProjectService() {
     ): Promise<boolean> => {
         setIsLoading(true);
         try {
-            // Notification de début d'action pour un retour visuel immédiat
-            const toastId = toast.loading("Mise à jour en cours...");
+            const toastId = toast.loading("Updating...");
 
             const result = await updateProjectAction({
                 projectId,
@@ -33,15 +32,15 @@ export function useProjectService() {
             });
 
             if (result.status === "success") {
-                toast.success("Projet mis à jour avec succès", { id: toastId });
+                toast.success("Project updated successfully", { id: toastId });
                 return true;
             } else {
-                toast.error(`Échec: ${result.message}`, { id: toastId });
+                toast.error(`Error: ${result.message}`, { id: toastId });
                 return false;
             }
         } catch (error) {
-            toast.error("Erreur lors de la mise à jour");
-            console.error("Erreur détaillée:", error);
+            toast.error("Error during update");
+            console.error("Detailed error:", error);
             return false;
         } finally {
             setIsLoading(false);

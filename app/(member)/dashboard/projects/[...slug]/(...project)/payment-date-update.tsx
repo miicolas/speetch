@@ -43,10 +43,9 @@ export function PaymentDateUpdate({
         try {
             const success = await onUpdate(selectedDate);
             if (success) {
-                toast.success("Date de paiement mise à jour avec succès");
+                toast.success("Payment date updated successfully");
             } else {
-                
-                toast.error("Échec de la mise à jour de la date de paiement");
+                toast.error("Error during update the payment date");
                 setDate(
                     currentPaymentDate
                         ? new Date(currentPaymentDate)
@@ -54,7 +53,7 @@ export function PaymentDateUpdate({
                 );
             }
         } catch (error) {
-            console.error('error', error)
+            console.error("error", error);
             toast.error("Error during update the payment date");
             setDate(
                 currentPaymentDate ? new Date(currentPaymentDate) : undefined
@@ -66,13 +65,6 @@ export function PaymentDateUpdate({
 
     return (
         <div className="flex flex-col space-y-2">
-            <div className="flex items-center">
-                <CalendarIcon className="h-5 w-5 mr-2 text-primary" />
-                <span className="text-lg font-medium mb-2">
-                    {formattedDate}
-                </span>
-            </div>
-
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -84,7 +76,7 @@ export function PaymentDateUpdate({
                         disabled={isUpdating}
                     >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        <span>Modifier la date</span>
+                        <span>Update payment date</span>
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">

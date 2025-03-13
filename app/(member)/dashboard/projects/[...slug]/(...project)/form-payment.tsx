@@ -82,7 +82,7 @@ export default function FormPayment({ stripeAccountId, userId, projectId }: { st
               <FormControl>
                 <Input 
                   {...field} 
-                  placeholder="Description du paiement" 
+                  placeholder="Payment description" 
                 />
               </FormControl>
               <FormMessage />
@@ -90,7 +90,7 @@ export default function FormPayment({ stripeAccountId, userId, projectId }: { st
           )}
         />
         <Button type="submit" >
-          Créer le paiement
+          Create payment
         </Button>
       </form>
     </Form>

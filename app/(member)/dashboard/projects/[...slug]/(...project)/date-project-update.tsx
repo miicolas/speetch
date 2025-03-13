@@ -43,9 +43,9 @@ export function ProjectDateUpdate({
         try {
             const success = await onUpdate(selectedDate);
             if (success) {
-                toast.success("Date de paiement mise à jour avec succès");
+                toast.success("Payment date updated successfully");
             } else {
-                toast.error("Échec de la mise à jour de la date du projet");
+                toast.error("Error during update the project date");
                 setDate(
                     currentProjectDate
                         ? new Date(currentProjectDate)
@@ -65,13 +65,6 @@ export function ProjectDateUpdate({
 
     return (
         <div className="flex flex-col space-y-2">
-            <div className="flex items-center">
-                <CalendarIcon className="h-5 w-5 mr-2 text-primary" />
-                <span className="text-lg font-medium mb-2">
-                    {formattedDate}
-                </span>
-            </div>
-
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -83,7 +76,7 @@ export function ProjectDateUpdate({
                         disabled={isUpdating}
                     >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        <span>Modifier la date</span>
+                        <span>Update project date</span>
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">

@@ -387,38 +387,18 @@ export default async function ProjectPage({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Calendar className="h-5 w-5 text-muted-foreground" />
-                                Payment date
+                                Edit Project
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="flex flex-col gap-4">
                             <PaymentDateUpdateWrapper
                                 projectId={p.id}
                                 currentPaymentDate={p.paymentDate}
                             />
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Calendar className="h-5 w-5 text-muted-foreground" />
-                                Project end date
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
                             <ProjectDateUpdateWrapper
                                 projectId={p.id}
                                 currentProjectDate={p.endDate}
                             />
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Euro className="h-5 w-5 text-muted-foreground" />
-                                Amount
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
                             <ProjectAmountUpdateWrapper
                                 projectId={p.id}
                                 currentProjectAmount={p.amount}

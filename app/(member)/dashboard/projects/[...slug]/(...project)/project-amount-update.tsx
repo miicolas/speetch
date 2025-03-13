@@ -43,17 +43,15 @@ export function ProjectAmountUpdate({
         try {
             const success = await onUpdate(tempAmount);
             if (success) {
-                toast.success("Montant du projet mis à jour avec succès");
+                toast.success("Amount project updated");
                 setAmount(tempAmount);
             } else {
-                toast.error(
-                    "Erreur lors de la mise à jour du montant du projet"
-                );
+                toast.error("Error during update the project amount");
                 setTempAmount(amount);
             }
         } catch (error) {
             console.error("error", error);
-            toast.error("Erreur lors de la mise à jour du montant du projet");
+            toast.error("Error during update the project amount");
             setTempAmount(amount);
         } finally {
             setIsUpdating(false);
@@ -62,13 +60,6 @@ export function ProjectAmountUpdate({
 
     return (
         <div className="flex flex-col space-y-2">
-            <div className="flex items-center">
-                <Euro className="h-5 w-5 mr-2 text-primary" />
-                <span className="text-2xl font-medium mb-2">
-                    {formattedAmount}
-                </span>
-            </div>
-
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -80,7 +71,7 @@ export function ProjectAmountUpdate({
                         disabled={isUpdating}
                     >
                         <Euro className="mr-2 h-4 w-4" />
-                        <span>Modifier le montant</span>
+                        <span>Update amount</span>
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-4" align="start">
@@ -91,7 +82,9 @@ export function ProjectAmountUpdate({
                                 value={tempAmount}
                                 onChange={(e) => {
                                     const value = e.target.value;
-                                    setTempAmount(value === "" ? undefined : Number(value));
+                                    setTempAmount(
+                                        value === "" ? undefined : Number(value)
+                                    );
                                 }}
                                 className="pl-7"
                                 placeholder="0.00"
@@ -104,14 +97,16 @@ export function ProjectAmountUpdate({
                                 onClick={() => setIsOpen(false)}
                                 className="flex-1"
                             >
-                                Annuler
+                                Cancel
                             </Button>
                             <Button
                                 onClick={handleAmountChange}
-                                disabled={isUpdating || tempAmount === undefined}
+                                disabled={
+                                    isUpdating || tempAmount === undefined
+                                }
                                 className="flex-1"
                             >
-                                Confirmer
+                                Confirm
                             </Button>
                         </div>
                     </div>
