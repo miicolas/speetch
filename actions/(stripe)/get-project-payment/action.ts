@@ -2,18 +2,21 @@
 
 import { z } from "zod";
 import db from "@/db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { FormResponse } from "@/lib/types/form-type";
 import { stripeSessionPayment } from "@/db/stripe-schema";
-import { revalidatePath } from "next/cache";
 const bodySchema = z.object({
     userId: z.string(),
+    projectId: z.string().optional(),
 });
 
-export async function getProjectPayment(body: z.infer<typeof bodySchema>): Promise<FormResponse> {
+export async function getProjectPayment(
+    body: z.infer<typeof bodySchema>
+): Promise<FormResponse> {
     try {
         const validatedBody = bodySchema.safeParse(body);
 
+        console.log("validatedBody", validatedBody);
         if (!validatedBody.success) {
             return {
                 status: "error",
@@ -22,7 +25,38 @@ export async function getProjectPayment(body: z.infer<typeof bodySchema>): Promi
             };
         }
 
-        const projectPayment = await db.select().from(stripeSessionPayment).where(eq(stripeSessionPayment.userId, validatedBody.data.userId));
+        let projectPayment;
+
+        console.log(
+            "validatedBody.data.projectId",
+            validatedBody.data.projectId
+        );
+
+        if (validatedBody.data.projectId) {
+            projectPayment = await db
+                .select()
+                .from(stripeSessionPayment)
+                .where(
+                    and(
+                        eq(
+                            stripeSessionPayment.userId,
+                            validatedBody.data.userId
+                        ),
+                        eq(
+                            stripeSessionPayment.projectId,
+                            validatedBody.data.projectId
+                        )
+                    )
+                );
+        } else {
+            console.log("get all project payments");
+            projectPayment = await db
+                .select()
+                .from(stripeSessionPayment)
+                .where(
+                    eq(stripeSessionPayment.userId, validatedBody.data.userId)
+                );
+        }
 
         if (!projectPayment) {
             return {
@@ -30,7 +64,7 @@ export async function getProjectPayment(body: z.infer<typeof bodySchema>): Promi
                 message: "No project payment found",
             };
         }
-        
+
         return {
             status: "success",
             content: projectPayment,
@@ -46,7 +80,7 @@ export async function getProjectPayment(body: z.infer<typeof bodySchema>): Promi
         console.error("Database error:", error);
         return {
             status: "error",
-            message: "Failed to add email to newsletter",
+            message: "Failed to get project payments",
         };
     }
 }

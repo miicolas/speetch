@@ -62,11 +62,12 @@ export default async function ProjectPage({
     const stripeAccountId = (await getStripeAccount({
         userId: session.user.id,
     })) as { content: { stripeAccountId: string }[] };
-    const sessionPayment = (await getProjectPayment({
-        userId: session.user.id,
-    })) as { content: [] };
 
     const projectData = await getProject({ projectId: slug[0] });
+    const sessionPayment = (await getProjectPayment({
+        userId: session.user.id,
+        projectId: slug[0],
+    })) as { content: [] };
 
     if (
         !projectData ||

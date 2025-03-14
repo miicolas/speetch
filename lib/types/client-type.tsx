@@ -1,6 +1,7 @@
 export interface Client {
     id: string;
     name: string;
+    type: string;
     email: string;
     phone: string;
     address: string;
@@ -8,7 +9,13 @@ export interface Client {
     city: string;
     zip: string;
     country: string;
-    website: string;
+    website?: string;
+    notes?: string;
+    vatNumber?: string;
+    contactName?: string;
+    contactEmail?: string;
+    contactPhone?: string;
+    contactPosition?: string;
     createdAt: Date;
     updatedAt: Date;
 }
