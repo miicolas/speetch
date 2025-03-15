@@ -72,6 +72,8 @@ export async function POST(req: NextRequest) {
                         url: session.url,
                         status: "pending",
                         projectId: projectId,
+                        amount: amount,
+                        
                     },
                 ]);
 
@@ -127,8 +129,8 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json(
                     {
                         status: "error",
-                        error: "Stripe Connect non activé",
-                        detail: "Activez Stripe Connect dans votre tableau de bord",
+                        error: "Stripe Connect not activated",
+                        detail: "Activate Stripe Connect in your dashboard",
                     },
                     { status: 400 }
                 );
@@ -137,8 +139,8 @@ export async function POST(req: NextRequest) {
             return NextResponse.json(
                 {
                     status: "error",
-                    error: "Erreur Stripe",
-                    detail: err.message || "Détails non disponibles",
+                    error: "Stripe error",
+                    detail: err.message || "Details not available",
                 },
                 { status: 500 }
             );
