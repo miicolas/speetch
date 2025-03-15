@@ -16,3 +16,13 @@ export interface Project {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface Step {
+    id?: string;
+    name: string;
+    description: string;
+    status: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    projectId?: string;
+}

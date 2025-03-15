@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { findProject } from "@/actions/(member)/find-project/action";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +21,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -38,10 +36,10 @@ interface ProjectResult {
 
 const formSchema = z.object({
     email: z.string().email({
-        message: "Veuillez entrer une adresse email valide.",
+        message: "Please enter a valid email address.",
     }),
     projectName: z.string().min(1, {
-        message: "Veuillez entrer un nom de projet.",
+        message: "Please enter a project name.",
     }),
 });
 
@@ -49,7 +47,6 @@ export default function ProjectSearchForm() {
     const [isSearching, setIsSearching] = useState(false);
     const [searchResults, setSearchResults] = useState<ProjectResult[]>([]);
     const [hasSearched, setHasSearched] = useState(false);
-    const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -73,15 +70,15 @@ export default function ProjectSearchForm() {
                 const projects = result.content as ProjectResult[];
                 setSearchResults(projects);
                 if (projects.length === 0) {
-                    toast.info("Aucun projet trouvé avec ces critères.");
+                    toast.info("No project found with these criteria.");
                 }
             } else {
                 setSearchResults([]);
-                toast.error(result.message || "Aucun projet trouvé.");
+                toast.error(result.message || "No project found.");
             }
         } catch (error) {
-            console.error("Erreur lors de la recherche :", error);
-            toast.error("Erreur lors de la recherche du projet.");
+            console.error("Error searching for project:", error);
+            toast.error("Error searching for project.");
             setSearchResults([]);
         } finally {
             setIsSearching(false);
@@ -110,9 +107,7 @@ export default function ProjectSearchForm() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>
-                                                Email du client
-                                            </FormLabel>
+                                            <FormLabel>Client email</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     placeholder="example@email.com"
@@ -128,10 +123,10 @@ export default function ProjectSearchForm() {
                                     name="projectName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Nom du projet</FormLabel>
+                                            <FormLabel>Project name</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Site web client X"
+                                                    placeholder="Client website X"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -148,12 +143,12 @@ export default function ProjectSearchForm() {
                                 {isSearching ? (
                                     <>
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Recherche en cours...
+                                        Searching...
                                     </>
                                 ) : (
                                     <>
                                         <Search className="mr-2 h-4 w-4" />
-                                        Rechercher
+                                        Search
                                     </>
                                 )}
                             </Button>

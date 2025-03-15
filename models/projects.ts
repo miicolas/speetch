@@ -1,5 +1,6 @@
 import db from "@/db";
-import { projects } from "@/db/project-schema";
+import { projects, steps_project } from "@/db/project-schema";
+import { Step } from "@/lib/types/project-type";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 export class Projects {
@@ -26,7 +27,6 @@ export class Projects {
     }
 
     static async getProject(projectId: string) {
-        console.log(projectId, 'projectId');
         return await db
             .select()
             .from(projects)
@@ -69,6 +69,27 @@ export class Projects {
             .update(projects)
             .set(updateData)
             .where(eq(projects.id, projectId))
+            .execute();
+    }
+
+    static async getSteps(projectId: string) {
+        return await db
+            .select()
+            .from(steps_project)
+            .where(eq(steps_project.projectId, projectId))
+            .execute();
+    }
+
+    static async addStep(projectId: string, step: Step) {
+        return await db
+            .insert(steps_project)
+            .values({
+                id: uuidv4(),
+                name: step.name,
+                description: step.description,
+                status: step.status,
+                projectId: projectId,
+            })
             .execute();
     }
 }
