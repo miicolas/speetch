@@ -465,7 +465,7 @@ export default async function ProjectPage({
                                         asChild
                                     >
                                         <Link
-                                            href={`/dashboard/clients/${client.name}`}
+                                            href={`/dashboard/clients/${client.id}`}
                                         >
                                             <User className="h-4 w-4 mr-2" />
                                             View client file
