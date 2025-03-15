@@ -6,6 +6,8 @@ import { PaymentDateUpdate } from "./payment-date-update";
 import { ProjectDateUpdate } from "./date-project-update";
 import { ProjectAmountUpdate } from "./project-amount-update";
 import { useProjectService } from "./project-service";
+import { StepsProject } from "./steps-project";
+import { Step } from "@/lib/types/project-type";
 
 export function StatusUpdateWrapper({
     projectId,
@@ -89,4 +91,15 @@ export function ProjectAmountUpdateWrapper({
             onUpdate={handleUpdate}
         />
     );
+}
+
+
+export function StepsProjectWrapper({
+    projectId,
+    steps,
+}: {
+    projectId: string;
+    steps: Step[];
+}) {
+    return <StepsProject steps={steps} projectId={projectId} />;
 }

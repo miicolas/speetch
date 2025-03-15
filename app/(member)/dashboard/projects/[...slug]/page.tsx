@@ -40,16 +40,18 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Project } from "@/lib/types/project-type";
+import { Project, Step } from "@/lib/types/project-type";
 import {
     StatusUpdateWrapper,
     PaymentDateUpdateWrapper,
     ProjectDateUpdateWrapper,
     ProjectAmountUpdateWrapper,
+    StepsProjectWrapper,
 } from "./(...project)/client-wrappers";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { getClient } from "@/actions/(member)/get-client/action";
+import { getSteps } from "@/actions/(member)/get-steps/action";
 
 export default async function ProjectPage({
     params,
@@ -68,6 +70,8 @@ export default async function ProjectPage({
         userId: session.user.id,
         projectId: slug[0],
     })) as { content: [] };
+
+    const stepsData = await getSteps({ projectId: slug[0] });
 
     if (
         !projectData ||
@@ -355,32 +359,14 @@ export default async function ProjectPage({
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <History className="h-5 w-5 text-muted-foreground" />
-                                Activity history
+                                Project Steps
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-4">
-                                <div className="border-l-2 border-primary pl-4 pb-4">
-                                    <p className="text-sm text-muted-foreground">
-                                        Today
-                                    </p>
-                                    <p className="font-medium">
-                                        Project consultation
-                                    </p>
-                                </div>
-                                <div className="border-l-2 border-muted pl-4 pb-4">
-                                    <p className="text-sm text-muted-foreground">
-                                        {p.createdAt
-                                            ? new Date(
-                                                  p.createdAt
-                                              ).toLocaleDateString("fr-FR")
-                                            : "Date inconnue"}
-                                    </p>
-                                    <p className="font-medium">
-                                        Project creation
-                                    </p>
-                                </div>
-                            </div>
+                            <StepsProjectWrapper
+                                projectId={p.id}
+                                steps={stepsData.content as Step[]}
+                            />
                         </CardContent>
                     </Card>
                 </div>

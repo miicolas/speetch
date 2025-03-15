@@ -53,8 +53,6 @@ export default function PricingCard({
                 return;
             }
 
-            console.log(selectedPricing);
-
             const { error } = await authClient.subscription.upgrade({
                 plan: titlePlan,
                 annual: selectedPricing === "yearly",
