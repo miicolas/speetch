@@ -75,7 +75,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                 <div className="flex items-center gap-2 w-full max-w-sm">
                     <Search className="h-4 w-4 text-muted-foreground" />
                     <Input
-                        placeholder="Rechercher dans les projets..."
+                        placeholder="Search in projects..."
                         value={globalFilter ?? ""}
                         onChange={(e) => setGlobalFilter(e.target.value)}
                         className="h-9"
@@ -83,7 +83,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                 </div>
                 
                 <div className="text-sm text-muted-foreground">
-                    {table.getFilteredRowModel().rows.length} projet(s)
+                    {table.getFilteredRowModel().rows.length} project(s)
                 </div>
             </div>
 

@@ -16,7 +16,6 @@ export async function getProjectPayment(
     try {
         const validatedBody = bodySchema.safeParse(body);
 
-        console.log("validatedBody", validatedBody);
         if (!validatedBody.success) {
             return {
                 status: "error",
@@ -26,11 +25,6 @@ export async function getProjectPayment(
         }
 
         let projectPayment;
-
-        console.log(
-            "validatedBody.data.projectId",
-            validatedBody.data.projectId
-        );
 
         if (validatedBody.data.projectId) {
             projectPayment = await db
@@ -49,7 +43,6 @@ export async function getProjectPayment(
                     )
                 );
         } else {
-            console.log("get all project payments");
             projectPayment = await db
                 .select()
                 .from(stripeSessionPayment)

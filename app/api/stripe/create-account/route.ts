@@ -85,8 +85,8 @@ export async function POST(req: NextRequest) {
             ) {
                 return NextResponse.json(
                     {
-                        error: "Stripe Connect n'est pas activé sur ce compte",
-                        detail: "Activez Stripe Connect dans votre tableau de bord Stripe",
+                        error: "Stripe Connect is not activated on this account",
+                        detail: "Activate Stripe Connect in your Stripe dashboard",
                         docUrl: "https://stripe.com/docs/connect",
                     },
                     { status: 400 }
@@ -94,8 +94,8 @@ export async function POST(req: NextRequest) {
             }
             return NextResponse.json(
                 {
-                    error: "Erreur lors de la communication avec Stripe",
-                    detail: err.message || "Détails non disponibles",
+                    error: "Error communicating with Stripe",
+                    detail: err.message || "Details not available",
                 },
                 { status: 500 }
             );
@@ -103,13 +103,13 @@ export async function POST(req: NextRequest) {
 
     } catch (error: unknown) {
         console.error(
-            "Erreur générale lors de la création du compte Stripe:",
+            "General error when creating the Stripe account:",
             error
         );
-        const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
         return NextResponse.json(
             {
-                error: "Une erreur est survenue lors de la création du compte",
+                error: "An error occurred when creating the account",
                 detail: errorMessage,
             },
             { status: 500 }
