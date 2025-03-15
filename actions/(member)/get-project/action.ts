@@ -1,24 +1,24 @@
-'use server';
+"use server";
 
-import { z } from 'zod';
-import { FormResponse } from '@/lib/types/form-type';
-import { Projects } from '@/models/projects';
-
+import { z } from "zod";
+import { FormResponse } from "@/lib/types/form-type";
+import { Projects } from "@/models/projects";
 
 const bodySchema = z.object({
     projectId: z.string(),
 });
 
-export async function getProject(body: z.infer<typeof bodySchema>): Promise<FormResponse> {
+export async function getProject(
+    body: z.infer<typeof bodySchema>
+): Promise<FormResponse> {
     try {
-
         const validatedBody = bodySchema.safeParse(body);
-       
+
         if (!validatedBody.success) {
             return {
                 status: "error",
                 message: "Invalid data format",
-                errors: validatedBody.error.issues
+                errors: validatedBody.error.issues,
             };
         }
 
@@ -37,7 +37,6 @@ export async function getProject(body: z.infer<typeof bodySchema>): Promise<Form
             status: "success",
             content: getProject[0],
         };
-
     } catch (error) {
         if (error instanceof z.ZodError) {
             return {
