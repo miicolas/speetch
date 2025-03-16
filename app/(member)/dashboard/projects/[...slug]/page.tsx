@@ -105,31 +105,31 @@ export default async function ProjectPage({
         switch (status) {
             case "not_started":
                 return {
-                    label: "Non démarré",
+                    label: "Not started",
                     variant: "outline",
                     icon: Clock,
                 };
             case "pending":
                 return {
-                    label: "En cours",
+                    label: "In progress",
                     variant: "secondary",
                     icon: AlertCircle,
                 };
             case "done":
                 return {
-                    label: "Terminé",
+                    label: "Done",
                     variant: "default",
                     icon: CheckCircle,
                 };
             case "failed":
                 return {
-                    label: "Échoué",
+                    label: "Failed",
                     variant: "destructive",
                     icon: AlertCircle,
                 };
             default:
                 return {
-                    label: status || "Non défini",
+                    label: status || "Not defined",
                     variant: "outline",
                     icon: Clock,
                 };
@@ -137,20 +137,27 @@ export default async function ProjectPage({
     };
 
     const getPaymentStatusDetails = (status: string) => {
-        if (!status) return { label: "Non défini", variant: "outline" };
-
         switch (status) {
-            case "paid":
-                return { label: "Payé", variant: "default" };
             case "pending":
-                return { label: "En attente", variant: "secondary" };
-            case "overdue":
-                return { label: "En retard", variant: "destructive" };
+                return {
+                    label: "Pending",
+                    variant: "secondary",
+                    icon: AlertCircle,
+                };
+            case "paid":
+                return {
+                    label: "Paid",
+                    variant: "default",
+                    icon: CheckCircle,
+                };
             default:
-                return { label: status, variant: "outline" };
+                return {
+                    label: status || "Not defined",
+                    variant: "outline",
+                    icon: Clock,
+                };
         }
     };
-
     const statusInfo = getStatusDetails(p.status);
     const paymentStatusInfo = getPaymentStatusDetails(
         p.paymentStatus || "pending"
@@ -163,18 +170,17 @@ export default async function ProjectPage({
               month: "long",
               year: "numeric",
           })
-        : "Non définie";
+        : "Not defined";
 
     const timeDistance = p.endDate
         ? formatDistanceToNow(new Date(p.endDate), {
               addSuffix: true,
               locale: fr,
           })
-        : "Date non définie";
+        : "Not defined date";
 
     return (
-        <div className="container mx-auto py-8 px-4">
-            {/* Barre de navigation */}
+        <div className="mx-auto py-8 px-4">
             <div className="mb-8">
                 <div className="flex items-center text-sm text-muted-foreground mb-2">
                     <Link
@@ -269,15 +275,28 @@ export default async function ProjectPage({
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-medium text-muted-foreground">
                                         Project status
                                     </h3>
-                                    <StatusUpdateWrapper
-                                        projectId={p.id}
-                                        currentStatus={p.status}
-                                    />
+                                    <div className="flex items-center">
+                                        <Badge
+                                            variant={
+                                                statusInfo.variant as
+                                                    | "default"
+                                                    | "destructive"
+                                                    | "outline"
+                                                    | "secondary"
+                                            }
+                                            className="px-2 py-1 text-sm flex items-center gap-1"
+                                        >
+                                            <StatusIcon className="h-3.5 w-3.5" />
+                                            <span className="text-sm">
+                                                {statusInfo.label}
+                                            </span>
+                                        </Badge>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-4">
@@ -291,24 +310,6 @@ export default async function ProjectPage({
                                         </span>
                                     </div>
                                 </div>
-
-                                <div className="space-y-4">
-                                    <h3 className="text-sm font-medium text-muted-foreground">
-                                        Project due date
-                                    </h3>
-                                    <div className="space-y-1">
-                                        <div className="flex items-center">
-                                            <CalendarDays className="h-5 w-5 mr-2 text-primary" />
-                                            <span className="text-lg font-medium">
-                                                {formattedEndDate}
-                                            </span>
-                                        </div>
-                                        <p className="text-sm text-muted-foreground">
-                                            {timeDistance}
-                                        </p>
-                                    </div>
-                                </div>
-
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-medium text-muted-foreground">
                                         Payment status
@@ -334,6 +335,23 @@ export default async function ProjectPage({
                                                     "Not defined"}
                                             </span>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-medium text-muted-foreground">
+                                        Project due date
+                                    </h3>
+                                    <div className="space-y-1">
+                                        <div className="flex items-center">
+                                            <CalendarDays className="h-5 w-5 mr-2 text-primary" />
+                                            <span className="text-lg font-medium">
+                                                {formattedEndDate}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm text-muted-foreground">
+                                            {timeDistance}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -380,6 +398,10 @@ export default async function ProjectPage({
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="flex flex-col gap-4">
+                            <StatusUpdateWrapper
+                                projectId={p.id}
+                                currentStatus={p.status}
+                            />
                             <PaymentDateUpdateWrapper
                                 projectId={p.id}
                                 currentPaymentDate={p.paymentDate}

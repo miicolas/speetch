@@ -23,10 +23,7 @@ export function StatusUpdateWrapper({
     };
 
     return (
-        <StatusUpdate
-            currentStatus={currentStatus}
-            onUpdate={handleUpdate}
-        />
+        <StatusUpdate currentStatus={currentStatus} onUpdate={handleUpdate} />
     );
 }
 
@@ -92,7 +89,6 @@ export function ProjectAmountUpdateWrapper({
         />
     );
 }
-
 
 export function StepsProjectWrapper({
     projectId,

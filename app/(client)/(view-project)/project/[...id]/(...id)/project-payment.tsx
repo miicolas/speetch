@@ -75,11 +75,7 @@ export function ProjectPayment({
                                             </p>
                                             {payments.length > 1 && (
                                                 <p className="text-sm text-muted-foreground">
-                                                    {Math.round(
-                                                        project.amount /
-                                                            payments.length
-                                                    )}{" "}
-                                                    €
+                                                    {payment.amount} €
                                                 </p>
                                             )}
                                         </div>

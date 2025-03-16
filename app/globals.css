@@ -137,3 +137,6 @@
   background: transparent;
 }
 
+::selection {
+  @apply bg-indigo-500 text-white;
+}

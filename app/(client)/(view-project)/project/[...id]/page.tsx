@@ -13,7 +13,6 @@ import { getSteps } from "@/actions/(member)/get-steps/action";
 import { Step } from "@/lib/types/project-type";
 import {
     StatusInfo,
-    PaymentStatusInfo,
     PaymentMethodInfo,
 } from "@/lib/types/project-view-types";
 
@@ -25,6 +24,7 @@ import { ProjectSteps } from "./(...id)/project-steps";
 import { ProjectPayment } from "./(...id)/project-payment";
 import { ProjectFAQ } from "./(...id)/project-faq";
 import { ProjectFooter } from "./(...id)/project-footer";
+import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
 
 export default async function ProjectPage({
     params,
@@ -127,21 +127,6 @@ export default async function ProjectPage({
         }
     };
 
-    const getPaymentStatusDetails = (status: string): PaymentStatusInfo => {
-        if (!status) return { label: "Not defined", variant: "outline" };
-
-        switch (status) {
-            case "paid":
-                return { label: "Paid", variant: "default" };
-            case "pending":
-                return { label: "Pending", variant: "secondary" };
-            case "overdue":
-                return { label: "Overdue", variant: "destructive" };
-            default:
-                return { label: status, variant: "outline" };
-        }
-    };
-
     const getPaymentMethodDetails = (method: string): PaymentMethodInfo => {
         switch (method) {
             case "1_payment":
@@ -157,9 +142,7 @@ export default async function ProjectPage({
 
     const progressPercentage = getProgressPercentage();
     const statusInfo = getStatusDetails(p.status);
-    const paymentStatusInfo = getPaymentStatusDetails(
-        p.paymentStatus || "pending"
-    );
+    const paymentStatusInfo = getPaymentStatusDetails(p.paymentStatus || "pending");
     const paymentMethodInfo = getPaymentMethodDetails(p.paymentMethod);
 
     const formattedEndDate = p.endDate

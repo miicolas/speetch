@@ -19,7 +19,7 @@ export const projects = pgTable("projects", {
     paymentDate: timestamp("payment_date", { withTimezone: true }).notNull(),
     paymentMethod: varchar("payment_method", { length: 255 }).notNull(),
     paymentStatus: varchar("payment_status", { length: 255 }).notNull(),
-    endDate: text("end_date").notNull(),
+    endDate: timestamp("end_date", { withTimezone: true }).notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at")
         .defaultNow()

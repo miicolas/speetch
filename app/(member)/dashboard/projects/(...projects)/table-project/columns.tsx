@@ -16,6 +16,7 @@ import {
     XCircle,
     Clock,
     AlertCircle,
+    CreditCard,
 } from "lucide-react";
 import {
     DropdownMenu,
@@ -25,6 +26,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
 
 export const columns: ColumnDef<Project>[] = [
     {
@@ -148,7 +150,13 @@ export const columns: ColumnDef<Project>[] = [
             return (
                 <div className="flex justify-start w-full">
                     <Badge
-                        variant={variant as "default" | "destructive" | "outline" | "secondary"}
+                        variant={
+                            variant as
+                                | "default"
+                                | "destructive"
+                                | "outline"
+                                | "secondary"
+                        }
                         className="flex items-center gap-1 whitespace-nowrap"
                     >
                         <Icon className="h-3.5 w-3.5" />
@@ -159,7 +167,7 @@ export const columns: ColumnDef<Project>[] = [
         },
     },
     {
-        accessorKey: "payment_status",
+        accessorKey: "paymentStatus",
         header: () => (
             <div className="flex items-center">
                 <span>Paiement</span>
@@ -168,30 +176,18 @@ export const columns: ColumnDef<Project>[] = [
         ),
         cell: ({ row }) => {
             const status =
-                (row.getValue("payment_status") as string) || "pending";
+                (row.getValue("paymentStatus") as string) || "pending";
 
-            const getStatusDetails = (status: string) => {
-                switch (status) {
-                    case "paid":
-                        return { label: "Payé", variant: "default" };
-                    case "pending":
-                        return { label: "En attente", variant: "secondary" };
-                    case "overdue":
-                        return { label: "En retard", variant: "destructive" };
-                    default:
-                        return { label: status, variant: "outline" };
-                }
-            };
-
-            const { label, variant } = getStatusDetails(status);
+            const statusDetails = getPaymentStatusDetails(status);
 
             return (
-                <div className="flex justify-start">
+                <div className="flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 text-muted-foreground" />
                     <Badge
-                        variant={variant as "default" | "destructive" | "outline" | "secondary"}
+                        variant={statusDetails.variant}
                         className="whitespace-nowrap"
                     >
-                        {label}
+                        {statusDetails.label}
                     </Badge>
                 </div>
             );

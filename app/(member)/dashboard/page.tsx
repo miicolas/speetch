@@ -1,28 +1,32 @@
 import { getServerSession } from "@/lib/server-session";
+import { StatsCards } from "./(...dashboard)/stats-cards";
+import { RecentProjects } from "./(...dashboard)/recent-projects";
+import { ProjectCalendar } from "./(...dashboard)/project-calendar";
+import { Projects } from "@/models/projects";
+import { Payments } from "@/models/payment";
 
 export default async function Dashboard() {
     const session = await getServerSession();
+    const projects = await Projects.getProjects(session.user.id);
+    const payments = await Payments.getPayments(session.user.id);
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Page Serveur</h1>
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-                <p className="text-lg mb-2">
-                    Cette page est un Server Component. Bonjour, {session.user.name} !
-                </p>
+        <div className="p-6 space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold">Dashboard</h1>
                 <p className="text-muted-foreground">
-                    Données utilisateur accessibles directement côté serveur.
-                    Rôle: <span className="font-medium">{session.user.role}</span>
+                    Bonjour, {session.user.name}
                 </p>
-                
-                <div className="mt-4 p-3 bg-muted rounded-md">
-                    <p className="font-medium mb-1">Avantages des Server Components:</p>
-                    <ul className="list-disc pl-5 space-y-1">
-                        <li>Pas besoin de hooks comme useSession</li>
-                        <li>Pas de "use client" nécessaire</li>
-                        <li>Récupération des données plus directe</li>
-                        <li>Meilleure performance (moins de JavaScript côté client)</li>
-                    </ul>
+            </div>
+
+            <StatsCards projects={projects} payments={payments} />
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                <div className="col-span-5">
+                    <RecentProjects projects={projects} />
+                </div>
+                <div className="col-span-2">
+                    <ProjectCalendar projects={projects} />
                 </div>
             </div>
         </div>

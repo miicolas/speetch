@@ -15,6 +15,7 @@ import {
     Euro,
     CreditCard,
 } from "lucide-react";
+import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
 
 export const columns: ColumnDef<Project>[] = [
     {
@@ -27,7 +28,10 @@ export const columns: ColumnDef<Project>[] = [
         ),
         cell: ({ row }) => (
             <div className="font-medium">
-                <Link href={`/dashboard/projects/${row.original.id}`} className="hover:underline">
+                <Link
+                    href={`/dashboard/projects/${row.original.id}`}
+                    className="hover:underline"
+                >
                     {row.getValue("name")}
                 </Link>
             </div>
@@ -102,7 +106,13 @@ export const columns: ColumnDef<Project>[] = [
 
             return (
                 <Badge
-                    variant={variant as "default" | "destructive" | "outline" | "secondary"}
+                    variant={
+                        variant as
+                            | "default"
+                            | "destructive"
+                            | "outline"
+                            | "secondary"
+                    }
                     className="flex items-center gap-1 whitespace-nowrap"
                 >
                     <Icon className="h-3.5 w-3.5" />
@@ -123,29 +133,16 @@ export const columns: ColumnDef<Project>[] = [
             const status =
                 (row.getValue("paymentStatus") as string) || "pending";
 
-            const getStatusDetails = (status: string) => {
-                switch (status) {
-                    case "paid":
-                        return { label: "Payé", variant: "default" };
-                    case "pending":
-                        return { label: "En attente", variant: "secondary" };
-                    case "overdue":
-                        return { label: "En retard", variant: "destructive" };
-                    default:
-                        return { label: status, variant: "outline" };
-                }
-            };
-
-            const { label, variant } = getStatusDetails(status);
+            const statusDetails = getPaymentStatusDetails(status);
 
             return (
                 <div className="flex items-center gap-2">
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                     <Badge
-                        variant={variant as "default" | "destructive" | "outline" | "secondary"}
+                        variant={statusDetails.variant}
                         className="whitespace-nowrap"
                     >
-                        {label}
+                        {statusDetails.label}
                     </Badge>
                 </div>
             );
@@ -155,11 +152,7 @@ export const columns: ColumnDef<Project>[] = [
         id: "actions",
         cell: ({ row }) => {
             return (
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    asChild
-                >
+                <Button variant="ghost" size="sm" asChild>
                     <Link href={`/dashboard/projects/${row.original.id}`}>
                         <Eye className="h-4 w-4 mr-2" />
                         Voir
@@ -168,4 +161,4 @@ export const columns: ColumnDef<Project>[] = [
             );
         },
     },
-]; 
+];

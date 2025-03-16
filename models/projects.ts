@@ -1,8 +1,9 @@
 import db from "@/db";
 import { projects, steps_project } from "@/db/project-schema";
-import { Step } from "@/lib/types/project-type";
+import { Step, Project } from "@/lib/types/project-type";
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
+
 export class Projects {
     constructor(
         public id: string,
@@ -13,17 +14,26 @@ export class Projects {
         public paymentDate: Date,
         public paymentStatus: string,
         public paymentMethod: string,
-        public clientId: string,
+        public clientId: string | null,
         public endDate: Date,
-        public userId: string
+        public userId: string | null
     ) {}
 
-    static async getProjects(userId: string) {
-        return await db
+    static async getProjects(userId: string): Promise<Project[]> {
+        const result = await db
             .select()
             .from(projects)
             .where(eq(projects.userId, userId))
             .execute();
+        
+        return result.map((project) => ({
+            ...project,
+            clientId: project.clientId || null,
+            userId: project.userId || null,
+            createdAt: project.createdAt || null,
+            updatedAt: project.updatedAt || null,
+            client: null,
+        })) as Project[];
     }
 
     static async getProject(projectId: string) {
@@ -58,7 +68,7 @@ export class Projects {
                 paymentStatus: payment_status,
                 paymentMethod: payment_method,
                 clientId: client_id,
-                endDate: end_date.toISOString(),
+                endDate: end_date,
                 userId: userId,
             })
             .execute();

@@ -1,10 +1,10 @@
 export interface Payment {
     id: string;
+    userId: string;
+    projectId: string;
     url: string;
     status: string;
-    projectId: string;
-    userId: string;
     amount: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: Date | null;
+    updatedAt: Date | null;
 }

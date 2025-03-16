@@ -78,7 +78,7 @@ export function StepsProject({
                                     <div className="flex items-start ml-8 relative">
                                         <div
                                             className={cn(
-                                                "absolute -left-9 rounded-full p-1",
+                                                "absolute -left-8 rounded-full p-1",
                                                 step.status === "completed"
                                                     ? "bg-green-500 text-white"
                                                     : "bg-muted text-muted-foreground"

@@ -15,6 +15,13 @@
       "when": 1741356923047,
       "tag": "0001_grey_sentinels",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742125211833,
+      "tag": "0002_reflective_groot",
+      "breakpoints": true
     }
   ]
 }

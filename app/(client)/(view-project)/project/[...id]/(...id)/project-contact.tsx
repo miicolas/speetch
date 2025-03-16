@@ -1,5 +1,6 @@
 import { Mail, Phone, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export function ProjectContact() {
     return (
@@ -11,9 +12,7 @@ export function ProjectContact() {
                 <div className="flex items-center gap-3">
                     <User className="h-5 w-5 text-muted-foreground" />
                     <div>
-                        <div className="font-medium">
-                            Votre gestionnaire de projet
-                        </div>
+                        <div className="font-medium">Your project manager</div>
                         <div className="text-sm text-muted-foreground">
                             Thomas Dupont
                         </div>
@@ -23,24 +22,24 @@ export function ProjectContact() {
                     <Mail className="h-5 w-5 text-muted-foreground" />
                     <div>
                         <div className="font-medium">Email</div>
-                        <a
+                        <Link
                             href="mailto:contact@speetly.com"
                             className="text-sm text-primary hover:underline"
                         >
                             contact@speetly.com
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-muted-foreground" />
                     <div>
-                        <div className="font-medium">Téléphone</div>
-                        <a
+                        <div className="font-medium">Phone</div>
+                        <Link
                             href="tel:+33123456789"
                             className="text-sm text-primary hover:underline"
                         >
                             +33 1 23 45 67 89
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </CardContent>
