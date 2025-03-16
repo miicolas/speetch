@@ -2,7 +2,7 @@ import { Project, Step } from "./project-type";
 import { Payment } from "./payment-type";
 import { LucideIcon } from "lucide-react";
 
-// Types communs
+
 export interface StatusInfo {
   label: string;
   variant: string;
@@ -20,7 +20,6 @@ export interface PaymentMethodInfo {
   variant: string;
 }
 
-// Props des composants
 export interface ProjectHeaderProps {
   project: Project;
   statusInfo: StatusInfo;

@@ -7,12 +7,22 @@ export interface Project {
     paymentDate: Date;
     paymentStatus: string;
     paymentMethod: string;
-    clientId: string | null;
+    clientId: string;
     endDate: Date;
-    userId: string | null;
+    userId: string;
     client?: {
         name: string;
     } | null;
-    createdAt: Date | null;
-    updatedAt: Date | null;
-} 
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface Step {
+    id?: string;
+    name: string;
+    description: string;
+    status: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    projectId?: string;
+}
