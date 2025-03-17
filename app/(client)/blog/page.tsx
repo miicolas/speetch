@@ -6,9 +6,38 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-    title: "Blog - Speetly",
+    title: "Freelance Blog | Tips & Best Practices | Speetly",
     description:
-        "Découvrez nos articles sur la gestion de projets freelance et les meilleures pratiques du secteur",
+        "Boost your freelance career with expert insights on project management, invoicing, and client relations. Stay ahead with Speetly!",
+    robots: {
+        index: true,
+        follow: true,
+    },
+    openGraph: {
+        title: "Freelance Blog | Tips & Best Practices | Speetly",
+        description:
+            "Boost your freelance career with expert insights on project management, invoicing, and client relations. Stay ahead with Speetly!",
+        url: "https://speetly.com/blog",
+        type: "website",
+        images: [
+            {
+                url: "https://speetly.com/images/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Speetly Freelance Blog Cover",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Freelance Blog | Tips & Best Practices | Speetly",
+        description:
+            "Boost your freelance career with expert insights on project management, invoicing, and client relations. Stay ahead with Speetly!",
+        images: ["https://speetly.com/images/og-image.png"],
+    },
+    alternates: {
+        canonical: "https://speetly.com/blog",
+    },
 };
 
 export default async function BlogPage() {

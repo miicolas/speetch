@@ -2,48 +2,99 @@ import React from "react";
 import Timeline from "@/components/ui/timeline";
 
 export default function Changelog() {
-  const data = [
-    {
-      title: "1st March 2025",
-      content: (
-        <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            I started developing Speetly in 2025. As a solo developer, I
-            undertook to build the application from scratch, laying the
-            groundwork for what would become a cutting-edge platform.
-          </p>
-          <p>The main features I built were:</p>
-          <ul className="list-disc mt-1">
-            <li>
-              <p>
-                <strong>Wishlist:</strong> I implemented a wishlist that allows
-                users to add items to their wishlist.
-              </p>
-            </li>
-            <li>
-              <p>
-                <strong>User Authentication:</strong> I implemented a secure
-                authentication system that allows users to sign up, log in, and
-                manage their accounts.
-              </p>
-            </li>
-            <li>
-              <p>
-                <strong>Landing Page:</strong> I built a landing page that
-                showcases the app&apos;s features and benefits.
-              </p>
-            </li>
-            <li>
-              <p>
-                <strong>Dashboard:</strong> I built a dashboard that allows
-                users to manage their accounts.
-              </p>
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    /* {
+    const data = [
+        {
+            title: "1st March 2025",
+            content: (
+                <div>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8 -ml-4">
+                        I started developing Speetly in 2025. As a solo
+                        developer, I undertook to build the application from
+                        scratch, laying the groundwork for what would become a
+                        cutting-edge platform.
+                    </p>
+                    <p className="text-2xl -ml-4 font-bold">The main features I built were:</p>
+                    <ul className="list-disc mt-1">
+                        <li>
+                            <p>
+                                <strong>Wishlist:</strong> I implemented a
+                                wishlist that allows users to add items to their
+                                wishlist.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>User Authentication:</strong> I
+                                implemented a secure authentication system that
+                                allows users to sign up, log in, and manage
+                                their accounts.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Landing Page:</strong> I built a landing
+                                page that showcases the app&apos;s features and
+                                benefits.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Dashboard:</strong> I built a dashboard
+                                that allows users to manage their accounts.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            ),
+        },
+        {
+            title: "17th March 2025",
+            content: (
+                <div>
+                    <p className="text-2xl -ml-4 font-bold">The main features I built were:</p>
+                    <ul className="list-disc mt-1">
+                        <li>
+                            <p>
+                                <strong>Subscription:</strong> I implemented a
+                                subscription that allows users to subscribe to
+                                the app with multiple plans.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Payment:</strong> I implemented a
+                                payment system that allows users to pay for the
+                                app.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Projects Page:</strong> I built a
+                                projects page that allows users to manage their
+                                projects.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Client Management:</strong> I built a
+                                client management system that allows users to
+                                manage their clients.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>Client Dashboard:</strong> Client can
+                                view the evolution of the project and the status
+                                of the project with a timeline. They can also
+                                pay the project with Stripe in function of their
+                                payment method.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            ),
+        },
+        /* {
       title: "Early 2023",
       content: (
         <div>
@@ -88,10 +139,10 @@ export default function Changelog() {
         </div>
       ),
     }, */
-  ];
-  return (
-    <div className="w-full">
-      <Timeline data={data} />
-    </div>
-  );
+    ];
+    return (
+        <div className="w-full">
+            <Timeline data={data} />
+        </div>
+    );
 }

@@ -1,41 +1,41 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Changelog from my journey",
-    description: "Changelog from my journey",
+    title: "View Project | Speetly",
+    description: "View your project with Speetly",
     robots: {
         index: true,
         follow: true,
     },
     openGraph: {
-        title: "Changelog from my journey",
-        description: "Changelog from my journey",
-        url: "https://speetly.com/changelog",
+        title: "View Project | Speetly",
+        description: "View your project with Speetly",
+        url: "https://speetly.com/view-project",
         type: "website",
         images: [
             {
                 url: "https://speetly.com/images/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "Speetly Changelog",
+                alt: "Speetly View Project",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Changelog from my journey",
-        description: "Changelog from my journey",
+        title: "View Project | Speetly",
+        description: "View your project with Speetly",
         images: ["https://speetly.com/images/og-image.png"],
     },
     alternates: {
-        canonical: "https://speetly.com/changelog",
+        canonical: "https://speetly.com/view-project",
     },
 };
 
-export default function ChangelogLayout({
+export default function ViewProjectLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    return <div className="p-4">{children}</div>;
+    return <div className="max-w-7xl mx-auto">{children}</div>;
 }
