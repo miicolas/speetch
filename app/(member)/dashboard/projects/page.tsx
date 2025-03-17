@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "@/lib/server-session";
 import Link from "next/link";
-import { columns } from "./(...projects)/table-project/columns";
-import { DataTable } from "./(...projects)/table-project/data-table";
+import { columns } from "./_projects/table-project/columns";
+import { DataTable } from "./_projects/table-project/data-table";
 import { getProjects } from "@/actions/(member)/get-projects/action";
 import { Project } from "@/lib/types/project-type";
 import { getClients } from "@/actions/(member)/get-clients/action";

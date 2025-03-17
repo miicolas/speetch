@@ -1,7 +1,7 @@
 import { getServerSession } from "@/lib/server-session";
-import { StatsCards } from "./(...dashboard)/stats-cards";
-import { RecentProjects } from "./(...dashboard)/recent-projects";
-import { ProjectCalendar } from "./(...dashboard)/project-calendar";
+import { StatsCards } from "./_dashboard/stats-cards";
+import { RecentProjects } from "./_dashboard/recent-projects";
+import { ProjectCalendar } from "./_dashboard/project-calendar";
 import { Projects } from "@/models/projects";
 import { Payments } from "@/models/payment";
 

@@ -1,0 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /legal
+
+# Sitemap
+Sitemap: https://speetly.com/sitemap.xml
+
+# Paramètres spécifiques
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /*?*
+
+# Temps d'attente entre les requêtes
+Crawl-delay: 10

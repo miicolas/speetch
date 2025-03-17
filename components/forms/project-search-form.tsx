@@ -25,7 +25,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
-import ResultProject from "@/app/(client)/(view-project)/view-project/(...view-project)/result-project";
+import ResultProject from "@/app/(client)/(view-project)/view-project/_view-project/result-project";
 interface ProjectResult {
     id: string;
     name: string;

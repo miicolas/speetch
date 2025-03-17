@@ -16,14 +16,14 @@ import {
     PaymentMethodInfo,
 } from "@/lib/types/project-view-types";
 
-import { ProjectHeader } from "./(...id)/project-header";
-import { ProjectProgress } from "./(...id)/project-progress";
-import { ProjectDetails } from "./(...id)/project-details";
-import { ProjectContact } from "./(...id)/project-contact";
-import { ProjectSteps } from "./(...id)/project-steps";
-import { ProjectPayment } from "./(...id)/project-payment";
-import { ProjectFAQ } from "./(...id)/project-faq";
-import { ProjectFooter } from "./(...id)/project-footer";
+import { ProjectHeader } from "./_id/project-header";
+import { ProjectProgress } from "./_id/project-progress";
+import { ProjectDetails } from "./_id/project-details";
+import { ProjectContact } from "./_id/project-contact";
+import { ProjectSteps } from "./_id/project-steps";
+import { ProjectPayment } from "./_id/project-payment";
+import { ProjectFAQ } from "./_id/project-faq";
+import { ProjectFooter } from "./_id/project-footer";
 import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
 
 export default async function ProjectPage({

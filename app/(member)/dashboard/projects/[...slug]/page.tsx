@@ -1,9 +1,9 @@
-import FormPayment from "./(...project)/form-payment";
+import FormPayment from "./_project/form-payment";
 import { getServerSession } from "@/lib/server-session";
 import { getStripeAccount } from "@/actions/(stripe)/get-stripe/action";
 import { getProjectPayment } from "@/actions/(stripe)/get-project-payment/action";
 import { getProject } from "@/actions/(member)/get-project/action";
-import LinksPayment from "./(...project)/links-payment";
+import LinksPayment from "./_project/links-payment";
 import {
     Calendar,
     CreditCard,
@@ -47,7 +47,7 @@ import {
     ProjectDateUpdateWrapper,
     ProjectAmountUpdateWrapper,
     StepsProjectWrapper,
-} from "./(...project)/client-wrappers";
+} from "./_project/client-wrappers";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { getClient } from "@/actions/(member)/get-client/action";

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "@/lib/server-session";
 import Link from "next/link";
-import { columns } from "./(...clients)/table-client/columns";
-import { DataTable } from "./(...clients)/table-client/data-table";
+import { columns } from "./_clients/table-client/columns";
+import { DataTable } from "./_clients/table-client/data-table";
 import { getClients } from "@/actions/(member)/get-clients/action";
 import { Client } from "@/lib/types/client-type";
 export default async function ClientsProject() {

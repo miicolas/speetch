@@ -38,8 +38,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DataTable } from "../(...clients)/table-client/data-table";
-import { columns } from "./(...client)/project-columns";
+import { DataTable } from "../_clients/table-client/data-table";
+import { columns } from "./_client/project-columns";
 
 export default async function ClientPage({
     params,
