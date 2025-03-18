@@ -95,7 +95,7 @@ export default function Pricing() {
                 transition={{ duration: 0.5 }}
             >
                 <motion.span
-                    className="inline-block text-sm font-medium text-indigo-600 dark:text-indigo-400 px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 rounded-full"
+                    className="inline-block text-sm font-medium text-indigo-600 dark:text-indigo-400"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={
                         isInView

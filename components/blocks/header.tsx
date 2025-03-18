@@ -19,6 +19,9 @@ export default function Header() {
 
         <nav>
           <ul className="flex items-center gap-4">
+            <li>
+              <Link href="/blog">Blog</Link>
+            </li>
             <li className="relative">
               <Link href="/changelog">What's New</Link>
               <div className="w-1 h-1 bg-red-500 rounded-full absolute top-0 -right-2 animate-pulse"></div>

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Twitter, Linkedin, Facebook, Link } from "lucide-react";
 
 interface RelatedArticle {
@@ -24,9 +25,9 @@ export function ArticleFooter({ tags, relatedArticles, url }: ArticleFooterProps
                 <h3 className="text-lg font-semibold">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
-                        <Button key={tag} variant="secondary" size="sm">
+                        <Badge key={tag}>
                             {tag}
-                        </Button>
+                        </Badge>
                     ))}
                 </div>
             </div>

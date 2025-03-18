@@ -29,7 +29,7 @@ export const columns: ColumnDef<Client>[] = [
         accessorKey: "name",
         header: () => (
             <div className="flex items-center">
-                <span>Nom</span>
+                <span>Name</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Client>[] = [
         accessorKey: "phone",
         header: () => (
             <div className="flex items-center">
-                <span>Téléphone</span>
+                <span>Phone</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Client>[] = [
         accessorKey: "city",
         header: () => (
             <div className="flex items-center">
-                <span>Ville</span>
+                <span>City</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -124,7 +124,7 @@ export const columns: ColumnDef<Client>[] = [
                                 }
                                 className="cursor-pointer"
                             >
-                                Copier l'ID
+                                Copy ID
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
@@ -135,7 +135,7 @@ export const columns: ColumnDef<Client>[] = [
                                     href={`/dashboard/clients/${row.original.id}`}
                                 >
                                     <Eye className="mr-2 h-4 w-4" />
-                                    <span>Voir</span>
+                                    <span>View</span>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -146,12 +146,12 @@ export const columns: ColumnDef<Client>[] = [
                                     href={`/dashboard/clients/${row.original.id}/edit`}
                                 >
                                     <Pencil className="mr-2 h-4 w-4" />
-                                    <span>Modifier</span>
+                                    <span>Edit</span>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
                                 <Trash2 className="mr-2 h-4 w-4" />
-                                <span>Supprimer</span>
+                                <span>Delete</span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

@@ -12,10 +12,6 @@ import {
     Trash2,
     MoreHorizontal,
     Calendar,
-    CheckCircle,
-    XCircle,
-    Clock,
-    AlertCircle,
     CreditCard,
 } from "lucide-react";
 import {
@@ -27,13 +23,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
+import { getStatusDetails } from "@/lib/utils/project-status";
 
 export const columns: ColumnDef<Project>[] = [
     {
         accessorKey: "name",
         header: () => (
             <div className="flex items-center">
-                <span>Nom</span>
+                <span>Name</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -64,7 +61,7 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "amount",
         header: () => (
             <div className="flex items-center">
-                <span>Montant</span>
+                <span>Amount</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -80,16 +77,14 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "paymentDate",
         header: () => (
             <div className="flex items-center">
-                <span>Date de paiement</span>
+                <span>Payment Date</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
         cell: ({ row }) => {
             const date = row.original.paymentDate;
             if (!date)
-                return (
-                    <span className="text-muted-foreground">Non définie</span>
-                );
+                return <span className="text-muted-foreground">Undefined</span>;
 
             return (
                 <div className="flex items-center gap-2">
@@ -103,47 +98,12 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "status",
         header: () => (
             <div className="flex items-center">
-                <span>Statut</span>
+                <span>Status</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
         cell: ({ row }) => {
             const status = row.getValue("status") as string;
-
-            const getStatusDetails = (status: string) => {
-                switch (status) {
-                    case "not_started":
-                        return {
-                            label: "Non démarré",
-                            variant: "outline",
-                            icon: Clock,
-                        };
-                    case "pending":
-                        return {
-                            label: "En cours",
-                            variant: "secondary",
-                            icon: AlertCircle,
-                        };
-                    case "done":
-                        return {
-                            label: "Terminé",
-                            variant: "default",
-                            icon: CheckCircle,
-                        };
-                    case "failed":
-                        return {
-                            label: "Échoué",
-                            variant: "destructive",
-                            icon: XCircle,
-                        };
-                    default:
-                        return {
-                            label: status,
-                            variant: "outline",
-                            icon: Clock,
-                        };
-                }
-            };
 
             const { label, variant, icon: Icon } = getStatusDetails(status);
 
@@ -170,7 +130,7 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "paymentStatus",
         header: () => (
             <div className="flex items-center">
-                <span>Paiement</span>
+                <span>Payment Status</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -215,7 +175,7 @@ export const columns: ColumnDef<Project>[] = [
                                 }
                                 className="cursor-pointer"
                             >
-                                Copier l'ID
+                                Copy ID
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
@@ -226,7 +186,7 @@ export const columns: ColumnDef<Project>[] = [
                                     href={`/dashboard/projects/${row.original.id}`}
                                 >
                                     <Eye className="mr-2 h-4 w-4" />
-                                    <span>Voir</span>
+                                    <span>View</span>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -237,12 +197,12 @@ export const columns: ColumnDef<Project>[] = [
                                     href={`/dashboard/projects/${row.original.id}/edit`}
                                 >
                                     <Pencil className="mr-2 h-4 w-4" />
-                                    <span>Modifier</span>
+                                    <span>Edit</span>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
                                 <Trash2 className="mr-2 h-4 w-4" />
-                                <span>Supprimer</span>
+                                <span>Delete</span>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

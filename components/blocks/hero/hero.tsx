@@ -37,7 +37,7 @@ export default function Hero() {
     };
 
     return (
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-8 relative overflow-hidden">
         
             <motion.div
                 ref={containerRef}

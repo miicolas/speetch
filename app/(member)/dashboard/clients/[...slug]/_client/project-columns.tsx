@@ -8,21 +8,17 @@ import { Button } from "@/components/ui/button";
 import {
     ArrowUpDown,
     Eye,
-    CheckCircle,
-    XCircle,
-    Clock,
-    AlertCircle,
     Euro,
     CreditCard,
 } from "lucide-react";
 import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
-
+import { getStatusDetails } from "@/lib/utils/project-status";
 export const columns: ColumnDef<Project>[] = [
     {
         accessorKey: "name",
         header: () => (
             <div className="flex items-center">
-                <span>Nom</span>
+                <span>Name</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -41,7 +37,7 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "amount",
         header: () => (
             <div className="flex items-center">
-                <span>Montant</span>
+                <span>Amount</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
@@ -60,47 +56,12 @@ export const columns: ColumnDef<Project>[] = [
         accessorKey: "status",
         header: () => (
             <div className="flex items-center">
-                <span>Statut</span>
+                <span>Status</span>
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </div>
         ),
         cell: ({ row }) => {
             const status = row.getValue("status") as string;
-
-            const getStatusDetails = (status: string) => {
-                switch (status) {
-                    case "not_started":
-                        return {
-                            label: "Non démarré",
-                            variant: "outline",
-                            icon: Clock,
-                        };
-                    case "pending":
-                        return {
-                            label: "En cours",
-                            variant: "secondary",
-                            icon: AlertCircle,
-                        };
-                    case "done":
-                        return {
-                            label: "Terminé",
-                            variant: "default",
-                            icon: CheckCircle,
-                        };
-                    case "failed":
-                        return {
-                            label: "Échoué",
-                            variant: "destructive",
-                            icon: XCircle,
-                        };
-                    default:
-                        return {
-                            label: status,
-                            variant: "outline",
-                            icon: Clock,
-                        };
-                }
-            };
 
             const { label, variant, icon: Icon } = getStatusDetails(status);
 

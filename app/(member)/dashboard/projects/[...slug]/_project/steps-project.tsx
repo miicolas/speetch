@@ -14,13 +14,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
     Plus,
-    CheckCircle,
-    Clock,
-    AlertCircle,
     PenLine,
     Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getStepStatusDetails } from "@/lib/utils/project-status";
 
 export function StepsProject({
     steps,
@@ -29,39 +27,6 @@ export function StepsProject({
     steps: Step[];
     projectId: string;
 }) {
-    const getStatusDetails = (status: string) => {
-        switch (status) {
-            case "completed":
-                return {
-                    label: "Done",
-                    variant: "default",
-                    bgColor: "bg-green-50",
-                    textColor: "text-green-700",
-                    borderColor: "border-green-200",
-                    icon: CheckCircle,
-                };
-            case "in progress":
-                return {
-                    label: "In Progress",
-                    variant: "secondary",
-                    bgColor: "bg-blue-50",
-                    textColor: "text-blue-700",
-                    borderColor: "border-blue-200",
-                    icon: AlertCircle,
-                };
-            case "no started":
-            default:
-                return {
-                    label: "Not started",
-                    variant: "outline",
-                    bgColor: "bg-gray-50",
-                    textColor: "text-gray-500",
-                    borderColor: "border-gray-200",
-                    icon: Clock,
-                };
-        }
-    };
-
     return (
         <div className="space-y-6">
             {steps && steps.length > 0 ? (
@@ -70,7 +35,7 @@ export function StepsProject({
 
                     <div className="space-y-8">
                         {steps.map((step) => {
-                            const statusInfo = getStatusDetails(step.status);
+                            const statusInfo = getStepStatusDetails(step.status);
                             const StatusIcon = statusInfo.icon;
 
                             return (

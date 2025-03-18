@@ -139,23 +139,23 @@ export function DataTable<TData extends { id: string }, TValue>({
                                         <ContextMenuItem 
                                             onClick={() => router.push(`/dashboard/projects/${row.original.id}`)}
                                         >
-                                            Voir les détails
+                                            View details
                                         </ContextMenuItem>
                                         <ContextMenuItem 
                                             onClick={() => router.push(`/dashboard/projects/${row.original.id}/edit`)}
                                         >
-                                            Modifier
+                                            Edit
                                         </ContextMenuItem>
                                         <ContextMenuSeparator />
                                         <ContextMenuItem 
                                             className="text-red-600 focus:text-red-600"
                                             onClick={() => {
-                                                if (confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
-                                                    console.log("Supprimer", row.original.id);
+                                                if (confirm("Are you sure you want to delete this project ?")) {
+                                                    console.log("Delete", row.original.id);
                                                 }
                                             }}
                                         >
-                                            Supprimer
+                                            Delete
                                         </ContextMenuItem>
                                     </ContextMenuContent>
                                 </ContextMenu>
@@ -166,7 +166,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    Aucun résultat trouvé.
+                                    No results found.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -188,7 +188,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                         disabled={!table.getCanPreviousPage()}
                     >
                         <ChevronLeft className="h-4 w-4 mr-1" />
-                        Précédent
+                        Previous
                     </Button>
                     <Button
                         variant="outline"
@@ -196,7 +196,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Suivant
+                        Next
                         <ChevronRight className="h-4 w-4 ml-1" />
                     </Button>
                 </div>

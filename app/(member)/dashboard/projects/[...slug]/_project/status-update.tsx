@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle, Clock, AlertCircle, RotateCw } from "lucide-react";
 import {
     Select,
     SelectContent,
@@ -10,38 +9,19 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { getStatusDetails } from "@/lib/utils/project-status";
+
+const statusOptions = [
+    { value: "not_started", ...getStatusDetails("not_started") },
+    { value: "pending", ...getStatusDetails("pending") },
+    { value: "done", ...getStatusDetails("done") },
+    { value: "failed", ...getStatusDetails("failed") },
+];
 
 interface StatusUpdateProps {
     currentStatus: string;
     onUpdate: (status: string) => Promise<boolean>;
 }
-
-const statusOptions = [
-    {
-        value: "not_started",
-        label: "Not started",
-        icon: Clock,
-        variant: "outline",
-    },
-    {
-        value: "pending",
-        label: "In progress",
-        icon: RotateCw,
-        variant: "secondary",
-    },
-    {
-        value: "done",
-        label: "Done",
-        icon: CheckCircle,
-        variant: "default",
-    },
-    {
-        value: "failed",
-        label: "Failed",
-        icon: AlertCircle,
-        variant: "destructive",
-    },
-];
 
 export function StatusUpdate({ currentStatus, onUpdate }: StatusUpdateProps) {
     const [status, setStatus] = useState(currentStatus);

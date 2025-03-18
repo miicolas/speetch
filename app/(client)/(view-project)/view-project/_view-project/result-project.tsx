@@ -8,14 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
-interface ProjectResult {
-    id: string;
-    name: string;
-    amount: number;
-    status: string;
-    createdAt?: string | Date;
-}
+import { ProjectResult } from "@/lib/types/project-type";
 
 export default function ResultProject({
     searchResults,

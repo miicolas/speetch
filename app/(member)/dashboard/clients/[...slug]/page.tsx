@@ -458,7 +458,7 @@ export default async function ClientPage({
                                                                 {new Date(
                                                                     payment.createdAt
                                                                 ).toLocaleDateString(
-                                                                    "fr-FR"
+                                                                    "en-US"
                                                                 )}
                                                             </p>
                                                         </div>

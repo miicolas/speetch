@@ -54,17 +54,16 @@ export const HeroContent = ({ itemVariants }: HeroContentProps) => {
                 variants={itemVariants}
                 className="mt-6 text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto lg:mx-0"
             >
-                Speetly is a platform that helps you create and
-                manage your clients, projects, and finances with
-                ease. Simplify your workflow and focus on what
-                matters most.
+                Speetly is a platform that helps you create and manage your
+                clients, projects, and finances with ease. Simplify your
+                workflow and focus on what matters most.
             </motion.p>
 
             <motion.div
                 variants={itemVariants}
                 className="mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start"
             >
-                <Link href="/dashboard">
+                <Link href="/waitlist">
                     <motion.div
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
@@ -102,7 +101,10 @@ export const HeroContent = ({ itemVariants }: HeroContentProps) => {
                     </motion.div>
                 </Link>
 
-                <Link href="https://cal.com/" target="_blank">
+                <Link
+                    href="https://cal.com/nicolas-becharat/30min?user=nicolas-becharat"
+                    target="_blank"
+                >
                     <motion.div
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.98 }}
@@ -120,13 +122,11 @@ export const HeroContent = ({ itemVariants }: HeroContentProps) => {
                     </motion.div>
                 </Link>
             </motion.div>
-
-            <UserAvatars itemVariants={itemVariants} />
         </motion.div>
     );
 };
 
-interface UserAvatarsProps {
+/* interface UserAvatarsProps {
     itemVariants: Record<string, Variant>;
 }
 
@@ -143,10 +143,7 @@ const UserAvatars = ({ itemVariants }: UserAvatarsProps) => {
                     "https://randomuser.me/api/portraits/women/3.jpg",
                     "https://randomuser.me/api/portraits/men/7.jpg",
                 ].map((src, index) => (
-                    <div
-                        key={index}
-                        className="relative inline-block"
-                    >
+                    <div key={index} className="relative inline-block">
                         <motion.img
                             src={src}
                             alt={`User ${index + 1}`}
@@ -173,4 +170,4 @@ const UserAvatars = ({ itemVariants }: UserAvatarsProps) => {
             </span>
         </motion.div>
     );
-}; 
+}; */

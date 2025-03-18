@@ -1,5 +1,5 @@
 import { getServerSession } from "@/lib/server-session";
-import CreateStripeAccountButton from "./(...stripe-account)/create-stripe-account-button";
+import CreateStripeAccountButton from "./_stripe-account/create-stripe-account-button";
 import { getStripeAccount } from "@/actions/(stripe)/get-stripe/action";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

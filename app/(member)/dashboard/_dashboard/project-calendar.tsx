@@ -15,6 +15,8 @@ import {
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
+import { getProjectStatus } from "@/lib/utils/project-status";
+
 interface ProjectCalendarProps {
     projects: Project[];
 }
@@ -36,32 +38,6 @@ export function ProjectCalendar({ projects }: ProjectCalendarProps) {
     const getProjectsForDate = (date: Date) => {
         const dateKey = date.toISOString().split("T")[0];
         return projectEndDates.get(dateKey) || [];
-    };
-
-    const getProjectStatusColor = (status: string) => {
-        switch (status) {
-            case "done":
-                return "bg-green-500";
-            case "pending":
-                return "bg-indigo-500";
-            case "not_started":
-                return "bg-amber-500";
-            default:
-                return "bg-gray-400";
-        }
-    };
-
-    const getProjectStatusLabel = (status: string) => {
-        switch (status) {
-            case "done":
-                return "Terminé";
-            case "pending":
-                return "En cours";
-            case "not_started":
-                return "Non démarré";
-            default:
-                return "Indéfini";
-        }
     };
 
     return (
@@ -139,9 +115,10 @@ export function ProjectCalendar({ projects }: ProjectCalendarProps) {
                                                                     }
                                                                     className={cn(
                                                                         "w-2 h-2 rounded-full",
-                                                                        getProjectStatusColor(
+                                                                        getProjectStatus(
                                                                             project.status
                                                                         )
+                                                                            .color
                                                                     )}
                                                                 />
                                                             ))}
@@ -180,9 +157,10 @@ export function ProjectCalendar({ projects }: ProjectCalendarProps) {
                                                                         <div
                                                                             className={cn(
                                                                                 "w-3 h-3 rounded-full",
-                                                                                getProjectStatusColor(
+                                                                                getProjectStatus(
                                                                                     project.status
                                                                                 )
+                                                                                    .color
                                                                             )}
                                                                         />
                                                                         <span className="text-sm font-medium text-gray-700">
@@ -196,9 +174,12 @@ export function ProjectCalendar({ projects }: ProjectCalendarProps) {
                                                                             variant="outline"
                                                                             className="text-xs bg-white"
                                                                         >
-                                                                            {getProjectStatusLabel(
-                                                                                project.status
-                                                                            )}
+                                                                            {
+                                                                                getProjectStatus(
+                                                                                    project.status
+                                                                                )
+                                                                                    .label
+                                                                            }
                                                                         </Badge>
                                                                     </div>
                                                                 </div>

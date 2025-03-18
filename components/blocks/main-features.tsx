@@ -10,7 +10,7 @@ import { Feature } from "@/lib/types/features-type";
 export default function MainFeatures() {
     return (
         <section
-            className="py-10 flex flex-col gap-8 px-4 sm:px-8 md:px-0 mt-16"
+            className="py-10 flex flex-col gap-16 px-4 sm:px-8 md:px-0 mt-16"
             id="features"
         >
             <HeaderMainFeatures />

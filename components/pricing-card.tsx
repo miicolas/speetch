@@ -203,7 +203,8 @@ export default function PricingCard({
                             : "bg-neutral-900 hover:bg-neutral-800 dark:bg-indigo-600 dark:hover:bg-indigo-700"
                     )}
                     onClick={handleSubscription}
-                    disabled={isLoading}
+                    /*                     disabled={isLoading}
+                     */ disabled={true}
                 >
                     {isLoading ? (
                         <div className="flex items-center gap-2">
@@ -216,11 +217,11 @@ export default function PricingCard({
                                     ease: "linear",
                                 }}
                             />
-                            Chargement...
+                            Loading...
                         </div>
                     ) : (
                         <>
-                            S'abonner
+                            {titlePlan === "pro" ? "Get Pro" : "Get Started"}
                             <ArrowRight className="h-4 w-4" />
                         </>
                     )}

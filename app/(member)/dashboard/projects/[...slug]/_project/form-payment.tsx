@@ -9,8 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  price: z.coerce.number().min(1, "Le prix doit être supérieur à 0"),
-  description: z.string().min(3, "La description doit contenir au moins 3 caractères")
+  price: z.coerce.number().min(1, "The price must be greater than 0"),
+  description: z.string().min(3, "The description must contain at least 3 characters")
 });
 
 export default function FormPayment({ stripeAccountId, userId, projectId }: { stripeAccountId: string, userId: string, projectId: string }) {
@@ -60,7 +60,7 @@ export default function FormPayment({ stripeAccountId, userId, projectId }: { st
           name="price"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Montant (€)</FormLabel>
+              <FormLabel>Amount (€)</FormLabel>
               <FormControl>
                 <Input 
                   type="number" 
