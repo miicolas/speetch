@@ -9,6 +9,9 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Get latest tag
         id: get_version
         run: echo "VERSION=$(git describe --tags --abbrev=0 || echo 'v0.0.0')" >> $GITHUB_ENV
