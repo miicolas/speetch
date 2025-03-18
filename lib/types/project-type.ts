@@ -26,3 +26,11 @@ export interface Step {
     updatedAt?: Date;
     projectId?: string;
 }
+
+export interface ProjectResult {
+    id: string;
+    name: string;
+    amount: number;
+    status: string;
+    createdAt?: string | Date;
+}

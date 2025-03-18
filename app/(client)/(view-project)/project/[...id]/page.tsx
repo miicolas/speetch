@@ -1,6 +1,5 @@
 import React from "react";
 import { getProject } from "@/actions/(member)/get-project/action";
-import { CheckCircle, Clock, AlertCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -11,10 +10,6 @@ import { getPayment } from "@/actions/(member)/get-payment/action";
 import { Payment } from "@/lib/types/payment-type";
 import { getSteps } from "@/actions/(member)/get-steps/action";
 import { Step } from "@/lib/types/project-type";
-import {
-    StatusInfo,
-    PaymentMethodInfo,
-} from "@/lib/types/project-view-types";
 
 import { ProjectHeader } from "./_id/project-header";
 import { ProjectProgress } from "./_id/project-progress";
@@ -24,7 +19,12 @@ import { ProjectSteps } from "./_id/project-steps";
 import { ProjectPayment } from "./_id/project-payment";
 import { ProjectFAQ } from "./_id/project-faq";
 import { ProjectFooter } from "./_id/project-footer";
-import { getPaymentStatusDetails } from "@/lib/utils/payment-status";
+import { getStatusDetails } from "@/lib/utils/project-status";
+import {
+    getPaymentStatusDetails,
+    getPaymentMethodDetails,
+} from "@/lib/utils/payment-status";
+import { getProjectContact } from "@/actions/(member)/get-project-contact/action";
 
 export default async function ProjectPage({
     params,
@@ -36,6 +36,9 @@ export default async function ProjectPage({
     const projectData = await getProject({ projectId: id[0] });
     const paymentData = await getPayment({ projectId: id[0] });
     const stepsData = await getSteps({ projectId: id[0] });
+    const projectContact = await getProjectContact({ projectId: id[0] });
+
+    console.log(projectContact, "projectContact");
 
     if (
         !projectData ||
@@ -87,62 +90,11 @@ export default async function ProjectPage({
         return progressPercentage;
     };
 
-    const getStatusDetails = (status: string): StatusInfo => {
-        switch (status) {
-            case "not_started":
-                return {
-                    label: "Not started",
-                    variant: "outline",
-                    icon: Clock,
-                    color: "text-gray-500",
-                };
-            case "pending":
-                return {
-                    label: "In progress",
-                    variant: "secondary",
-                    icon: AlertCircle,
-                    color: "text-blue-500",
-                };
-            case "done":
-                return {
-                    label: "Completed",
-                    variant: "default",
-                    icon: CheckCircle,
-                    color: "text-green-500",
-                };
-            case "failed":
-                return {
-                    label: "Failed",
-                    variant: "destructive",
-                    icon: AlertCircle,
-                    color: "text-red-500",
-                };
-            default:
-                return {
-                    label: status || "Not defined",
-                    variant: "outline",
-                    icon: Clock,
-                    color: "text-gray-500",
-                };
-        }
-    };
-
-    const getPaymentMethodDetails = (method: string): PaymentMethodInfo => {
-        switch (method) {
-            case "1_payment":
-                return { label: "Single payment", variant: "default" };
-            case "2_payments":
-                return { label: "2 payments", variant: "secondary" };
-            case "3_payments":
-                return { label: "3 payments", variant: "destructive" };
-            default:
-                return { label: method, variant: "outline" };
-        }
-    };
-
     const progressPercentage = getProgressPercentage();
     const statusInfo = getStatusDetails(p.status);
-    const paymentStatusInfo = getPaymentStatusDetails(p.paymentStatus || "pending");
+    const paymentStatusInfo = getPaymentStatusDetails(
+        p.paymentStatus || "pending"
+    );
     const paymentMethodInfo = getPaymentMethodDetails(p.paymentMethod);
 
     const formattedEndDate = p.endDate
@@ -177,7 +129,7 @@ export default async function ProjectPage({
                         project={p}
                         paymentStatusInfo={paymentStatusInfo}
                     />
-                    <ProjectContact />
+                    <ProjectContact projectContact={projectContact.content} />
                 </div>
 
                 <ProjectSteps steps={steps} />

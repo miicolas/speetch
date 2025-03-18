@@ -2,7 +2,9 @@ import { Mail, Phone, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
-export function ProjectContact() {
+export function ProjectContact({ projectContact }: { projectContact: any }) {
+    console.log(projectContact, "projectContact");
+
     return (
         <Card>
             <CardHeader className="pb-2">
@@ -14,7 +16,7 @@ export function ProjectContact() {
                     <div>
                         <div className="font-medium">Your project manager</div>
                         <div className="text-sm text-muted-foreground">
-                            Thomas Dupont
+                            {projectContact.name}
                         </div>
                     </div>
                 </div>
@@ -23,22 +25,10 @@ export function ProjectContact() {
                     <div>
                         <div className="font-medium">Email</div>
                         <Link
-                            href="mailto:contact@speetly.com"
+                            href={`mailto:${projectContact.email}`}
                             className="text-sm text-primary hover:underline"
                         >
-                            contact@speetly.com
-                        </Link>
-                    </div>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-muted-foreground" />
-                    <div>
-                        <div className="font-medium">Phone</div>
-                        <Link
-                            href="tel:+33123456789"
-                            className="text-sm text-primary hover:underline"
-                        >
-                            +33 1 23 45 67 89
+                            {projectContact.email}
                         </Link>
                     </div>
                 </div>

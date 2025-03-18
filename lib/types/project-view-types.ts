@@ -5,7 +5,7 @@ import { LucideIcon } from "lucide-react";
 
 export interface StatusInfo {
   label: string;
-  variant: string;
+  variant: "default" | "secondary" | "destructive" | "outline";
   icon: LucideIcon;
   color: string;
 }
@@ -17,7 +17,7 @@ export interface PaymentStatusInfo {
 
 export interface PaymentMethodInfo {
   label: string;
-  variant: string;
+  variant: "default" | "secondary" | "destructive" | "outline";
 }
 
 export interface ProjectHeaderProps {

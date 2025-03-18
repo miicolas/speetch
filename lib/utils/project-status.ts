@@ -1,4 +1,5 @@
 import { Clock, AlertCircle, CheckCircle, XCircle } from "lucide-react";
+import { StatusInfo } from "@/lib/types/project-view-types";
 
 export const getProjectStatus = (status: string) => {
     switch (status) {
@@ -36,41 +37,42 @@ export const getProjectStatus = (status: string) => {
     }
 };
 
-export const getStatusDetails = (status: string) => {
+export const getStatusDetails = (status: string): StatusInfo => {
     switch (status) {
         case "not_started":
             return {
                 label: "Not started",
-                value: "not_started",
                 variant: "outline",
                 icon: Clock,
+                color: "text-gray-500",
             };
         case "pending":
             return {
                 label: "In progress",
-                value: "pending",
                 variant: "secondary",
                 icon: AlertCircle,
+                color: "text-blue-500",
             };
         case "done":
             return {
-                label: "Done",
-                value: "done",
+                label: "Completed",
                 variant: "default",
                 icon: CheckCircle,
+                color: "text-green-500",
             };
         case "failed":
             return {
                 label: "Failed",
-                value: "failed",
                 variant: "destructive",
-                icon: XCircle,
+                icon: AlertCircle,
+                color: "text-red-500",
             };
         default:
             return {
-                label: status,
+                label: status || "Not defined",
                 variant: "outline",
                 icon: Clock,
+                color: "text-gray-500",
             };
     }
 };

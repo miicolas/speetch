@@ -1,4 +1,5 @@
 import db from "@/db";
+import { user } from "@/db/auth-schema";
 import { projects, steps_project } from "@/db/project-schema";
 import { Step, Project } from "@/lib/types/project-type";
 import { eq } from "drizzle-orm";
@@ -25,7 +26,7 @@ export class Projects {
             .from(projects)
             .where(eq(projects.userId, userId))
             .execute();
-        
+
         return result.map((project) => ({
             ...project,
             clientId: project.clientId || null,
@@ -101,5 +102,28 @@ export class Projects {
                 projectId: projectId,
             })
             .execute();
+    }
+
+    static async getProjectContact(projectId: string) {
+        const project = await db
+            .select()
+            .from(projects)
+            .where(eq(projects.id, projectId))
+            .execute();
+
+        if (!project[0].userId) {
+            return null;
+        }
+
+        const contact = await db
+            .select({
+                name: user.name,
+                email: user.email,
+            })
+            .from(user)
+            .where(eq(user.id, project[0].userId))
+            .execute();
+
+        return contact[0];
     }
 }
