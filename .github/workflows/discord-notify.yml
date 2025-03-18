@@ -1,0 +1,23 @@
+name: Notify Discord on new commit
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest tag
+        id: get_version
+        run: echo "VERSION=$(git describe --tags --abbrev=0 || echo 'v0.0.0')" >> $GITHUB_ENV
+
+      - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          VERSION: ${{ env.VERSION }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{
+            "content": "🚀 New commit on `Master` ! Version **'"$VERSION"'**"
+          }' $DISCORD_WEBHOOK
