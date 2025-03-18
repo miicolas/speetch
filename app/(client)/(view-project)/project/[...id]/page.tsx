@@ -129,7 +129,9 @@ export default async function ProjectPage({
                         project={p}
                         paymentStatusInfo={paymentStatusInfo}
                     />
-                    <ProjectContact projectContact={projectContact.content} />
+                    {projectContact.content && (
+                        <ProjectContact projectContact={projectContact.content} />
+                    )}
                 </div>
 
                 <ProjectSteps steps={steps} />
