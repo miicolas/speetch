@@ -1,4 +1,4 @@
-import { Clock, AlertCircle, CheckCircle, XCircle } from "lucide-react";
+import { Clock, AlertCircle, CheckCircle } from "lucide-react";
 import { StatusInfo } from "@/lib/types/project-view-types";
 
 export const getProjectStatus = (status: string) => {

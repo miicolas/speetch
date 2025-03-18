@@ -1,10 +1,9 @@
-import { Mail, Phone, User } from "lucide-react";
+import { Mail, User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { ProjectContact as ProjectContactType } from "@/lib/types/project-view-types";
 
-export function ProjectContact({ projectContact }: { projectContact: any }) {
-    console.log(projectContact, "projectContact");
-
+export function ProjectContact({ projectContact }: { projectContact: ProjectContactType }) {
     return (
         <Card>
             <CardHeader className="pb-2">

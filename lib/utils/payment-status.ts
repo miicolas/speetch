@@ -1,10 +1,10 @@
-import { CheckCircle, Clock, AlertCircle, XCircle } from "lucide-react";
+import { CheckCircle, Clock, AlertCircle, XCircle, LucideIcon } from "lucide-react";
 import { PaymentMethodInfo } from "@/lib/types/project-view-types";
 
 export interface PaymentStatusInfo {
     label: string;
     variant: "default" | "secondary" | "destructive" | "outline";
-    icon: any;
+    icon: LucideIcon;
     color: string;
 }
 

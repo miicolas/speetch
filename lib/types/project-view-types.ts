@@ -49,3 +49,8 @@ export interface ProjectPaymentProps {
   payments: Payment[];
   paymentMethodInfo: PaymentMethodInfo;
 } 
+
+export interface ProjectContact {
+  name: string;
+  email: string;
+}
