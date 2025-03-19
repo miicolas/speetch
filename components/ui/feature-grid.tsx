@@ -1,6 +1,9 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
+import { motion } from "framer-motion";
 export const FeatureGrid = ({
     className,
     children,
@@ -38,7 +41,10 @@ export const FeatureCard = ({
     disabled?: boolean;
 }) => {
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
             className={cn(
                 "row-span-2 group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4 relative",
                 className,
@@ -74,6 +80,6 @@ export const FeatureCard = ({
                     {description}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };

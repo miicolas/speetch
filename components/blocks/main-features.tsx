@@ -40,7 +40,7 @@ const HeaderMainFeatures = () => {
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
                     Speetch
                 </span>{" "}
-                ?
+                works ?
             </motion.h2>
             <motion.p
                 className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl"
@@ -48,7 +48,9 @@ const HeaderMainFeatures = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
             >
-                Manage your projects, clients and payments with ease. Discover how Speetch can help you focus on your work rather than administration.
+                Manage your projects, clients and payments with ease. Discover
+                how Speetch can help you focus on your work rather than
+                administration.
             </motion.p>
         </div>
     );
@@ -57,28 +59,28 @@ const HeaderMainFeatures = () => {
 const FeaturesMainFeatures = () => {
     const features = [
         {
-            step: "Étape 1",
-            title: "Créez    nouveau projet",
+            step: "Step 1",
+            title: "Create a new project",
             content:
-                "Création rapide d'un projet avec assignation à un client existant ou nouveau. Configuration des détails, échéances et tarification en quelques clics.",
+                "Quick creation of a project with assignment to an existing client or new. Configuration of details, deadlines and pricing in just a few clicks.",
             image: "https://images.unsplash.com/photo-1723958929247-ef054b525153?q=80&w=2070&auto=format&fit=crop",
             icon: <Plus className="h-4 w-4" />,
             color: "bg-blue-500",
         },
         {
-            step: "Étape 2",
-            title: "Invitez votre client",
+            step: "Step 2",
+            title: "Invite your client",
             content:
-                "Envoyez une invitation personnalisée à votre client pour qu'il puisse suivre l'avancement, partager des documents et collaborer directement sur la plateforme.",
+                "Send a personalized invitation to your client so he can follow the progress, share documents and collaborate directly on the platform.",
             image: "https://images.unsplash.com/photo-1723931464622-b7df7c71e380?q=80&w=2070&auto=format&fit=crop",
             icon: <ArrowRight className="h-4 w-4" />,
             color: "bg-purple-500",
         },
         {
-            step: "Étape 3",
-            title: "Gérez la facturation",
+            step: "Step 3",
+            title: "Manage the billing",
             content:
-                "Générez automatiquement des factures professionnelles, suivez les paiements et configurez des rappels. Acceptez les paiements en ligne directement via la plateforme.",
+                "Generate professional invoices automatically, track payments and set reminders. Accept payments online directly on the platform.",
             image: "https://images.unsplash.com/photo-1725961476494-efa87ae3106a?q=80&w=2070&auto=format&fit=crop",
             icon: <Check className="h-4 w-4" />,
             color: "bg-green-500",
@@ -142,7 +144,6 @@ const EnhancedFeatureSteps: React.FC<{ features: Feature[] }> = ({
                     className="h-full bg-indigo-500"
                     style={{ width: `${progress}%` }}
                     transition={{ ease: "easeInOut" }}
-
                 />
             </div>
 
@@ -327,7 +328,6 @@ const EnhancedFeatureSteps: React.FC<{ features: Feature[] }> = ({
                                                 className="w-full h-full object-cover"
                                                 sizes="100vw"
                                                 fill
-                                                    
                                             />
 
                                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-24 z-20 flex items-end p-4">
