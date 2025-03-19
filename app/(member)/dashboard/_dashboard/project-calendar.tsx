@@ -41,34 +41,32 @@ export function ProjectCalendar({ projects }: ProjectCalendarProps) {
     };
 
     return (
-        <Card className="col-span-4 bg-white rounded-xl overflow-hidden">
-            <CardHeader className="flex flex-row items-center justify-between border-b pb-4">
-                <div>
+        <Card className="h-full">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 border-b">
+                <div className="space-y-1">
                     <CardTitle className="text-xl font-semibold">
                         Calendar of projects
                     </CardTitle>
-                    <p className="text-sm text-gray-500 mt-1">
-                        {date
-                            ? format(date, "MMMM yyyy", { locale: enUS })
-                            : ""}
+                    <p className="text-sm text-muted-foreground">
+                        {date ? format(date, "MMMM yyyy", { locale: enUS }) : ""}
                     </p>
                 </div>
-                <div className="flex flex-col items-center gap-4 text-sm">
-                    <div className="flex items-center gap-1">
-                        <div className="w-3 h-3 rounded-full bg-indigo-500" />
-                        <span className="text-gray-600">In progress</span>
+                <div className="flex flex-col items-end gap-2 text-sm">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                        <span className="text-muted-foreground">In progress</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-amber-500" />
-                        <span className="text-gray-600">Not started</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                        <span className="text-muted-foreground">Not started</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-green-500" />
-                        <span className="text-gray-600">Done</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                        <span className="text-muted-foreground">Done</span>
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="pt-4">
+            <CardContent className="pt-6">
                 <TooltipProvider>
                     <BigCalendar
                         mode="single"

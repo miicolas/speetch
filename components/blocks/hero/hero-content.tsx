@@ -28,7 +28,7 @@ export const HeroContent = ({ itemVariants }: HeroContentProps) => {
                 <span className="inline-block mb-2">
                     Everything passes through
                 </span>{" "}
-                <div className="flex items-center justify-start gap-2">
+                <div className="flex items-center justify-center lg:justify-start gap-2">
                     <span className="text-indigo-600 dark:text-indigo-400">
                         your
                     </span>{" "}

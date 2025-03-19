@@ -20,7 +20,7 @@ export default function Header() {
         <nav>
           <ul className="flex items-center gap-4">
             <li>
-              <Link href="/blog">Blog</Link>
+              <Link href="https://blog.speetly.com">Blog</Link>
             </li>
             <li className="relative">
               <Link href="/changelog">What's New</Link>

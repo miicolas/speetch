@@ -11,9 +11,9 @@ export default async function Dashboard() {
     const payments = await Payments.getPayments(session.user.id);
 
     return (
-        <div className="p-6 space-y-6">
+        <div className="container space-y-8 p-8">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                 <p className="text-muted-foreground">
                     Bonjour, {session.user.name}
                 </p>
@@ -21,11 +21,11 @@ export default async function Dashboard() {
 
             <StatsCards projects={projects} payments={payments} />
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <div className="col-span-5">
+            <div className="grid gap-8 lg:grid-cols-12">
+                <div className="lg:col-span-8 space-y-4">
                     <RecentProjects projects={projects} />
                 </div>
-                <div className="col-span-2">
+                <div className="lg:col-span-4 space-y-4">
                     <ProjectCalendar projects={projects} />
                 </div>
             </div>
