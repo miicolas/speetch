@@ -24,7 +24,6 @@ import {
     Settings,
     BarChart3,
     FileText,
-    HelpCircle,
     CreditCard,
     Bell,
     File,
@@ -135,10 +134,15 @@ export function AppSidebar({ session }: { session: Session }) {
                     </div>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <HelpCircle className="h-4 w-4 mr-2" />
-                                Help
-                            </SidebarMenuButton>
+                            <Link
+                                href="/dashboard/subscription"
+                                className="w-full"
+                            >
+                                <SidebarMenuButton>
+                                    <CreditCard className="h-4 w-4 mr-2" />
+                                    Subscription
+                                </SidebarMenuButton>
+                            </Link>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             <SidebarMenuButton>

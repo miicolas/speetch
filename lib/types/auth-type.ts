@@ -9,7 +9,6 @@ export interface Session {
         userAgent: string;
         userId: string;
         impersonatedBy: string | null;
-        stripeCustomerId: string | null;
     };
     user: {
         id: string;
@@ -23,5 +22,6 @@ export interface Session {
         banned: string | null;
         banReason: string | null;
         banExpires: string | null;
+        stripeCustomerId: string | null;
     };
 }

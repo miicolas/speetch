@@ -1,5 +1,3 @@
-'use server';
-
 import { z } from 'zod';
 import { FormResponse } from '@/lib/types/form-type';
 import { Clients } from '@/models/clients';

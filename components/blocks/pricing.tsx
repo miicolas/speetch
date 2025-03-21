@@ -8,9 +8,9 @@ import { authClient } from "@/lib/auth-client";
 import { Session } from "@/lib/types/auth-type";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 
-const pricingCards = [
+export const pricing = [
     {
-        title: "Basic",
+        title: "basic",
         price: "5.99",
         priceYearly: "49.99",
         description: "Perfect for freelancers just starting out",
@@ -27,7 +27,7 @@ const pricingCards = [
         popular: false,
     },
     {
-        title: "Pro",
+        title: "pro",
         price: "9.99",
         priceYearly: "79.99",
         description: "For established freelancers with growing business",
@@ -46,7 +46,7 @@ const pricingCards = [
         popular: true,
     },
     {
-        title: "Enterprise",
+        title: "enterprise",
         price: "19.99",
         priceYearly: "149.99",
         description: "For agencies and multi-freelancer teams",
@@ -148,7 +148,7 @@ export default function Pricing() {
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mx-auto w-full mt-8">
-                {pricingCards.map((card, index) => (
+                {pricing.map((card, index) => (
                     <motion.div
                         key={card.title}
                         initial={{ opacity: 0, y: 30 }}

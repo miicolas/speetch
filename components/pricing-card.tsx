@@ -45,8 +45,8 @@ export default function PricingCard({
         setIsLoading(true);
         try {
             if (!session) {
-                toast.info("Connexion requise", {
-                    description: "Vous devez être connecté pour vous abonner",
+                toast.info("Connection required", {
+                    description: "You need to be logged in to subscribe",
                 });
                 window.location.href = "/sign-in";
                 setIsLoading(false);
@@ -64,8 +64,8 @@ export default function PricingCard({
             }
         } catch (error) {
             console.error(error);
-            toast.error("Erreur de connexion", {
-                description: "Veuillez réessayer plus tard.",
+            toast.error("Connection error", {
+                description: "Please try again later.",
             });
         } finally {
             setIsLoading(false);
@@ -204,7 +204,7 @@ export default function PricingCard({
                     )}
                     onClick={handleSubscription}
                     /*                     disabled={isLoading}
-                     */ disabled={true}
+                     */ disabled={false}
                 >
                     {isLoading ? (
                         <div className="flex items-center gap-2">
