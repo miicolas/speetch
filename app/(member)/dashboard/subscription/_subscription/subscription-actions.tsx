@@ -33,6 +33,7 @@ import { createUpdatePaymentSession } from "@/actions/(stripe)/update-payment-me
 import { createManageSubscriptionSession } from "@/actions/(stripe)/manage-subscription/action";
 import { ChevronDown, CreditCard, Settings, AlertTriangle } from "lucide-react";
 import { checkUpdatedSubscription } from "@/actions/(stripe)/check-updated-subscription/action";
+import { authClient } from "@/lib/auth-client";
 
 interface SubscriptionActionsProps {
     currentPlan: string;
@@ -113,20 +114,11 @@ export default function SubscriptionActions({
 
         setIsLoading(true);
         try {
-            const result = await cancelSubscription({
-                stripeCustomerId,
-                userId,
+            const { data } = await authClient.subscription.cancel({
+                returnUrl: "/dashboard/subscription",
             });
 
-            if (result.status === "success") {
-                toast.success("Subscription cancelled successfully");
-                checkSubscriptionUpdate();
-                router.refresh();
-            } else {
-                toast.error(
-                    `Error: ${result.message || "Unable to cancel subscription"}`
-                );
-            }
+            console.log(data, "data");
         } catch (error) {
             console.error("Error when cancelling:", error);
             toast.error("An error occurred");
