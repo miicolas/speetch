@@ -139,7 +139,6 @@ export default function SubscriptionActions({
     const handleUpdatePaymentMethod = async () => {
         setIsLoading(true);
         try {
-            // Préparer une URL de retour qui inclut le paramètre success=true
             const currentUrl = window.location.href;
             const returnUrl = currentUrl.includes("?")
                 ? `${currentUrl}&success=true`
